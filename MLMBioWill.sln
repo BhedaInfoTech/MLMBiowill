@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLMBiowill", "MLMBioWill\MLMBiowill.csproj", "{53EC9281-836D-4C43-A307-8A97C3196D02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLMBiowillModel", "MLMBiowillBusinessEntities\MLMBiowillModel.csproj", "{634D633D-BF6E-4966-AE35-DE71E3951252}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLMBiowillBusinessEntities", "MLMBiowillBusinessEntities\MLMBiowillBusinessEntities.csproj", "{634D633D-BF6E-4966-AE35-DE71E3951252}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MLMBiowillBusinesslogic", "MLMBiowillBusinesslogic\MLMBiowillBusinesslogic.csproj", "{3C3C6FBE-CAC4-4B63-B6A2-E1008ADD61F8}"
 EndProject

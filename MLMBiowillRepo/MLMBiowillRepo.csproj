@@ -48,9 +48,9 @@
     <Compile Include="Utilities\SqlHelperRepo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MLMBiowillBusinessEntities\MLMBiowillModel.csproj">
+    <ProjectReference Include="..\MLMBiowillBusinessEntities\MLMBiowillBusinessEntities.csproj">
       <Project>{634d633d-bf6e-4966-ae35-de71e3951252}</Project>
-      <Name>MLMBiowillModel</Name>
+      <Name>MLMBiowillBusinessEntities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
