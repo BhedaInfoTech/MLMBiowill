@@ -91,6 +91,7 @@ namespace MLMBiowillRepo
                         sqlCmd.Parameters.Clear();
 
                     }
+                    con.Close();
                 }
             }
             catch (SqlException sqlEx)

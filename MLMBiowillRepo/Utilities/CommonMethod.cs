@@ -61,5 +61,56 @@ namespace MLMBiowillRepo
 
             return dt;
         }
+
+        public static List<DataRow> GetRows(DataTable dt, ref PaginationInfo pager)
+        {
+            List<DataRow> drList = new List<DataRow>();
+
+            drList = dt.AsEnumerable().ToList();
+
+            if (pager.IsPagingRequired)
+            {
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    int count = 0;
+
+                    count = drList.Count();
+
+                    if (pager.IsPagingRequired)
+                    {
+                        drList = drList.Skip(pager.CurrentPage * pager.PageSize).Take(pager.PageSize).ToList();
+                    }
+
+                    pager.TotalRecords = count;
+                    int pages = 1;
+                    if (pager.PageSize > 0)
+                    {
+                        pages = (pager.TotalRecords + pager.PageSize - 1) / pager.PageSize;
+                    }   
+                    pager.TotalPages = pages;
+                }
+            }
+
+            return drList;
+        }
+
+        internal static IEnumerable<DataRow> GetRows(DataTable dt)
+        {
+            List<DataRow> drList = new List<DataRow>();
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                int count = 0;
+
+                drList = dt.AsEnumerable().ToList();
+
+                count = drList.Count();
+
+
+            }
+
+            return drList;
+        }
+
     }
 }

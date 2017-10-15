@@ -9,7 +9,7 @@ namespace MLMBiowillBusinessEntities.Common
     public class PaginationInfo
     {
 
-        public int TotalItems { get; set; }
+        public int TotalRecords { get; set; }
 
         public int CurrentPage { get; set; }
 
@@ -21,14 +21,16 @@ namespace MLMBiowillBusinessEntities.Common
 
         public int EndPage { get; set; }
 
+        public bool IsPagingRequired { get; set; }
+
         public PaginationInfo()
         {
             //PageSize = 1;
         }
 
-        public PaginationInfo(int totalItems, int? page, int pageSize = 5)
+        public PaginationInfo(int totalrecords, int? page, int pageSize = 5)
         {
-            var totalPages = (int)Math.Ceiling((decimal)totalItems / (decimal)pageSize);
+            var totalPages = (int)Math.Ceiling((decimal)totalrecords / (decimal)pageSize);
 
             var currentPage = page != null ? (int)page : 1;
 
@@ -58,7 +60,7 @@ namespace MLMBiowillBusinessEntities.Common
                 currentPage = 1;
             }
 
-            TotalItems = totalItems;
+            TotalRecords = totalrecords;
 
             CurrentPage = currentPage;
 

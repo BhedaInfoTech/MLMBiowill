@@ -1,0 +1,20 @@
+===Site Ref for Calling WEB API: =========
+---http://www.dotnetcurry.com/aspnet/1192/aspnet-web-api-async-calls-mvc-wpf---
+---https://www.codeproject.com/Articles/1157685/ASP-NET-Web-API-Keeping-It-Simple---
+
+Steps for Creating the WEB API and Consuming the same in Our Application
+1. Create normal Repository(Repo);
+2. Create Bussiness Models(Info);
+3. Create Bussiness Layer(Manager);
+4. Create New WEB API Project(WEB API Project); 
+	4.1 Add Reference System.NET.HTTP.Formating
+	4.2 Add Using Newtonsoft.JSON
+5. Create MVC Project(Normal MVC Project)
+	5.1 Update the URL from which we need to import API. Update the Key in WebConfig File
+	5.2 Create HTTP Client
+	5.3 Update Base URL from Webconfig file and Details
+6. Update the Solution from Single Project Build to Multiple. 
+	6.1 Make as Start to WebAPI
+	6.2 Make as Start to MVCProject
+
+
