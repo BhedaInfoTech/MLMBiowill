@@ -43,6 +43,7 @@
     <Compile Include="Common\StoredProcedureEnum.cs" />
     <Compile Include="Master\Category.cs" />
     <Compile Include="Master\CompanyInfo.cs" />
+    <Compile Include="Master\Subcategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PaginationInfo.cs" />
   </ItemGroup>
