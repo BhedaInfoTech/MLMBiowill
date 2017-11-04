@@ -41,9 +41,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\StoredProcedureEnum.cs" />
+    <Compile Include="Master\Agent.cs" />
+    <Compile Include="Master\Bank.cs" />
+    <Compile Include="Master\Branch.cs" />
     <Compile Include="Master\Category.cs" />
+    <Compile Include="Master\Commission.cs" />
+    <Compile Include="Master\Company.cs" />
     <Compile Include="Master\CompanyInfo.cs" />
+    <Compile Include="Master\ContactPerson.cs" />
+    <Compile Include="Master\Courier.cs" />
+    <Compile Include="Master\Department.cs" />
+    <Compile Include="Master\Designation.cs" />
+    <Compile Include="Master\Employee.cs" />
     <Compile Include="Master\Subcategory.cs" />
+    <Compile Include="Master\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PaginationInfo.cs" />
   </ItemGroup>
