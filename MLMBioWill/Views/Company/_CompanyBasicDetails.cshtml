@@ -1,0 +1,246 @@
+﻿@model MLMBioWill.Models.CompanyViewModel
+@using MLMBiowillBusinessEntities.Common;
+@using MLMBioWill.Common;
+
+<script src="~/Scripts/Master/Company/Company-validations.js"></script>
+<script src="~/Scripts/Master/Company/Company-methods.js"></script>
+<script src="~/Scripts/Master/Company/Company-events.js"></script>
+
+
+<form role="form" id="frmCompany">
+
+    <input type="hidden" id="hdnSearchCompanyId" value="" name="Filter.CompanyId" />
+    <input type="hidden" id="hdnCompanyId" value="@Model.Company.CompanyId" name="Company.CompanyId" />
+
+    <div class="row">
+
+        <div class="col-md-4">
+            <label for="" id="lblCompanyName">Company Name</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter company name" name="Company.CompanyName" id="txtCompanyName" maxlength="50" value="@Model.Company.CompanyName">
+                    <input type="hidden" id="hdnCompanyName" value="@Model.Company.CompanyName">
+                    @*<span class="input-group-addon">
+                            <i class="fa fa-sort-alpha-asc"></i>
+                        </span>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="">Set Active</label>
+            <div class="form-group">
+                <div class="input-group">
+                    @if (Model.Company.IsActive)
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.Company.IsActive.ToString()" name="Company.IsActive" type="checkbox" id="Flag">
+                    }
+                    else
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.Company.IsActive.ToString()" name="Company.IsActive" type="checkbox" id="Flag">
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                  @{
+                      foreach (var item in LookupInfo.Get_ContactType())
+                      {
+                          if (item.Value.ToString() == ContactType.Landline.ToString())
+                          {
+                            <label for="">Phone No</label>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter phone no" name="Company.PhoneNo" id="txtPhoneNo" value="" maxlength="20">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </span>
+                                </div>
+                            </div>
+                          }
+
+                      }
+                }
+                    
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Mobile No</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter mobile no" name="Company.MobileNo" id="txtMobileNo" value="" maxlength="15">
+                            <span class="input-group-addon">
+                                <i class="fa fa-mobile"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Fax No.</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter fax no." name="Company.FaxNo" id="txtFaxNo" value="" maxlength="25">
+                            <span class="input-group-addon">
+                                <i class="fa fa-fax"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Email ID</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter email id" name="Company.EmailId" id="txtEmailId" value="" maxlength="100">
+                            <input type="hidden" id="hdnEmailId" value="">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Website Address</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter website add" id="txtWebsiteURL" name="Company.WebsiteURL" value="" maxlength="100">
+                            <span class="input-group-addon">
+                                <i class="fa fa-google-wallet"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                @*<div class="col-md-4">
+
+                        <label for="drpPaymentOption" style="color: #333">Payment Option</label>
+
+                        <div class="form-group">
+
+                            <div class="input-group">
+
+                                <select class="form-control" name="Company.PaymentOption" id="drpPaymentOption">
+
+                                    <option value="0">Select payment option</option>
+
+                                    @foreach (var item in LookupInfo.Get_Payment_Option())
+                                    {
+                                        if (Model.Company.PaymentOption == item.Key)
+                                        {
+                                            <option value="@item.Key" selected="selected">@item.Value</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Key">@item.Value</option>
+                                        }
+                                    }
+
+                                </select>
+
+                                <span class="input-group-addon">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+
+                            </div>
+                        </div>
+
+                    </div>*@
+                <div class="col-md-4">
+                    <label for="">Pincode</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter pincode" id="txtPINCode" maxlength="25" name="Company.PINCode" value="">
+                        <span class="input-group-addon">
+                            <i class="fa fa-map-pin"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter address." id="txtAddress" name="Company.Address" maxlength="250"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="drpCity" style="color: #333" class="">Location</label>
+                    <div class="input-group">
+                        <select class="form-control" id="drpCity" name="Company.City">
+
+                            @*<option value="0">Select city </option>*@
+
+                            @*@foreach (var item in Model.Cities)
+                            {
+                                if (Model.Company.CityId == item.CityId)
+                                {
+                                    <option value="@item.CityId" selected="selected">@item.CityName</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.CityId">@item.CityName</option>
+                                }
+                            }*@
+
+                        </select>
+                        <span class="input-group-addon">
+                            <a href="/City/Index" target="_blank"> <i class="fa fa-globe"></i></a>
+                            @*<i class="fa fa-globe"></i>*@
+                        </span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+          
+
+        </div>
+
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+
+                <button type="button" id="btnSaveCompany" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                <button type="button" id="btnResetCompany" class="btn btn-warning btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                <a href="Search" class="btn btn-info btn-rounded label-left m-b-0-25 waves-effect waves-light"><span class="btn-label"><i class="ti-angle-double-left"></i></span>Back</a>
+
+
+                @*<button type="button" class="btn btn-success label-left m-b-0-25 waves-effect waves-light" id="btnSaveCompany"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                    <button type="reset" class="btn btn-warning label-left m-b-0-25 waves-effect waves-light" id="btnResetCompany"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                    <a href="Search" class="btn btn-info label-left m-b-0-25 waves-effect waves-light" id="btnBackCompany"><span class="btn-label"><i class="ti-angle-double-left"></i></span>Back</a>*@
+
+            </div>
+        </div>
+    </div>
+
+</form>
+
+

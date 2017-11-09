@@ -15,8 +15,8 @@ namespace MLMBioWill
 
             routes.MapRoute(
                name: "GetCompany",
-               url: "Company",
-               defaults: new { controller = "Company", action = "Index", id = UrlParameter.Optional }
+               url: "Company/Search",
+               defaults: new { controller = "Company", action = "Search", id = UrlParameter.Optional }
            );
             routes.MapRoute(
                name: "GetCompanyById",

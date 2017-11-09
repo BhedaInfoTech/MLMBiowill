@@ -40,10 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\EnumCollection.cs" />
+    <Compile Include="Common\FriendlyMessage.cs" />
+    <Compile Include="Common\LookupInfo.cs" />
+    <Compile Include="Common\SessionInfo.cs" />
     <Compile Include="Common\StoredProcedureEnum.cs" />
     <Compile Include="Master\CompanyInfo.cs" />
+    <Compile Include="Module\ModuleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PaginationInfo.cs" />
+    <Compile Include="User\UserInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

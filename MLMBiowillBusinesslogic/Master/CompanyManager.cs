@@ -3,6 +3,7 @@ using MLMBiowillBusinessEntities.Common;
 using MLMBiowillRepo.Master;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,11 @@ namespace MLMBiowillBusinesslogic.Master
         public void Update_CompanyMaster(CompanyInfo CompanyMaster)
         {
             _CompanyRepo.Update_CompanyMaster(CompanyMaster);
+        }
+
+        public DataTable GetCompanyMaster(int CompanyMasterId, ref PaginationInfo pager)
+        {
+            return _CompanyRepo.Get_CompanyMaster(CompanyMasterId, ref pager);
         }
 
         public List<CompanyInfo> Get_CompanyMasters(ref PaginationInfo pager)

@@ -28,7 +28,7 @@ namespace MLMBiowillAPIService.Controllers
             if (companyDet != null && companyDet.Count > 0)
                 return Request.CreateResponse(HttpStatusCode.OK, companyDet);
             else return Request.CreateErrorResponse(HttpStatusCode.NotFound
-                                    , "No Company Details found");
+                                    , "Company Details does not Exists");
         }
 
         // GET: api/CompanyApi/5

@@ -6,6 +6,25 @@
     <title>@ViewBag.Title - Biowill International</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+
+    <script type="text/javascript" src="/Scripts/generic.popup.js"></script>
+    <script type="text/javascript" src="/Scripts/generic.lookup.js"></script>
+    <script type="text/javascript" src="/Scripts/generic.autocomplete.js"></script>
+    @*Multi select*@
+
+
+
+    @*Uplad Progress Bar*@
+    <script src="/Content/plugin/uploadify/jquery.uploadify.js"></script>
+    @*Uplad Progress Bar Scripts End*@
+
+    <script src="/Scripts/Common/generic.ajax.js"></script>
+    <script src="/Scripts/generic.message.js"></script>
+    <script src="/Scripts/Common/generic.pagination-ajax.js"></script>
+    <script type="text/javascript" src="/Content/plugin/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+    <script src="/Content/plugin/blockui/jquery.blockUI.js"></script>
+    <script src="/Content/plugin/jquery.cookie.js"></script>
 </head>
 <body class="fixed-sidebar fixed-header fixed-footer skin-default content-appear">
     <div class="wrapper">
@@ -30,7 +49,7 @@
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+ 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

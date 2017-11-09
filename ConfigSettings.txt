@@ -16,5 +16,8 @@ Steps for Creating the WEB API and Consuming the same in Our Application
 6. Update the Solution from Single Project Build to Multiple. 
 	6.1 Make as Start to WebAPI
 	6.2 Make as Start to MVCProject
+ 7. We have to make Our Masters 
+	7.1. Search/View - Template would be --http://52.66.188.107:89/Vendor/Search (Sushant/Sushant)
+	7.2. Create/Edit -Template would be --http://52.66.188.107:89/HotelTariff/Index (Sushant/Sushant)
 
 

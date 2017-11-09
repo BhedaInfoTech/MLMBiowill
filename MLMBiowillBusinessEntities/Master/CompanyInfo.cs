@@ -8,15 +8,15 @@ namespace MLMBiowillBusinessEntities
 {
     public class CompanyInfo
     {
-        public int Id { get; set; }
+        public int CompanyId { get; set; }
 
-        public string Name { get; set; }
+        public string CompanyName { get; set; }
 
         public string GSTNumber { get; set; }
 
         public string PAN { get; set; }
 
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
 
         public int CreatedBy { get; set; }
 
@@ -25,6 +25,14 @@ namespace MLMBiowillBusinessEntities
         public int UpdatedBy { get; set; }
 
         public DateTime UpdatedOn { get; set; }
+
+    }
+
+    public class CompanyFilter
+    {
+        public int CompanyId { get; set; }
+
+        public string CompanyName { get; set; }
 
     }
 }

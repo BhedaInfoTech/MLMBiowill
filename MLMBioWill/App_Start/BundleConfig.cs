@@ -33,13 +33,15 @@ namespace MLMBioWill
                         "~/Content/plugin/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
                         "~/Content/plugin/moment/moment.js",
                         "~/Content/plugin/bootstrap-daterangepicker/daterangepicker.js",
-                        //"~Scripts/generic.custom.validation.js",
+                        "~/Scripts/jquery.validate*",
+                        "~/Scripts/generic.custom.validation.js",
                         "~/Content/plugin/select2/dist/js/select2.min.js",
                         "~/Content/js/app.js",//Lohana JS
                         "~/Content/js/demo.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
+                        "~/Scripts/jquery.validate*"
+                        ));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at https://modernizr.com to pick only the tests you need.
@@ -71,6 +73,21 @@ namespace MLMBioWill
                       "~/Content/plugin/select2/dist/css/select2.min.css",
                       "~/Content/css/core.css", // Neptune CSS
                       "~/Content/site.css"));
+
+
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+                        "~/Content/themes/base/jquery.ui.core.css",
+                        "~/Content/themes/base/jquery.ui.resizable.css",
+                        "~/Content/themes/base/jquery.ui.selectable.css",
+                        "~/Content/themes/base/jquery.ui.accordion.css",
+                        "~/Content/themes/base/jquery.ui.autocomplete.css",
+                        "~/Content/themes/base/jquery.ui.button.css",
+                        "~/Content/themes/base/jquery.ui.dialog.css",
+                        "~/Content/themes/base/jquery.ui.slider.css",
+                        "~/Content/themes/base/jquery.ui.tabs.css",
+                        "~/Content/themes/base/jquery.ui.datepicker.css",
+                        "~/Content/themes/base/jquery.ui.progressbar.css",
+                        "~/Content/themes/base/jquery.ui.theme.css"));
         }
     }
 }

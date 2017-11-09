@@ -19,6 +19,7 @@ namespace MLMBiowillRepo.Master
             _sqlRepo = new SqlHelperRepo();
         }
 
+        #region Push/Put Methods in Procedure
         public void Insert_CompanyMaster(CompanyInfo CompanyMaster)
         {
             _sqlRepo.ExecuteNonQuery(SetValuesCompanyMaster(CompanyMaster), StoredProcedureEnum.Save_CompanyMaster.ToString(), CommandType.StoredProcedure);
@@ -32,16 +33,32 @@ namespace MLMBiowillRepo.Master
         private List<SqlParameter> SetValuesCompanyMaster(CompanyInfo CompanyMaster)
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-            sqlParams.Add(new SqlParameter("@CompanyId", CompanyMaster.Id));
-            sqlParams.Add(new SqlParameter("@Name", CompanyMaster.Name));
+            sqlParams.Add(new SqlParameter("@CompanyId", CompanyMaster.CompanyId));
+            sqlParams.Add(new SqlParameter("@Name", CompanyMaster.CompanyName));
             sqlParams.Add(new SqlParameter("@GSTNumber", CompanyMaster.GSTNumber));
             sqlParams.Add(new SqlParameter("@PAN", CompanyMaster.PAN));
-            sqlParams.Add(new SqlParameter("@Active", CompanyMaster.Active));
+            sqlParams.Add(new SqlParameter("@Active", CompanyMaster.IsActive));
             sqlParams.Add(new SqlParameter("@CreatedBy", CompanyMaster.CreatedBy));
             //sqlParams.Add(new SqlParameter("@CreatedOn", CompanyMaster.CreatedOn));
             sqlParams.Add(new SqlParameter("@UpdatedBy", CompanyMaster.UpdatedBy));
             //sqlParams.Add(new SqlParameter("@UpdatedOn", CompanyMaster.UpdatedOn));
             return sqlParams;
+        }
+
+        #endregion
+
+        #region Get Methods from Procedure
+        public DataTable Get_CompanyMaster(int CompanyMasterId, ref PaginationInfo pager)
+        {
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            sqlParam.Add(new SqlParameter("@CompanyId", CompanyMasterId));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
+
+            return CommonMethods.GetPaginatedTable(dt, ref pager);
+
         }
 
         public List<CompanyInfo> Get_CompanyMasters(ref PaginationInfo pager)
@@ -78,17 +95,20 @@ namespace MLMBiowillRepo.Master
         {
             CompanyInfo CompanyMaster = new CompanyInfo();
 
-            CompanyMaster.Id = Convert.ToInt32(dr["Id"]);
-            CompanyMaster.Name = Convert.ToString(dr["Name"]);
+            CompanyMaster.CompanyId = Convert.ToInt32(dr["Id"]);
+            CompanyMaster.CompanyName = Convert.ToString(dr["Name"]);
             CompanyMaster.GSTNumber = Convert.ToString(dr["GSTNumber"]);
             CompanyMaster.PAN = Convert.ToString(dr["PAN"]);
-            CompanyMaster.Active = Convert.ToBoolean(dr["Active"]);
+            CompanyMaster.IsActive = Convert.ToBoolean(dr["Active"]);
             CompanyMaster.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
             CompanyMaster.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
             CompanyMaster.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
             CompanyMaster.UpdatedOn = Convert.ToDateTime(dr["UpdatedOn"]);
             return CompanyMaster;
         }
+
+        #endregion
+
 
         public void Delete_CompanyMaster_By_Id(int CompanyMasterId)
         {

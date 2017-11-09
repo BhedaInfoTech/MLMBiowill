@@ -151,12 +151,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Common\MessageStore.cs" />
+    <Compile Include="Common\SessionExpiredAttribute.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Master\CompanyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Master\CompanyViewModel.cs" />
+    <Compile Include="Models\PaginationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -572,13 +576,32 @@
     <Content Include="Content\plugin\typicons\src\font\typicons.woff" />
     <Content Include="Content\plugin\typicons\src\font\typiconsd41d.eot" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Common\generic.ajax.js" />
+    <Content Include="Scripts\Common\generic.common.events.js" />
+    <Content Include="Scripts\Common\generic.common.methods.js" />
+    <Content Include="Scripts\Common\generic.pagination-ajax.js" />
+    <Content Include="Scripts\generic.autocomplete.js" />
+    <Content Include="Scripts\generic.custom.validation.js" />
+    <Content Include="Scripts\generic.lookup.js" />
+    <Content Include="Scripts\generic.message.js" />
+    <Content Include="Scripts\generic.popup.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.printElement.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.uploadify.js" />
+    <Content Include="Scripts\jquery.uploadify.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Master\Company\company-search-events.js" />
+    <Content Include="Scripts\Master\Company\company-search-methods.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -603,10 +626,12 @@
     <Content Include="Views\Shared\_Preloader.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
+    <Content Include="Views\Company\Search.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Company\_CompanyBasicDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
-    <Folder Include="Views\Company\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -631,6 +656,10 @@
     <ProjectReference Include="..\MLMBiowillBusinesslogic\MLMBiowillBusinesslogic.csproj">
       <Project>{3c3c6fbe-cac4-4b63-b6a2-e1008add61f8}</Project>
       <Name>MLMBiowillBusinesslogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MLMBiowillHelper\MLMBiowillHelper.csproj">
+      <Project>{6da3386a-e5e5-43a4-b8d6-34d990317ba1}</Project>
+      <Name>MLMBiowillHelper</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
