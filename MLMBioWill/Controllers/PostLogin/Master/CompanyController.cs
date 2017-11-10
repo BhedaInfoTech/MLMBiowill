@@ -54,17 +54,17 @@ namespace MLMBioWill.Controllers.Master
         ///  and uncomment the Authorized user details 
         /// </summary>
         //[AuthorizeUser(RoleModule.Company, Function.View)]
-        public JsonResult GetCompanyMaster(CompanyViewModel cCompanyViewModel)
+        public JsonResult GetCompanyMaster(CompanyViewModel cViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
 
-            pager = cCompanyViewModel.Pager;
+            pager = cViewModel.Pager;
 
             PaginationViewModel pViewModel = new PaginationViewModel();
 
             try
             {
-                pViewModel.dt = _CompManager.GetCompanyMaster(cCompanyViewModel.Filter.CompanyId, ref pager);
+                pViewModel.dt = _CompManager.GetCompanyMaster(cViewModel.Filter.CompanyId, ref pager);
 
                 pViewModel.Pager = pager;
 
@@ -73,7 +73,7 @@ namespace MLMBioWill.Controllers.Master
 
             catch (Exception ex)
             {
-                cCompanyViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
 
                 Logger.Error("Company Controller - GetCompanyMaster" + ex.ToString());
             }
