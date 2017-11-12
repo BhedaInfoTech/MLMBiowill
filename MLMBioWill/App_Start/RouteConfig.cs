@@ -13,16 +13,16 @@ namespace MLMBioWill
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-               name: "GetCompany",
-               url: "Company/Search",
-               defaults: new { controller = "Company", action = "Search", id = UrlParameter.Optional }
-           );
-            routes.MapRoute(
-               name: "GetCompanyById",
-               url: "Company/{id}",
-               defaults: new { controller = "Company", action = "Details", id = UrlParameter.Optional }
-           );
+           // routes.MapRoute(
+           //    name: "GetCompany",
+           //    url: "Company/Search",
+           //    defaults: new { controller = "Company", action = "Search", id = UrlParameter.Optional }
+           //);
+           // routes.MapRoute(
+           //    name: "GetCompanyById",
+           //    url: "Company/{id}",
+           //    defaults: new { controller = "Company", action = "Details", id = UrlParameter.Optional }
+           //);
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

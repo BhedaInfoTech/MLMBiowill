@@ -46,7 +46,7 @@ namespace MLMBioWill.Controllers.Master
         //[AuthorizeUser(RoleModule.Company, Function.View)]
         public ActionResult Search()
         {                                       
-            return View();
+            return View("Search");
         }
 
         /// <summary>

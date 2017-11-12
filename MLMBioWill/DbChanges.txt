@@ -1,0 +1,59 @@
+
+
+==========================================
+Date : 12-11-2017
+Purpose: Category Master
+
+
+CREATE PROCEDURE [dbo].[spInsertCategory] ( @CategoryName NVARCHAR(25), @IsActive BIT, @CreatedDate DATETIME, @CreatedBy INT, @UpdatedDate DATETIME, @UpdatedBy INT ) AS BEGIN
+INSERT INTO [tblCategoryMaster] ( Name, Active, CreatedOn, CreatedBy, UpdatedOn, UpdatedBy )
+VALUES ( @CategoryName,
+         @IsActive,
+         @CreatedDate,
+         @CreatedBy,
+         @UpdatedDate,
+         @UpdatedBy)
+SELECT SCOPE_IDENTITY(); END
+
+
+
+CREATE PROCEDURE [dbo].[spGetCategories] (@CategoryName nvarchar(25) ) AS BEGIN
+SELECT Id,
+       Name,
+       CreatedOn,
+       CreatedBy,
+       UpdatedOn,
+       [UpdatedBy],
+       (CASE
+            WHEN [Active] = 0 THEN 'false'
+            ELSE 'true'
+        END) AS [Active],
+       (CASE
+            WHEN [Active] = 0 THEN 'No'
+            ELSE 'Yes'
+        END) AS IsActiveStr
+FROM dbo.tblCategoryMaster
+WHERE (CASE
+           WHEN @CategoryName IS NOT NULL
+                AND @CategoryName != '' THEN Name
+           ELSE ''
+       END) LIKE '%'+IsNull(@CategoryName,'')+'%' END
+
+
+
+
+CREATE PROCEDURE [dbo].[spUpdateCategory] ( @CategoryId INT, @CategoryName NVARCHAR(25), @IsActive BIT, @UpdatedDate DATETIME, @UpdatedBy INT ) AS BEGIN
+UPDATE tblCategoryMaster
+SET Name = @CategoryName,
+    Active=@IsActive,
+    UpdatedOn = @UpdatedDate,
+    UpdatedBy = @UpdatedBy
+WHERE Id =@CategoryId END
+
+
+CREATE PROCEDURE [dbo].[spCheckCategoryNameExist] ( @CategoryName varchar(25) ) AS BEGIN
+SELECT 1
+FROM tblCategoryMaster
+WHERE LOWER(name) = LOWER(@CategoryName) END
+
+==========================================

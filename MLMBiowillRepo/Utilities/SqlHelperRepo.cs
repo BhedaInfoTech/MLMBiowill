@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLMBiowillRepo
+namespace MLMBiowillRepo.Utilities
 {
     public class SqlHelperRepo
     {
