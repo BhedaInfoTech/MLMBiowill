@@ -46,16 +46,16 @@ namespace MLMBioWill.Common
 
             #endregion
 
-            #region Country
+            #region Category
 
-            FriendlyMessage COUNTRY01 = new FriendlyMessage("COUNTRY01", MessageType.Success, "Country added successfully.");
-            hash.Add("COUNTRY01", COUNTRY01);
+            FriendlyMessage CATEGORY01 = new FriendlyMessage("CATEGORY01", MessageType.Success, "Category added successfully.");
+            hash.Add("CATEGORY01", CATEGORY01);
 
-            FriendlyMessage COUNTRY02 = new FriendlyMessage("COUNTRY02", MessageType.Success, "Country updated successfully.");
-            hash.Add("COUNTRY02", COUNTRY02);
+            FriendlyMessage CATEGORY02 = new FriendlyMessage("CATEGORY02", MessageType.Success, "Category updated successfully.");
+            hash.Add("CATEGORY02", CATEGORY02);
 
-            FriendlyMessage COUNTRY03 = new FriendlyMessage("COUNTRY03", MessageType.Information, "No records found.");
-            hash.Add("COUNTRY03", COUNTRY03);
+            FriendlyMessage CATEGORY03 = new FriendlyMessage("CATEGORY03", MessageType.Information, "No records found.");
+            hash.Add("CATEGORY03", CATEGORY03);
 
             #endregion
 

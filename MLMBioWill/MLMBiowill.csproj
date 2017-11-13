@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -154,10 +155,13 @@
     <Compile Include="Common\MessageStore.cs" />
     <Compile Include="Common\SessionExpiredAttribute.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CompanyController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Master\CategoryViewModel.cs" />
     <Compile Include="Models\Master\CompanyViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -543,6 +547,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\uploadify.swf" />
+    <Content Include="DbChanges.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -599,6 +604,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Master\Category\category-events.js" />
+    <Content Include="Scripts\Master\Category\category-methods.js" />
+    <Content Include="Scripts\Master\Category\category-validations.js" />
     <Content Include="Scripts\Master\Company\company-search-events.js" />
     <Content Include="Scripts\Master\Company\company-search-methods.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
@@ -622,12 +630,16 @@
     <Content Include="Views\Shared\_Preloader.cshtml" />
     <Content Include="Views\Shared\_Message.cshtml" />
     <Content Include="Views\Shared\_Footer.cshtml" />
-    <Content Include="Views\PostLogin\Company\Index.cshtml" />
-    <Content Include="Views\PostLogin\Company\Search.cshtml" />
-    <Content Include="Views\PostLogin\Company\_CompanyBasicDetails.cshtml" />
+    <Content Include="Views\Company\Index.cshtml" />
+    <Content Include="Views\Company\Search.cshtml" />
+    <Content Include="Views\Company\_CompanyBasicDetails.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
+    <Folder Include="Views\PostLogin\Master\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -656,6 +668,10 @@
     <ProjectReference Include="..\MLMBiowillHelper\MLMBiowillHelper.csproj">
       <Project>{6da3386a-e5e5-43a4-b8d6-34d990317ba1}</Project>
       <Name>MLMBiowillHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MLMBiowillRepo\MLMBiowillRepo.csproj">
+      <Project>{48c1c738-2681-4b58-9474-833075affae0}</Project>
+      <Name>MLMBiowillRepo</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

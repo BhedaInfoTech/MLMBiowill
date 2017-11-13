@@ -15,5 +15,14 @@ namespace MLMBiowillBusinessEntities.Common
         Delete_CompanyMaster_By_Id,
 
         #endregion
+
+        #region Category
+
+        spInsertCategory,
+        spUpdateCategory,
+        spGetCategories,
+        spCheckCategoryNameExist
+        #endregion
+
     }
 }
