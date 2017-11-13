@@ -18,6 +18,13 @@ namespace MLMBioWill
                url: "Company/Search",
                defaults: new { controller = "Company", action = "Search", id = UrlParameter.Optional }
            );
+
+            routes.MapRoute(
+               name: "GetJsonCompany",
+               url: "Company/CompanyMaster",
+               defaults: new { controller = "Company", action = "GetCompanyMaster", id = UrlParameter.Optional }
+           );
+
             routes.MapRoute(
                name: "GetCompanyById",
                url: "Company/{id}",

@@ -15,7 +15,7 @@
             },
         }
 
-    PostAjaxJson("/Company/GetCompanyMaster", cCompanyViewModel, BindCompany);
+    PostAjaxJson("/Company/CompanyMaster", cCompanyViewModel, BindCompany);
 }
 
 function BindCompany(data)

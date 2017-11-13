@@ -6,16 +6,18 @@ using System.Web.Mvc;
 
 namespace MLMBioWill.Common
 {
-    public class CustomRazorViewEngine:RazorViewEngine
+    public class CustomRazorViewEngine : RazorViewEngine
     {
         public CustomRazorViewEngine() : base()
         {
             ViewLocationFormats = new[] {
-                "~/Views/Shared/{0}.cshtml",
-
                 "~/Views/PostLogin/Master/{1}/{0}.cshtml",
 
                 "~/Views/PostLogin/{1}/{0}.cshtml",
+
+                "~/Views/Home/{0}.cshtml",
+
+                 "~/Views/Shared/{0}.cshtml",
 
             };
 
