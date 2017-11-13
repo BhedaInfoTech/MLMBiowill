@@ -639,7 +639,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
-    <Folder Include="Views\PostLogin\Master\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
