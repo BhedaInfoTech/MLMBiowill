@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace MLMBiowillBusinessEntities.Master
 {
-    public class Branch
+    public class CourierInfo
     {
         public int Id { get; set; }
-        public string BranchName { get; set; }
-        public string GSTNumber { get; set; }
-        public string PANNumber { get; set; }
-        public int CompanyId { get; set; }
+        public string CourierId { get; set; }
+        public string CourierName { get; set; }
+        public string ServedPincode { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }

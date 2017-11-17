@@ -6,17 +6,10 @@ using System.Threading.Tasks;
 
 namespace MLMBiowillBusinessEntities.Master
 {
-    public class ContactPerson
+    public class DepartmentInfo
     {
         public int Id { get; set; }
-        public string ObjectType { get; set; }
-        public int ObjectId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNo { get; set; }        
-        public string SequenceNo { get; set; }
+        public string DepartmentName { get; set; }         
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }

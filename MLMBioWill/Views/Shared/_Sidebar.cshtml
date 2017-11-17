@@ -7,7 +7,7 @@
 
 <div class="site-sidebar">
 
-    <div class="custom-scroll custom-scroll-light">
+    <div class="custom-scroll custom-scroll-dark">
 
         @*@if (sessionInfo != null && sessionInfo.LstModule != null && sessionInfo.LstModule.Count > 0)
             {*@
@@ -40,16 +40,16 @@
                     <span class="s-text">Common Master</span>
                 </a>
                 <ul>
-                    <li><a href="">Country</a></li>
-                    <li><a href="">State</a></li>
-                    <li><a href="">City</a></li>
+                    <li><a href="@Url.Action("Index","Country")">Country</a></li>
+                    <li><a href="@Url.Action("Index","State")">State</a></li>
+                    <li><a href="@Url.Action("Index","City")">City</a></li>
                     <li><a href="">Designation</a></li>
                     <li><a href="">Department</a></li>
                     <li><a href="">Series</a></li>
                     <li><a href="">Agent Levels</a></li>
                     <li><a href="">Commission Limit</a></li>
                     <li><a href="">Extra Commission</a></li>
-                    <li><a href="@Url.Action("Index", "Category")">Cagegory</a></li>
+                    <li><a href="@Url.Action("Index", "Category")">Category</a></li>
 
                 </ul>
             </li>

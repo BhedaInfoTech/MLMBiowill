@@ -59,6 +59,19 @@ namespace MLMBioWill.Common
 
             #endregion
 
+            #region Country
+
+            FriendlyMessage Country01 = new FriendlyMessage("Country01", MessageType.Success, "Country added successfully.");
+            hash.Add("Country01", Country01);
+
+            FriendlyMessage Country02 = new FriendlyMessage("Country02", MessageType.Success, "Country updated successfully.");
+            hash.Add("Country02", Country02);
+
+            FriendlyMessage Country03 = new FriendlyMessage("Country03", MessageType.Information, "No records found.");
+            hash.Add("Country03", Country03);
+
+            #endregion
+
             #region State
 
             FriendlyMessage STATE01 = new FriendlyMessage("STATE01", MessageType.Success, "State added successfully.");
@@ -86,14 +99,14 @@ namespace MLMBioWill.Common
             #endregion
 
             #region Company
-            FriendlyMessage COMPANY01 = new FriendlyMessage("COMPANY01", MessageType.Success, "Company added successfully.");
-            hash.Add("COMPANY01", COMPANY01);
+            FriendlyMessage Comp01 = new FriendlyMessage("Comp01", MessageType.Success, "Company added successfully.");
+            hash.Add("Comp01", Comp01);
 
-            FriendlyMessage COMPANY02 = new FriendlyMessage("COMPANY02", MessageType.Success, "Company updated successfully.");
-            hash.Add("COMPANY02", COMPANY02);
+            FriendlyMessage Comp02 = new FriendlyMessage("Comp02", MessageType.Success, "Company updated successfully.");
+            hash.Add("Comp02", Comp02);
 
-            FriendlyMessage COMPANY03 = new FriendlyMessage("COMPANY03", MessageType.Information, "No records found.");
-            hash.Add("COMPANY03", COMPANY03);
+            FriendlyMessage Comp03 = new FriendlyMessage("Comp03", MessageType.Information, "No records found.");
+            hash.Add("Comp03", Comp03);
 
             #endregion
 

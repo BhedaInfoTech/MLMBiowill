@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MLMBiowillBusinessEntities
+namespace MLMBiowillBusinessEntities.Master
 {
     public class CompanyInfo
     {
@@ -25,7 +25,22 @@ namespace MLMBiowillBusinessEntities
         public int UpdatedBy { get; set; }
 
         public DateTime UpdatedOn { get; set; }
+                                        
+        public int PhoneNo { get; set; }
 
+        public int MobileNo { get; set; }
+
+        public int FaxNo { get; set; }
+
+        public string  EmailId { get; set; }
+
+        public string Website { get; set; }
+
+        public string Pincode { get; set; }
+
+        public string Address { get; set; }
+
+        public string City { get; set; }
     }
 
     public class CompanyFilter

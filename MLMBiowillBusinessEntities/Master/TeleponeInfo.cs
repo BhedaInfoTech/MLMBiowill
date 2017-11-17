@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace MLMBiowillBusinessEntities.Master
 {
-    public class Commission
+    public class TeleponeInfo
     {
         public int Id { get; set; }
-        public int LevelId { get; set; }
-        public decimal MinAmt { get; set; }
-        public decimal MaxAmt { get; set; }
-        public decimal PercentageAmt { get; set; }
+        public string ObjectType { get; set; }
+        public int ObjectId { get; set; }
+        public string Type { get; set; }
+        public string CountryCode { get; set; }
+        public string StdCode { get; set; }
+        public string EmailId { get; set; }
+        public string TelMobNumber { get; set; }
+        public string SequenceNo { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
