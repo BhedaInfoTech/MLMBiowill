@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace MLMBiowillBusinessEntities.Master
 {
-    public class Commission
+    public class BankInfo
     {
         public int Id { get; set; }
-        public int LevelId { get; set; }
-        public decimal MinAmt { get; set; }
-        public decimal MaxAmt { get; set; }
-        public decimal PercentageAmt { get; set; }
+        public string BankName { get; set; }
+        public string BranchName { get; set; }
+        public string IFSCCode { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

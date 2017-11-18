@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MLMBiowillBusinessEntities.Master
 {
-    public class Branch
+    public class BranchInfo
     {
         public int Id { get; set; }
         public string BranchName { get; set; }
@@ -15,8 +15,10 @@ namespace MLMBiowillBusinessEntities.Master
         public int CompanyId { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set; }
+        public DateTime UpdatedOn { get; set; }
+
+
     }
 }

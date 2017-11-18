@@ -24,10 +24,10 @@ namespace MLMBiowillRepo.Master
 
         public int Insert(Category category)
         {
-            return Convert.ToInt32(_sqlHelper.ExecuteScalerObj(SetValuesInCountry(category), StoredProcedureEnum.spInsertCategory.ToString(), CommandType.StoredProcedure));
+            return Convert.ToInt32(_sqlHelper.ExecuteScalerObj(SetValuesInCountry(category), StoredProcedureEnum.sp_Insert_Category.ToString(), CommandType.StoredProcedure));
         }
 
-        public List<SqlParameter> SetValuesInCountry(Category category)
+        private List<SqlParameter> SetValuesInCountry(Category category)
         {
 
             List<SqlParameter> sqlParam = new List<SqlParameter>();
@@ -38,8 +38,7 @@ namespace MLMBiowillRepo.Master
             }
             else
             {
-                sqlParam.Add(new SqlParameter("CreatedDate", category.CreatedDate));
-
+       
                 sqlParam.Add(new SqlParameter("CreatedBy", category.CreatedBy));
             }             
 
@@ -53,26 +52,24 @@ namespace MLMBiowillRepo.Master
 
             sqlParam.Add(new SqlParameter("UpdatedBy", category.UpdatedBy));
 
-            sqlParam.Add(new SqlParameter("UpdatedDate", category.UpdatedDate));
-
+       
             return sqlParam;
         }
 
-        public DataTable GetCountries(string categoryName, ref PaginationInfo pager)
-        {
-
+        public DataTable GetCategories(string categoryName, ref PaginationInfo pager)
+        { 
             List<SqlParameter> sqlParam = new List<SqlParameter>();             
 
             sqlParam.Add(new SqlParameter("@CategoryName", categoryName));
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.spGetCategories.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_Categories.ToString(), CommandType.StoredProcedure);
 
             return CommonMethods.GetPaginatedTable(dt, ref pager);
         }
 
         public void Update(Category category)
         {
-            _sqlHelper.ExecuteNonQuery(SetValuesInCountry(category), StoredProcedureEnum.spUpdateCategory.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(SetValuesInCountry(category), StoredProcedureEnum.sp_Update_Category.ToString(), CommandType.StoredProcedure);
         }
                  
         public bool CheckCategoryNameExist(string categoryName)
@@ -86,7 +83,7 @@ namespace MLMBiowillRepo.Master
 
             Logger.Debug("Category Controller categoryName:" + categoryName);
 
-            return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.spCheckCategoryNameExist.ToString(), CommandType.StoredProcedure));
+            return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_CategoryName_Exist.ToString(), CommandType.StoredProcedure));
 
         }
     }

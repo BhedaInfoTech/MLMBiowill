@@ -95,7 +95,11 @@ namespace MLMBiowillBusinessEntities.Common
 
     public enum RoleModule
     {
-        Company = 1,
+        Country = 1,
+        State = 2,
+        City = 3,
+        Company = 4,
+        Category = 5,
     }
 
     public enum Function
@@ -133,9 +137,20 @@ namespace MLMBiowillBusinessEntities.Common
     public enum AddressType
     {
         Permanent = 1,
-        Present = 2,
-        Correspondence = 3,
-        Office = 4,
+        Correspondence = 2,
+        Corporate = 3,
+        HeadOffice = 4,
+    }
+
+    public enum AddressFor
+    {
+        Company = 1,
+        Branch = 2,
+        Warehouse = 3,
+        Employee = 4,
+        Customer = 5,
+        Agent = 6,
+        Courier = 7,
     }
 
 

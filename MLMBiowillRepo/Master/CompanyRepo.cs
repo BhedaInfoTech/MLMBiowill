@@ -1,5 +1,5 @@
-﻿using MLMBiowillBusinessEntities;
-using MLMBiowillBusinessEntities.Common;
+﻿using MLMBiowillBusinessEntities.Common;
+using MLMBiowillBusinessEntities.Master;
 using MLMBiowillRepo.Utilities;
 using System;
 using System.Collections.Generic;
@@ -21,14 +21,16 @@ namespace MLMBiowillRepo.Master
         }
 
         #region Push/Put Methods in Procedure
-        public void Insert_CompanyMaster(CompanyInfo CompanyMaster)
+        public int Insert_CompanyMaster(CompanyInfo CompanyMaster)
         {
-            _sqlRepo.ExecuteNonQuery(SetValuesCompanyMaster(CompanyMaster), StoredProcedureEnum.Save_CompanyMaster.ToString(), CommandType.StoredProcedure);
+            int CompanyMasterId = Convert.ToInt32(_sqlRepo.ExecuteScalerObj(SetValuesCompanyMaster(CompanyMaster), StoredProcedureEnum.sp_Save_CompanyMaster.ToString(), CommandType.StoredProcedure));
+
+            return CompanyMasterId;
         }
 
         public void Update_CompanyMaster(CompanyInfo CompanyMaster)
         {
-            _sqlRepo.ExecuteNonQuery(SetValuesCompanyMaster(CompanyMaster), StoredProcedureEnum.Save_CompanyMaster.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(SetValuesCompanyMaster(CompanyMaster), StoredProcedureEnum.sp_Save_CompanyMaster.ToString(), CommandType.StoredProcedure);
         }
 
         private List<SqlParameter> SetValuesCompanyMaster(CompanyInfo CompanyMaster)
@@ -53,10 +55,10 @@ namespace MLMBiowillRepo.Master
         {
 
             List<SqlParameter> sqlParam = new List<SqlParameter>();
-
+                                                 
             sqlParam.Add(new SqlParameter("@CompanyId", CompanyMasterId));
 
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
 
             return CommonMethods.GetPaginatedTable(dt, ref pager);
 
@@ -69,7 +71,7 @@ namespace MLMBiowillRepo.Master
             int CompanyMasterId = 0;
             sqlParams.Add(new SqlParameter("@CompanyId", CompanyMasterId));
 
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
             foreach (DataRow dr in CommonMethods.GetRows(dt, ref pager))
             {
                 CompanyMasters.Add(Get_CompanyMaster_Values(dr));
@@ -82,7 +84,7 @@ namespace MLMBiowillRepo.Master
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             CompanyInfo CompanyMaster = new CompanyInfo();
             sqlParams.Add(new SqlParameter("@CompanyId", CompanyMasterId));
-            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
             List<DataRow> drList = new List<DataRow>();
             drList = dt.AsEnumerable().ToList();
             foreach (DataRow dr in drList)
@@ -108,6 +110,22 @@ namespace MLMBiowillRepo.Master
             return CompanyMaster;
         }
 
+        public Boolean Check_CompanyName(string CompanyName)
+        {
+            bool Is_Exist = false;
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            sqlParam.Add(new SqlParameter("@CompanyName", CompanyName));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Check_CompanyName_Exist.ToString(), CommandType.StoredProcedure);
+            if(dt.Rows.Count> 0)
+            {
+                Is_Exist = Convert.ToBoolean(dt.Rows[0]);
+            }
+
+            return Is_Exist;
+        }
+
         #endregion
 
 
@@ -115,7 +133,7 @@ namespace MLMBiowillRepo.Master
         {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             sqlParams.Add(new SqlParameter("@CompanyId", CompanyMasterId));
-            _sqlRepo.ExecuteNonQuery(sqlParams, StoredProcedureEnum.Delete_CompanyMaster_By_Id.ToString(), CommandType.StoredProcedure);
+            _sqlRepo.ExecuteNonQuery(sqlParams, StoredProcedureEnum.sp_Delete_CompanyMaster_By_Id.ToString(), CommandType.StoredProcedure);
         }
     
 }

@@ -1,23 +1,27 @@
-
-
 ==========================================
 Date : 12-11-2017
-Purpose: Category Master
+Name : Sudhakar Patil
+Purpose: Category Master 
+Mayur: Updated Naming convention and Removed Date Fields from the parameters in insert and updated
 
 
-CREATE PROCEDURE [dbo].[spInsertCategory] ( @CategoryName NVARCHAR(25), @IsActive BIT, @CreatedDate DATETIME, @CreatedBy INT, @UpdatedDate DATETIME, @UpdatedBy INT ) AS BEGIN
+CREATE PROCEDURE [dbo].[sp_Insert_Category] 
+( @CategoryName NVARCHAR(25), 
+@IsActive BIT, 
+@CreatedBy INT, 
+@UpdatedBy INT ) AS BEGIN
 INSERT INTO [tblCategoryMaster] ( Name, Active, CreatedOn, CreatedBy, UpdatedOn, UpdatedBy )
 VALUES ( @CategoryName,
          @IsActive,
-         @CreatedDate,
+         GETDATE(),
          @CreatedBy,
-         @UpdatedDate,
+         GETDATE(),
          @UpdatedBy)
 SELECT SCOPE_IDENTITY(); END
+GO
 
 
-
-CREATE PROCEDURE [dbo].[spGetCategories] (@CategoryName nvarchar(25) ) AS BEGIN
+CREATE PROCEDURE [dbo].[sp_Get_Categories] (@CategoryName nvarchar(25) ) AS BEGIN
 SELECT Id,
        Name,
        CreatedOn,
@@ -38,22 +42,33 @@ WHERE (CASE
                 AND @CategoryName != '' THEN Name
            ELSE ''
        END) LIKE '%'+IsNull(@CategoryName,'')+'%' END
+GO
 
 
 
+CREATE PROCEDURE [dbo].[sp_Update_Category]
+ ( 
+	@CategoryId INT, 
+	@CategoryName NVARCHAR(25), 
+	@IsActive BIT, 
+	@UpdatedBy INT 
+  ) 
+  AS BEGIN
+	UPDATE tblCategoryMaster
+	SET Name = @CategoryName,
+		Active=@IsActive,
+		UpdatedOn = GETDATE(),
+		UpdatedBy = @UpdatedBy
+	WHERE Id =@CategoryId END
+GO
 
-CREATE PROCEDURE [dbo].[spUpdateCategory] ( @CategoryId INT, @CategoryName NVARCHAR(25), @IsActive BIT, @UpdatedDate DATETIME, @UpdatedBy INT ) AS BEGIN
-UPDATE tblCategoryMaster
-SET Name = @CategoryName,
-    Active=@IsActive,
-    UpdatedOn = @UpdatedDate,
-    UpdatedBy = @UpdatedBy
-WHERE Id =@CategoryId END
-
-
-CREATE PROCEDURE [dbo].[spCheckCategoryNameExist] ( @CategoryName varchar(25) ) AS BEGIN
-SELECT 1
-FROM tblCategoryMaster
-WHERE LOWER(name) = LOWER(@CategoryName) END
-
+CREATE PROCEDURE [dbo].[sp_Check_CategoryName_Exist] 
+( 
+	@CategoryName varchar(25) 
+) 
+	AS BEGIN
+	
+	SELECT 1 FROM tblCategoryMaster
+	WHERE LOWER(name) = LOWER(@CategoryName) END
+GO
 ==========================================

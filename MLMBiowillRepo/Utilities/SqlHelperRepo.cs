@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MLMBiowillHelper.Logging;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -63,20 +64,26 @@ namespace MLMBiowillRepo.Utilities
             DataTable dt = new DataTable();
             try
             {
+                Logger.Debug(" Sql Connection : " + _sqlCon + ";");
+
+                Logger.Debug(" Store Procedure/Query Called : " + sqlQuery + ";");
+
                 using (SqlConnection con = new SqlConnection(_sqlCon))
                 {
+                    Logger.Debug(" Connection Is Open : " + con.State.ToString() + ";");
                     using (SqlCommand sqlCmd = new SqlCommand(sqlQuery, con))
-                    {
-
+                    {                                                                
                         //SqlCommand sqlCmd = new SqlCommand(sqlQuery, con);
                         sqlCmd.CommandType = cmdType;
 
                         sqlCmd.CommandTimeout = 300;
 
                         if (sqlParams != null)
-                        {
+                        {   
                             foreach (SqlParameter sqlPrm in sqlParams)
                             {
+                                Logger.Debug(" SqlParameter Name and Value   : " + sqlPrm.ParameterName + " ~" +sqlPrm.Value + ";");
+
                                 if (sqlPrm.Value == null)
 
                                     sqlPrm.Value = DBNull.Value;
@@ -84,25 +91,34 @@ namespace MLMBiowillRepo.Utilities
                             sqlCmd.Parameters.AddRange(sqlParams.ToArray());
                         }
 
+                        Logger.Debug(" Sql Parameters Added ;");
                         SqlDataAdapter sqlDA = new SqlDataAdapter(sqlCmd);
 
                         sqlDA.Fill(dt);
+
+                        Logger.Debug(" Sql Data Recd. Successfully;");
 
                         sqlCmd.Parameters.Clear();
 
                     }
                     con.Close();
+
+                    Logger.Debug(" Connection Is Closed : " + con.State.ToString() + ";");
                 }
             }
             catch (SqlException sqlEx)
             {
+                Logger.Error(" SQL Excepcetion Stack Trace: " + sqlEx.StackTrace + ";");
+                Logger.Error(" SQL Excepcetion : " + sqlEx.Message + ";");
                 throw sqlEx;
             }
             catch (Exception ex)
             {
+                Logger.Error(" Excepcetion Stack Trace: " + ex.StackTrace + ";");
+                Logger.Error(" Excepcetion : " + ex.Message + ";");
                 throw ex;
             }
-
+            Logger.Debug(" Data Table Return with Rows : " + dt.Rows.Count.ToString() + ";");
             return dt;
         }
 

@@ -36,20 +36,19 @@ namespace MLMBioWill.Controllers.Master
             {
                 cViewModel = (CompanyViewModel)TempData["cViewModel"];
             }
+            cViewModel.Cities = _CompManager.GetCities();
             Set_Date_Session(cViewModel.Company);
           
             return View("Index", cViewModel);
         }
 
         //company/Search
-        [HttpGet]
         //[AuthorizeUser(RoleModule.Company, Function.View)]
         public ActionResult Search()
         {                                       
             return View("Search");
         }
-
-        /// <summary>
+    /// <summary>
         ///  we need to fetch the data of user from DB at the time of Logging
         ///  and uncomment the Authorized user details 
         /// </summary>
@@ -76,9 +75,81 @@ namespace MLMBioWill.Controllers.Master
                 cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
 
                 Logger.Error("Company Controller - GetCompanyMaster" + ex.ToString());
-            }
+            }          
 
             return Json(JsonConvert.SerializeObject(pViewModel), JsonRequestBehavior.AllowGet);
+
+        }
+
+        //[AuthorizeUser(RoleModule.Company, Function.Create)]
+        public  JsonResult Insert(CompanyViewModel cViewModel)
+        {
+            try
+            {
+                Set_Date_Session(cViewModel.Company);
+
+                cViewModel.Company.CompanyId = _CompManager.Insert_CompanyMaster(cViewModel.Company);
+
+
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp01"));
+
+                Logger.Debug("Company Controller Insert Company");
+
+            }
+            catch (Exception ex)
+            {
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Company Controller - Insert Method : " + ex.Message);
+            }
+            return Json(cViewModel);
+        }
+
+
+        //[AuthorizeUser(RoleModule.Company, Function.Edit)]
+        public JsonResult UpdateCompany(CompanyViewModel cViewModel)
+        {
+            try
+            {
+                Set_Date_Session(cViewModel.Company);
+
+                _CompManager.Update_CompanyMaster(cViewModel.Company);
+
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp02"));
+
+                Logger.Debug("Company Controller Update Company");
+            }
+            catch (Exception ex)
+            {
+
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Company Controller - UpdateCompany  " + ex.Message);
+            }
+
+            return Json(cViewModel);
+
+        }
+
+        [AuthorizeUser(RoleModule.Company, Function.View)]
+        public JsonResult CheckCompanyNameExist(string CompanyName)
+        {
+            bool check = false;
+
+            CompanyViewModel vViewModel = new CompanyViewModel();
+
+            try
+            {
+                check = _CompManager.CheckCompanyNameExist(CompanyName);
+
+                Logger.Debug("Company Controller CheckCompanyNameExist");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Company Controller - CheckCompanyNameExist" + ex.Message);
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
 
         }
 

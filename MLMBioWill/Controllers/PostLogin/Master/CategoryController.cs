@@ -2,6 +2,7 @@
 using MLMBioWill.Models;
 using MLMBioWill.Models.Master;
 using MLMBiowillBusinessEntities.Common;
+using MLMBiowillHelper.Authorization;
 using MLMBiowillHelper.Logging;
 using MLMBiowillRepo.Master;
 using Newtonsoft.Json;
@@ -14,6 +15,7 @@ using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Master
 {
+    //[SessionExpired]
     public class CategoryController : BaseController
     {
         public CategoryRepo _cRepo;
@@ -23,11 +25,13 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             _cRepo = new CategoryRepo();
         }
 
+        //[AuthorizeUser(RoleModule.Category, Function.View)]
         public ActionResult Index(CategoryViewModel cViewModel)
         {
             return View("Index",cViewModel);
         }
 
+        //[AuthorizeUser(RoleModule.Category, Function.Create)]
         public JsonResult Insert(CategoryViewModel cViewModel)
         {
             try
@@ -51,6 +55,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             return Json(cViewModel);
         }
 
+        //[AuthorizeUser(RoleModule.Category, Function.View)]
         public JsonResult GetCategories(CategoryViewModel cViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -61,7 +66,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
             try
             {
-                pViewModel.dt = _cRepo.GetCountries(cViewModel.CategoryInfo.CategoryName, ref pager);
+                pViewModel.dt = _cRepo.GetCategories(cViewModel.CategoryInfo.CategoryName, ref pager);
 
                 pViewModel.Pager = pager;
 
@@ -79,6 +84,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
         }
 
+        //[AuthorizeUser(RoleModule.Category, Function.Edit)]
         public JsonResult Update(CategoryViewModel cViewModel)
         {
             try
@@ -101,6 +107,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             return Json(cViewModel);
         }
 
+        //[AuthorizeUser(RoleModule.Category, Function.View)]
         public JsonResult CheckCategoryNameExist(string categoryName)
         {
             bool check = false;
