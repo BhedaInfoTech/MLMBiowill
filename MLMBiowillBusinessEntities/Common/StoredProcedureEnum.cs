@@ -69,9 +69,21 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Update_AddressMaster,
         sp_Get_AddressMaster,
         sp_Get_AddressMaster_By_Id,
+        sp_Get_AddMast_By_Type_For_ObjectId,
         sp_Delete_AddressMaster_By_Id,
+        sp_Check_AddressType,
         #endregion
 
+        #region AddressMaster
+
+        sp_Insert_ContactMaster,
+        sp_Update_ContactMaster,
+        sp_Get_ContactMaster,
+        sp_Get_ContactMaster_By_Id,
+        sp_Get_ContactMast_By_Type_For_ObjectId,
+        sp_Delete_ContactMaster_By_Id,
+        sp_Check_MobileNumber,
+        #endregion
 
 
     }

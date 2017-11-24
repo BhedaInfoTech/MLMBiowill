@@ -1,0 +1,166 @@
+﻿@model MLMBioWill.Models.ContactViewModel
+@using MLMBiowillBusinessEntities.Common;
+
+<script src="~/Scripts/Master/Contact/Contact-events.js"></script>
+<script src="~/Scripts/Master/Contact/Contact-methods.js"></script>
+<script src="~/Scripts/Master/Contact/Contact-validation.js"></script>
+
+<div class="row">
+
+    <form role="form" id="frmContactDetails">
+
+        <input type="hidden" id="hdnContactId" name="ContactDetails.ContactId" />
+
+        <!--Here it would be assigned from calling Page
+            Company/Branch/Warehouse/Employee/Customer/Agent/Courier-->
+        <input type="hidden" id="hdnAddFor" name="ContactDetails.ContactFor" value="@Model.ContactDetails.ContactFor" />
+
+        <!--Id after saving Company/Branch/Warehouse/Employee/Customer/Agent/Courier
+            would be added here -->
+        <input type="hidden" id="hdnObjectId" name="ContactDetails.ObjectId" value="@Model.ContactDetails.ObjectId" />
+
+        <div class="col-md-12">
+            <div class="row">
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="drpContactType" style="color: #333" class="">Contact Type</label>
+                    <div class="input-group">
+                        <select class="form-control" id="drpContactType" name="ContactDetails.ContactType">
+                            <option value="0">Select Contact Type </option>
+                            @foreach (var item in LookupInfo.Get_ContactType())
+                            {
+                                if (Model.ContactDetails.ContactType == item.Value)
+                                {
+                                    <option value="@item.Value" selected="selected">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Value</option>
+                                }
+                            }
+
+                        </select>
+                        <span class="input-group-addon">
+                            @*<i class="fa fa-globe"></i>*@
+                            <a> <i class="fa fa-globe"></i></a>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Set Default</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @if (Model.ContactDetails.IsDefault)
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.ContactDetails.IsDefault.ToString()" name="ContactDetails.IsDefault" type="checkbox" id="Flag">
+                            }
+                            else
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.ContactDetails.IsDefault.ToString()" name="ContactDetails.IsDefault" type="checkbox" id="Flag">
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Set Active</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @if (Model.ContactDetails.IsActive)
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.ContactDetails.IsActive.ToString()" name="ContactDetails.IsActive" type="checkbox" id="IdFlag">
+                            }
+                            else
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.ContactDetails.IsActive.ToString()" name="ContactDetails.IsActive" type="checkbox" id="IdFlag">
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Country Code</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="tel" class="form-control" placeholder="Enter Country Code" name="ContactDetails.CountryCode" id="txtCountryCode" value="@Model.ContactDetails.CountryCode" maxlength="4">
+                            <input type="hidden" id="hdnCountryCode" value="@Model.ContactDetails.CountryCode">
+                            <span class="input-group-addon">
+                                <i class="fa fa-phone"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">STD Code</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="tel" class="form-control" placeholder="Enter Std Code" id="txtStdCode" name="ContactDetails.StdCode" value="@Model.ContactDetails.StdCode" maxlength="5">
+                            <span class="input-group-addon">
+                                <i class="fa fa-google-fax"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Phone No</label>
+                    <div class="input-group">
+                        <input type="tel" class="form-control" placeholder="Enter pincode" id="txtTelMobNumber" maxlength="12" name="ContactDetails.TelMobNumber" value="@Model.ContactDetails.TelMobNumber">
+                        <span class="input-group-addon">
+                            <i class="fa fa-mobile"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <br />
+
+            <div class="row" style="text-align: center;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="button" id="btnAddContactDetails" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                        <button type="reset" id="btnDeleteContactDetails" class="btn btn-danger btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light" disabled><span class="btn-label"><i class="ti-close"></i></span>Delete</button>
+                        @*<button type="button" id="btnAddDesignation" class="btn btn-purple btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Add Designation</button>*@
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        
+    </form>
+</div>
+
+<div class="card" id="divContactList">
+
+    <h5 class="card-header">
+        <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Contact Listing
+    </h5>
+
+    <form role="form" id="frmSearchContactDetails">
+
+        <input type="hidden" id="hdnSearchContactId" name="ContactFilter.ContactId" />
+
+        <div class="card-block p-t-0 p-b-0">
+
+            <div class="overflow-x-auto">
+                <table class="table m-b-0" id="tblContactDetails">
+                    <thead class="thead-inverse">
+
+                </table>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

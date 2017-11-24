@@ -98,8 +98,8 @@ namespace MLMBiowillRepo.Master
         {
             CompanyInfo CompanyMaster = new CompanyInfo();
 
-            CompanyMaster.CompanyId = Convert.ToInt32(dr["Id"]);
-            CompanyMaster.CompanyName = Convert.ToString(dr["Name"]);
+            CompanyMaster.CompanyId = Convert.ToInt32(dr["CompanyId"]);
+            CompanyMaster.CompanyName = Convert.ToString(dr["CompanyName"]);
             CompanyMaster.GSTNumber = Convert.ToString(dr["GSTNumber"]);
             CompanyMaster.PAN = Convert.ToString(dr["PAN"]);
             CompanyMaster.IsActive = Convert.ToBoolean(dr["Active"]);
@@ -120,7 +120,7 @@ namespace MLMBiowillRepo.Master
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Check_CompanyName_Exist.ToString(), CommandType.StoredProcedure);
             if(dt.Rows.Count> 0)
             {
-                Is_Exist = Convert.ToBoolean(dt.Rows[0]);
+                Is_Exist = Convert.ToBoolean(dt.Rows[0][0]);
             }
 
             return Is_Exist;

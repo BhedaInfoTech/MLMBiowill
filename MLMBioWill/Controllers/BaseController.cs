@@ -42,8 +42,7 @@ namespace MLMBioWill.Controllers
 
 
         }
-
-
+           
         public string GetRandomColorName()
         {
             Random random = new Random();

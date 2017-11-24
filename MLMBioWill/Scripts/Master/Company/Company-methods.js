@@ -13,36 +13,18 @@
         Company: {
 
             CompanyId: $("[name='Company.CompanyId']").val(),
-            
+
             CompanyName: $("[name='Company.CompanyName']").val(),
 
             GSTNumber: $("[name='Company.GSTNumber']").val(),
 
             PAN: $("[name='Company.PAN']").val(),
 
-            //MobileNo: $("[name='Company.MobileNo']").val(),
-
-            //PhoneNo: $("[name='Company.PhoneNo']").val(),
-
-            //FaxNo: $("[name='Company.FaxNo']").val(),
-
-            //Address: $("[name='Company.Address']").val(),
-
-            //CityId: $("#drpCity").val(),
-
-            //BusinessId: $("#hdnBusinessType").val(),
-
-            //PINCode: $("[name='Company.PINCode']").val(),
-
-            //EmailId: $("[name='Company.EmailId']").val(),
-
-            //WebsiteURL: $("[name='Company.WebsiteURL']").val(),
-            
             IsActive: activeFlg,
 
         }
     }
-    
+
     var url = "";
 
     if ($("[name='Company.CompanyId']").val() == 0) {
@@ -57,7 +39,24 @@
     PostAjaxWithProcessJson(url, vViewModel, AfterSaveCompany, $("body"));
 }
 
-function AfterSaveCompany(data)
-{
-    alert(data.Company.CompanyId);
+function AfterSaveCompany(data) {
+    FriendlyMessage(data);
+
+    $("[name='Address.ObjectId']").val(data.Company.CompanyId);
+
+    $("[name='Address.AddressFor']").val(data.AddressViewModelList.Address.AddressFor);
+
+    $("[name='ContactDetails.ObjectId']").val(data.Company.CompanyId);
+
+    $("[name='ContactDetails.ContactFor']").val(data.AddressViewModelList.Address.AddressFor);
+    
+    $("#link1").show();
+
+    $("#link2").show();
+
+    GetAddress();
+
+    GetContactDetails();
+
+    // alert(data.Company.CompanyId);
 }

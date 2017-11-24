@@ -15,6 +15,7 @@ using MLMBiowillBusinessEntities.Common;
 using MLMBiowillHelper.Logging;
 using MLMBiowillHelper.Authorization;
 using MLMBioWill.Common;
+using System.Transactions;
 
 namespace MLMBioWill.Controllers.Master
 {
@@ -36,19 +37,18 @@ namespace MLMBioWill.Controllers.Master
             {
                 cViewModel = (CompanyViewModel)TempData["cViewModel"];
             }
-            cViewModel.Cities = _CompManager.GetCities();
             Set_Date_Session(cViewModel.Company);
-          
+
             return View("Index", cViewModel);
         }
 
         //company/Search
         //[AuthorizeUser(RoleModule.Company, Function.View)]
         public ActionResult Search()
-        {                                       
+        {
             return View("Search");
         }
-    /// <summary>
+        /// <summary>
         ///  we need to fetch the data of user from DB at the time of Logging
         ///  and uncomment the Authorized user details 
         /// </summary>
@@ -75,33 +75,43 @@ namespace MLMBioWill.Controllers.Master
                 cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
 
                 Logger.Error("Company Controller - GetCompanyMaster" + ex.ToString());
-            }          
+            }
 
             return Json(JsonConvert.SerializeObject(pViewModel), JsonRequestBehavior.AllowGet);
 
         }
 
         //[AuthorizeUser(RoleModule.Company, Function.Create)]
-        public  JsonResult Insert(CompanyViewModel cViewModel)
+        public JsonResult Insert(CompanyViewModel cViewModel)
         {
-            try
+            Set_Date_Session(cViewModel.Company);
+            
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.Company);
+                try
+                {
+            
+                    cViewModel.Company.CompanyId = _CompManager.Insert_CompanyMaster(cViewModel.Company);
 
-                cViewModel.Company.CompanyId = _CompManager.Insert_CompanyMaster(cViewModel.Company);
+                    cViewModel.AddressViewModelList.Address.AddressFor = AddressFor.Company.ToString();
 
+                    cViewModel.ContactViewModelList.ContactDetails.ContactFor = AddressFor.Company.ToString();
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp01"));
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp01"));
 
-                Logger.Debug("Company Controller Insert Company");
+                    Logger.Debug("Company Controller Insert Company");
 
-            }
-            catch (Exception ex)
-            {
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                    tran.Complete();
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
 
-                Logger.Error("Company Controller - Insert Method : " + ex.Message);
-            }
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Company Controller - Insert Method : " + ex.Message);
+                }   
+            }       
             return Json(cViewModel);
         }
 
@@ -109,29 +119,42 @@ namespace MLMBioWill.Controllers.Master
         //[AuthorizeUser(RoleModule.Company, Function.Edit)]
         public JsonResult UpdateCompany(CompanyViewModel cViewModel)
         {
-            try
+            Set_Date_Session(cViewModel.Company);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.Company);
+                try
+                {
+                    int companyId = cViewModel.Company.CompanyId;
 
-                _CompManager.Update_CompanyMaster(cViewModel.Company);
+                    _CompManager.Update_CompanyMaster(cViewModel.Company);
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp02"));
+                    cViewModel.Company.CompanyId = companyId;
 
-                Logger.Debug("Company Controller Update Company");
+                    cViewModel.AddressViewModelList.Address.AddressFor = AddressFor.Company.ToString();
+
+                    cViewModel.ContactViewModelList.ContactDetails.ContactFor = AddressFor.Company.ToString();
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("Comp02"));
+
+                    Logger.Debug("Company Controller Update Company");
+
+                    tran.Complete();
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Company Controller - UpdateCompany  " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Company Controller - UpdateCompany  " + ex.Message);
-            }
-
             return Json(cViewModel);
 
         }
 
-        [AuthorizeUser(RoleModule.Company, Function.View)]
+        //[AuthorizeUser(RoleModule.Company, Function.View)]
         public JsonResult CheckCompanyNameExist(string CompanyName)
         {
             bool check = false;
@@ -153,6 +176,31 @@ namespace MLMBioWill.Controllers.Master
 
         }
 
+        //[AuthorizeUser(RoleModule.Company, Function.View)]
+        public ActionResult GetCompanyById(CompanyViewModel vViewModel)
+        {
+            try
+            {
+                vViewModel.Company = _CompManager.Get_CompanyMaster_By_Id(vViewModel.Filter.CompanyId);
+
+                vViewModel.AddressViewModelList.Address.ObjectId = vViewModel.Filter.CompanyId;
+
+                vViewModel.ContactViewModelList.ContactDetails.ObjectId = vViewModel.Filter.CompanyId;
+
+
+                Logger.Debug("Company Controller GetCompanyById");
+            }
+            catch (Exception ex)
+            {
+                vViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Company Controller - GetCompanyById" + ex.ToString());
+            }
+
+            TempData["cViewModel"] = vViewModel;
+
+            return Index(vViewModel);
+        }
 
 
     }

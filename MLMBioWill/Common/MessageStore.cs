@@ -110,6 +110,37 @@ namespace MLMBioWill.Common
 
             #endregion
 
+            #region Address
+            FriendlyMessage Add01 = new FriendlyMessage("Add01", MessageType.Success, "Address added successfully.");
+            hash.Add("Add01", Add01);
+
+            FriendlyMessage Add02 = new FriendlyMessage("Add02", MessageType.Success, "Address updated successfully.");
+            hash.Add("Add02", Add02);
+
+            FriendlyMessage Add03 = new FriendlyMessage("Add03", MessageType.Information, "Address deleted successfully.");
+            hash.Add("Add03", Add03);
+
+            FriendlyMessage Add04 = new FriendlyMessage("Add04", MessageType.Information, "No records found.");
+            hash.Add("Add04", Add04);
+
+            #endregion
+
+
+            #region Contact Details
+            FriendlyMessage Cont01 = new FriendlyMessage("Cont01", MessageType.Success, "Contact Details added successfully.");
+            hash.Add("Cont01", Cont01);
+
+            FriendlyMessage Cont02 = new FriendlyMessage("Cont02", MessageType.Success, "Contact Details updated successfully.");
+            hash.Add("Cont02", Cont02);
+
+            FriendlyMessage Cont03 = new FriendlyMessage("Cont03", MessageType.Information, "Contact Details deleted successfully.");
+            hash.Add("Cont03", Cont03);
+
+            FriendlyMessage Cont04 = new FriendlyMessage("Cont04", MessageType.Information, "No records found.");
+            hash.Add("Cont04", Cont04);
+
+            #endregion
+
             #region User
 
             FriendlyMessage U01 = new FriendlyMessage("U01", MessageType.Success, "User added successfully.");

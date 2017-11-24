@@ -61,7 +61,7 @@
     <Compile Include="Master\EmployeeInfo.cs" />
     <Compile Include="Master\StateInfo.cs" />
     <Compile Include="Master\Subcategory.cs" />
-    <Compile Include="Master\TeleponeInfo.cs" />
+    <Compile Include="Master\ContactInfo.cs" />
     <Compile Include="Master\UserInfo.cs" />
     <Compile Include="Module\ModuleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
