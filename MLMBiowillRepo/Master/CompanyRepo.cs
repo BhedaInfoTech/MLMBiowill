@@ -42,9 +42,9 @@ namespace MLMBiowillRepo.Master
             sqlParams.Add(new SqlParameter("@PAN", CompanyMaster.PAN));
             sqlParams.Add(new SqlParameter("@Active", CompanyMaster.IsActive));
             sqlParams.Add(new SqlParameter("@CreatedBy", CompanyMaster.CreatedBy));
-            //sqlParams.Add(new SqlParameter("@CreatedOn", CompanyMaster.CreatedOn));
+            //sqlParams.Add(new SqlParameter("@CreatedOn", CompanyMaster.CreatedDate));
             sqlParams.Add(new SqlParameter("@UpdatedBy", CompanyMaster.UpdatedBy));
-            //sqlParams.Add(new SqlParameter("@UpdatedOn", CompanyMaster.UpdatedOn));
+            //sqlParams.Add(new SqlParameter("@UpdatedOn", CompanyMaster.UpdatedDate));
             return sqlParams;
         }
 
@@ -104,9 +104,9 @@ namespace MLMBiowillRepo.Master
             CompanyMaster.PAN = Convert.ToString(dr["PAN"]);
             CompanyMaster.IsActive = Convert.ToBoolean(dr["Active"]);
             CompanyMaster.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
-            CompanyMaster.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+            CompanyMaster.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
             CompanyMaster.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
-            CompanyMaster.UpdatedOn = Convert.ToDateTime(dr["UpdatedOn"]);
+            CompanyMaster.UpdatedDate = Convert.ToDateTime(dr["UpdatedOn"]);
             return CompanyMaster;
         }
 

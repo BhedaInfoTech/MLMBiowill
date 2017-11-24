@@ -24,11 +24,11 @@ namespace MLMBioWill.Controllers
             {
                 session = (SessionInfo)HttpContext.Session["SessionInfo"];
             }
-            PropertyInfo prop = obj.GetType().GetProperty("CreatedOn");
+            PropertyInfo prop = obj.GetType().GetProperty("CreatedDate");
 
             prop.SetValue(obj, DateTime.Now);
 
-            prop = obj.GetType().GetProperty("UpdatedOn");
+            prop = obj.GetType().GetProperty("UpdatedDate");
 
             prop.SetValue(obj, DateTime.Now);
 

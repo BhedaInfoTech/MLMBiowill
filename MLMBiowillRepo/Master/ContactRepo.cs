@@ -115,9 +115,9 @@ namespace MLMBiowillRepo.Master
             ContInfo.IsDefault = Convert.ToBoolean(dr["IsDefault"]);
             ContInfo.IsActive = Convert.ToBoolean(dr["Active"]);
             ContInfo.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
-            ContInfo.CreatedOn = Convert.ToDateTime(dr["CreatedOn"]);
+            ContInfo.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
             ContInfo.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
-            ContInfo.UpdatedOn = Convert.ToDateTime(dr["UpdatedOn"]);
+            ContInfo.UpdatedDate = Convert.ToDateTime(dr["UpdatedOn"]);
             return ContInfo;
         }
 
