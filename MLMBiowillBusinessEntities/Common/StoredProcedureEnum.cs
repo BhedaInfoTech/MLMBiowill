@@ -74,7 +74,7 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_AddressType,
         #endregion
 
-        #region AddressMaster
+        #region ContactMaster
 
         sp_Insert_ContactMaster,
         sp_Update_ContactMaster,
@@ -85,6 +85,14 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_MobileNumber,
         #endregion
 
+        #region ContactPersonMaster
 
+        sp_Insert_ContactPersonMaster,
+        sp_Update_ContactPersonMaster,
+        sp_Get_ContactPersonMaster,
+        sp_Get_ContactPersonMaster_By_Id,
+        sp_Get_ContactPersMast_By_Type_For_ObjectId,
+        sp_Delete_ContactPersonMaster_By_Id,
+        #endregion
     }
 }

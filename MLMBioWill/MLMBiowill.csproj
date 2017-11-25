@@ -176,6 +176,7 @@
     <Compile Include="Models\Master\CategoryViewModel.cs" />
     <Compile Include="Models\Master\CityViewModel.cs" />
     <Compile Include="Models\Master\CompanyViewModel.cs" />
+    <Compile Include="Models\Master\ContactPersonViewModel.cs" />
     <Compile Include="Models\Master\ContactViewModel.cs" />
     <Compile Include="Models\Master\CountryViewModel.cs" />
     <Compile Include="Models\Master\StateViewModel.cs" />
