@@ -59,6 +59,71 @@ namespace MLMBioWill.Common
 
             #endregion
 
+            #region SubSUBCATEGORY
+
+            FriendlyMessage SUBCATEGORY01 = new FriendlyMessage("SUBCATEGORY01", MessageType.Success, "SUBCATEGORY added successfully.");
+            hash.Add("SUBCATEGORY01", SUBCATEGORY01);
+
+            FriendlyMessage SUBCATEGORY02 = new FriendlyMessage("SUBCATEGORY02", MessageType.Success, "SUBCATEGORY updated successfully.");
+            hash.Add("SUBCATEGORY02", SUBCATEGORY02);
+
+            FriendlyMessage SUBCATEGORY03 = new FriendlyMessage("SUBCATEGORY03", MessageType.Information, "No records found.");
+            hash.Add("SUBCATEGORY03", SUBCATEGORY03);
+
+            #endregion
+
+            #region Bank
+
+            FriendlyMessage BANK01 = new FriendlyMessage("BANK01", MessageType.Success, "BANK added successfully.");
+            hash.Add("BANK01", BANK01);
+
+            FriendlyMessage BANK02 = new FriendlyMessage("BANK02", MessageType.Success, "BANK updated successfully.");
+            hash.Add("BANK02", BANK02);
+
+            FriendlyMessage BANK03 = new FriendlyMessage("BANK03", MessageType.Information, "No records found.");
+            hash.Add("BANK03", BANK03);
+
+            #endregion
+
+            #region Branch
+
+            FriendlyMessage BRANCH01 = new FriendlyMessage("BRANCH01", MessageType.Success, "BRANCH added successfully.");
+            hash.Add("BRANCH01", BRANCH01);
+
+            FriendlyMessage BRANCH02 = new FriendlyMessage("BRANCH02", MessageType.Success, "BRANCH updated successfully.");
+            hash.Add("BRANCH02", BRANCH02);
+
+            FriendlyMessage BRANCH03 = new FriendlyMessage("BRANCH03", MessageType.Information, "No records found.");
+            hash.Add("BRANCH03", BRANCH03);
+
+            #endregion
+
+            #region Designation
+
+            FriendlyMessage DESIGNATION01 = new FriendlyMessage("DESIGNATION01", MessageType.Success, "DESIGNATION added successfully.");
+            hash.Add("DESIGNATION01", DESIGNATION01);
+
+            FriendlyMessage DESIGNATION02 = new FriendlyMessage("DESIGNATION02", MessageType.Success, "DESIGNATION updated successfully.");
+            hash.Add("DESIGNATION02", DESIGNATION02);
+
+            FriendlyMessage DESIGNATION03 = new FriendlyMessage("DESIGNATION03", MessageType.Information, "No records found.");
+            hash.Add("DESIGNATION03", DESIGNATION03);
+
+            #endregion
+
+            #region Depatment
+
+            FriendlyMessage DEPARTMENT01 = new FriendlyMessage("DEPARTMENT01", MessageType.Success, "DEPARTMENT added successfully.");
+            hash.Add("DEPARTMENT01", DEPARTMENT01);
+
+            FriendlyMessage DEPARTMENT02 = new FriendlyMessage("DEPARTMENT02", MessageType.Success, "DEPARTMENT updated successfully.");
+            hash.Add("DEPARTMENT02", DEPARTMENT02);
+
+            FriendlyMessage DEPARTMENT03 = new FriendlyMessage("DEPARTMENT03", MessageType.Information, "No records found.");
+            hash.Add("DEPARTMENT03", DEPARTMENT03);
+
+            #endregion
+
             #region Country
 
             FriendlyMessage Country01 = new FriendlyMessage("Country01", MessageType.Success, "Country added successfully.");

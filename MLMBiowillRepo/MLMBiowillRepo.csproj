@@ -42,11 +42,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Master\AddressRepo.cs" />
+    <Compile Include="Master\BankRepo.cs" />
+    <Compile Include="Master\BranchRepo.cs" />
     <Compile Include="Master\CategoryRepo.cs" />
     <Compile Include="Master\CityRepo.cs" />
     <Compile Include="Master\CompanyRepo.cs" />
     <Compile Include="Master\CountryRepo.cs" />
+    <Compile Include="Master\DepartmentRepo.cs" />
+    <Compile Include="Master\DesignationRepo.cs" />
     <Compile Include="Master\StateRepo.cs" />
+    <Compile Include="Master\SubcategoryRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\AutoCompleteRepo.cs" />
     <Compile Include="Utilities\CommonMethod.cs" />

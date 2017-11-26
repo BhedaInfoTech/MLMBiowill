@@ -72,3 +72,804 @@ CREATE PROCEDURE [dbo].[sp_Check_CategoryName_Exist]
 	WHERE LOWER(name) = LOWER(@CategoryName) END
 GO
 ==========================================
+
+alter table tbllevelmaster drop column levelid
+alter table tbllevelmaster alter column turnoverlimit decimal(18,2)
+
+ ======================================================================
+
+ USE [MLMBiowill]
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Check_Bank_Exist]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+  
+CREATE PROCEDURE [dbo].[sp_Check_Bank_Exist] (
+  @BankName varchar(25)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblBankMaster 
+WHERE 
+  LOWER(BankName) = LOWER(@BankName) END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Check_Branch_Exist]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+  
+CREATE PROCEDURE [dbo].[sp_Check_Branch_Exist] (
+  @BranchName varchar(25)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblBranchMaster 
+WHERE 
+  LOWER(Name) = LOWER(@BranchName) END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Check_Department_Exist]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+  
+CREATE PROCEDURE [dbo].[sp_Check_Department_Exist] (
+  @DepartmentName varchar(25)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblDepartmentMaster 
+WHERE 
+  LOWER(Department) = LOWER(@DepartmentName) END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Check_Designation_Exist]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+  
+CREATE PROCEDURE [dbo].[sp_Check_Designation_Exist] (
+  @Designation varchar(25)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblDesignationMaster 
+WHERE 
+  LOWER(Designation) = LOWER(@Designation) END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Check_Subcategory_Exist]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ 
+  
+CREATE PROCEDURE [dbo].[sp_Check_Subcategory_Exist] (
+  @SubcategoryName varchar(25)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblSubCategoryMaster 
+WHERE 
+  LOWER(Name) = LOWER(@SubcategoryName) END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_drp_Get_Companies]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_drp_Get_Companies]     
+
+AS    
+
+BEGIN    
+
+Select Id,Name from tblCompanyMaster   
+
+   
+
+END  
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_drp_Get_Countries]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================  
+-- Author:  <Author,,Name>  
+-- Create date: <Create Date,,>  
+-- Description: <Description,,>  
+-- =============================================  
+CREATE PROCEDURE [dbo].[sp_drp_Get_Countries]  
+   
+AS  
+  
+BEGIN  
+  
+Select CountryId, CountryName from tblCountryMaster   
+   
+END  
+  
+GO
+/****** Object:  StoredProcedure [dbo].[sp_drp_Get_States]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================  
+-- Author:  <Author,,Name>  
+-- Create date: <Create Date,,>  
+-- Description: <Description,,>  
+-- =============================================  
+CREATE PROCEDURE [dbo].[sp_drp_Get_States]  
+   
+AS  
+  
+BEGIN  
+  
+Select StateId, StateName from tblStateMaster   
+   
+END  
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Get_Banks]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+
+CREATE PROCEDURE [dbo].[sp_Get_Banks] (   
+
+
+
+  @BankName nvarchar(50)   
+
+
+
+) AS BEGIN 
+
+
+
+SELECT 
+
+
+
+     t.Id,t.BankBranch,t.BankName,t.IFSCCode,t.CreatedOn,t.UpdatedOn,u.UserName 'CreatedBy',k.UpdatedBy 'UpdatedBy',
+
+
+
+  (
+
+
+
+    case when t.[Active] = 0 then 'false' else 'true' end
+
+
+
+  ) as [Active], 
+
+
+
+  (
+
+
+
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+
+
+
+  ) as IsActiveStr 
+
+
+
+FROM 
+
+
+
+  tblBankMaster t   
+
+
+
+  left join tblUserMaster u on t.CreatedBy=u.Id
+
+
+
+  left join tblUserMaster k on t.UpdatedBy=k.Id
+
+
+
+WHERE    
+
+(CASE  WHEN @BankName IS NOT NULL
+
+                AND @BankName != '' THEN BankName
+
+           ELSE ''
+
+       END) LIKE '%'+IsNull(@BankName,'')+'%'  
+   
+
+
+
+ END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Get_Branches]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+ 
+
+CREATE PROCEDURE [dbo].[sp_Get_Branches] (
+  @CompanyId int, 
+  @BranchName nvarchar(25) 
+) AS BEGIN 
+
+SELECT 
+  t.Id, 
+  t.Name, 
+  t.GSTNumber, 
+  t.PAN, 
+  t.CreatedOn, 
+  t.UpdatedOn, 
+  c.Name 'CompanyName', 
+  c.Id 'CompanyId',
+  u.UserName 'CreatedBy', 
+  k.UpdatedBy '
+
+UpdatedBy', 
+  (
+    case when t.[Active] = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblBranchMaster t 
+  left join tblCompanyMaster c on t.Companyd = c.Id 
+  
+
+left join tblUserMaster u on t.CreatedBy = u.Id 
+  left join tblUserMaster k on t.UpdatedBy = k.Id 
+WHERE 
+  
+  (case when @CompanyId !=0  and @CompanyId != '' then  t.Companyd else '' end) = IsNull(@CompanyId,'')    
+
+
+
+AND (case when @BranchName is not null and @BranchName != '' then  t.Name else '' end) = IsNull(@BranchName,'')  
+
+  END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Get_Deparments]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_Get_Deparments] (
+  @DepartmentName nvarchar(25)
+) AS BEGIN 
+SELECT 
+  t.Id, 
+  t.Department, 
+  t.CreatedOn, 
+  t.UpdatedOn, 
+  u.UserName 'CreatedBy', 
+  k.UpdatedBy 'UpdatedBy', 
+  (
+    case when t.[Active] = 0 then 'false' 
+else 'true' end
+  ) as [Active], 
+  (
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblDepartmentMaster t 
+  left join tblUserMaster u on t.CreatedBy = u.Id 
+  left join tblUserMaster k on t.UpdatedBy = k.Id 
+WHERE 
+ 
+ (CASE
+
+
+
+           WHEN @DepartmentName IS NOT NULL
+
+
+
+                AND @DepartmentName != '' THEN Department
+
+
+
+           ELSE ''
+
+
+
+       END) LIKE '%'+IsNull(@DepartmentName,'')+'%' END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Get_Designations]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[sp_Get_Designations] (
+  @DesignationName nvarchar(25)   
+) AS BEGIN 
+SELECT 
+     t.Id,t.Designation,t.CreatedOn,t.UpdatedOn,u.UserName 'CreatedBy',k.UpdatedBy 'UpdatedBy',  (
+    case when t.[Active] = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblDesignationMaster t   
+  left join tblUserMaster u on t.CreatedBy=u.Id
+  left join tblUserMaster k on t.UpdatedBy=k.Id
+WHERE 
+   (CASE  WHEN @DesignationName IS NOT NULL
+                AND @DesignationName != '' THEN Designation
+           ELSE ''
+       END) LIKE '%'+IsNull(@DesignationName,'')+'%'  
+ END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Get_Subcategories]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[sp_Get_Subcategories] (  
+  @CategoryId int, 
+  @SubcategoryName nvarchar(25)
+) AS BEGIN 
+SELECT 
+  s.Id, 
+  s.Name, 
+  c.name 'Category', 
+  s.CreatedBy, 
+  s.CreatedOn, 
+  s.UpdatedBy, 
+  s.UpdatedOn,
+  c.Id 'CategoryId',
+  (
+    case when s.Active = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+    case when s.Active = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblSubCategoryMaster s 
+  left join tblCategoryMaster c on s.CategoryId = c.Id 
+WHERE 
+
+  (
+    (CASE  WHEN @CategoryId IS NOT null AND @CategoryId != '' THEN s.CategoryId  ELSE '' END) = IsNull(@CategoryId,'')  
+   and 
+   (CASE  WHEN @SubcategoryName IS NOT null AND @SubcategoryName != '' THEN s.Name  ELSE '' END) LIKE '%'+IsNull(@SubcategoryName,'')+'%'  
+  )
+  END
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_GetCategories]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create procedure [dbo].[sp_GetCategories]
+   as begin
+
+   select Id,Name from tblCategoryMaster
+
+   end
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Bank]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+    
+CREATE PROCEDURE [dbo].[sp_Insert_Bank] (
+  @BankName NVARCHAR(50), 
+  @BankBranch nvarchar(50),
+  @IFSCCode nvarchar(18),  
+  @IsActive BIT, 
+  @CreatedBy INT, 
+  @UpdatedBy INT
+) AS BEGIN INSERT INTO [tblBankMaster] (
+  BankName,BankBranch,IFSCCode, Active, 
+  CreatedOn, CreatedBy, UpdatedOn, 
+  UpdatedBy
+) 
+VALUES 
+  (
+    @BankBranch, 
+    @BankBranch,
+	@IFSCCode,	 
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Branch]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+    
+
+CREATE PROCEDURE [dbo].[sp_Insert_Branch] (
+
+  @Name NVARCHAR(50), 
+
+  @GSTNumber nvarchar(25),
+
+  @Pan nvarchar(25),
+
+  @CompanyId int,
+
+  @IsActive BIT, 
+
+  @CreatedBy INT, 
+
+  @UpdatedBy INT
+
+) AS BEGIN INSERT INTO [tblBranchMaster] (
+
+  Name,GSTNumber,PAN,Companyd, Active, 
+
+  CreatedOn, CreatedBy, UpdatedOn, 
+
+  UpdatedBy
+
+) 
+
+VALUES 
+
+  (
+
+    @Name, 
+
+    @GSTNumber,
+
+	@Pan,
+
+	@CompanyId, 
+
+    @IsActive, 
+
+    GETDATE(), 
+
+    @CreatedBy, 
+
+    GETDATE(), 
+
+    @UpdatedBy
+
+  ) 
+
+SELECT 
+
+  SCOPE_IDENTITY();
+
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Department]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+    
+CREATE PROCEDURE [dbo].[sp_Insert_Department] (
+  @Department NVARCHAR(50), 
+  @IsActive BIT, 
+  @CreatedBy INT, 
+  @UpdatedBy INT
+) AS BEGIN INSERT INTO [tblDepartmentMaster] (
+  Department, Active, 
+  CreatedOn, CreatedBy, UpdatedOn, 
+  UpdatedBy
+) 
+VALUES 
+  (
+    @Department,     
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Designation]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+    
+CREATE PROCEDURE [dbo].[sp_Insert_Designation] (
+  @Designation NVARCHAR(50), 
+  @IsActive BIT, 
+  @CreatedBy INT, 
+  @UpdatedBy INT
+) AS BEGIN INSERT INTO [tblDesignationMaster] (
+  Designation, Active, 
+  CreatedOn, CreatedBy, UpdatedOn, 
+  UpdatedBy
+) 
+VALUES 
+  (
+    @Designation,     
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Subcategory]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+   
+CREATE PROCEDURE [dbo].[sp_Insert_Subcategory] (
+  @CategoryId int, 
+  @Name NVARCHAR(25), 
+  @IsActive BIT, 
+  @CreatedBy INT, 
+  @UpdatedBy INT
+) AS BEGIN INSERT INTO [tblSubCategoryMaster] (
+  CategoryId,Name, Active, 
+  CreatedOn, CreatedBy, UpdatedOn, 
+  UpdatedBy
+) 
+VALUES 
+  (
+    @CategoryId, 
+    @Name, 
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update_Bank]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Update_Bank] (
+  @BankId INT,      
+  @BankName NVARCHAR(50),  
+  @BankBranch nvarchar(50),
+  @IFSCCode nvarchar(18),  
+  @IsActive BIT, 
+  @UpdatedBy INT
+) AS BEGIN 
+UPDATE 
+  tblBankMaster 
+SET    
+  BankName = @BankName,   
+  BankBranch=@BankBranch,
+  IFSCCode=@IFSCCode,   
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE 
+  Id = @BankId END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update_Branch]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[sp_Update_Branch] (
+
+  @BranchId INT,      
+
+  @Name NVARCHAR(50),  
+
+  @GSTNumber nvarchar(25),
+
+  @Pan nvarchar(25),
+
+  @CompanyId int,
+
+  @IsActive BIT, 
+
+  @UpdatedBy INT
+
+) AS BEGIN 
+
+UPDATE 
+
+  tblBranchMaster 
+
+SET    
+
+  Name = @Name,   
+
+  GSTNumber=@GSTNumber,
+
+  PAN=@Pan,
+
+  Companyd=@CompanyId,
+
+  Active = @IsActive, 
+
+  UpdatedOn = GETDATE(), 
+
+  UpdatedBy = @UpdatedBy 
+
+WHERE 
+
+  Id = @BranchId END
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update_Department]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Update_Department] (
+  @DepartmentId INT,
+  @Department nvarchar(50),  
+  @IsActive BIT, 
+  @UpdatedBy INT
+) AS BEGIN 
+UPDATE 
+  tblDepartmentMaster 
+SET
+  Department=@Department,   
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE 
+  Id = @DepartmentId END
+ 
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update_Designation]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Update_Designation] (
+  @DesignationId INT,
+  @Designation nvarchar(50),  
+  @IsActive BIT, 
+  @UpdatedBy INT
+) AS BEGIN 
+UPDATE 
+  tblDesignationMaster 
+SET
+  Designation=@Designation,   
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE 
+  Id = @DesignationId END
+ 
+
+GO
+/****** Object:  StoredProcedure [dbo].[sp_Update_Subcategory]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE PROCEDURE [dbo].[sp_Update_Subcategory] (
+  @SubcategoryId INT, 
+  @CategoryId INT, 
+  @Name NVARCHAR(10),  
+  @IsActive BIT, 
+  @UpdatedBy INT
+) AS BEGIN 
+UPDATE 
+  tblSubCategoryMaster 
+SET 
+  CategoryId = @CategoryId, 
+  Name = @Name,   
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE 
+  Id = @SubcategoryId END
+
+GO
+/****** Object:  Table [dbo].[tblAutocomplete]    Script Date: 11/26/2017 10:59:45 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblAutocomplete](
+	[AutocompleteId] [int] IDENTITY(1,1) NOT NULL,
+	[PageName] [nvarchar](255) NULL,
+	[ControlName] [nvarchar](255) NULL,
+	[TableName] [nvarchar](255) NULL,
+	[TextFieldName] [nvarchar](255) NULL,
+	[IdFieldName] [nvarchar](255) NULL,
+	[DependentControlName] [nvarchar](255) NULL,
+	[DependentFieldName] [nvarchar](255) NULL,
+	[IsMultiselect] [bit] NULL,
+	[ExtraFields] [nvarchar](255) NULL,
+	[CreatedBy] [int] NULL,
+	[CreatedDate] [datetime] NULL,
+	[UpdatedBy] [int] NULL,
+	[UpdatedDate] [datetime] NULL,
+ CONSTRAINT [PK__Autocomp__5C85A831338A9CD5] PRIMARY KEY CLUSTERED 
+(
+	[AutocompleteId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+SET IDENTITY_INSERT [dbo].[tblAutocomplete] ON 
+
+GO
+INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [TableName], [TextFieldName], [IdFieldName], [DependentControlName], [DependentFieldName], [IsMultiselect], [ExtraFields], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (1, N'State', N'State.CountryId', N'tblCountryMaster', N'CountryName', N'CountryId', N'', N'', NULL, NULL, 1, CAST(0x0000A82D00000000 AS DateTime), 1, CAST(0x0000A82D00000000 AS DateTime))
+GO
+INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [TableName], [TextFieldName], [IdFieldName], [DependentControlName], [DependentFieldName], [IsMultiselect], [ExtraFields], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'City', N'City.CountryId', N'tblCountryMaster', N'CountryName', N'CountryId', N'', N'', NULL, NULL, 1, CAST(0x0000A82D00000000 AS DateTime), 1, CAST(0x0000A82D00000000 AS DateTime))
+GO
+INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [TableName], [TextFieldName], [IdFieldName], [DependentControlName], [DependentFieldName], [IsMultiselect], [ExtraFields], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, N'City', N'City.StateId', N'tblStateMaster', N'StateName', N'StateId', N'City.CountryId', N'CountryId', NULL, NULL, 1, CAST(0x0000A82D00000000 AS DateTime), 1, CAST(0x0000A82D00000000 AS DateTime))
+GO
+INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [TableName], [TextFieldName], [IdFieldName], [DependentControlName], [DependentFieldName], [IsMultiselect], [ExtraFields], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (4, N'Branch', N'BranchInfo.CompanyId', N'tblBranch', N'CompanyName', N'CompanyId', NULL, NULL, NULL, NULL, 1, NULL, 1, NULL)
+GO
+INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [TableName], [TextFieldName], [IdFieldName], [DependentControlName], [DependentFieldName], [IsMultiselect], [ExtraFields], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (5, N'Subcategory', N'SubcategoryInfo.CategoryId', N'tblSubCategory', N'Name', N'Id', NULL, NULL, NULL, NULL, 1, NULL, 1, NULL)
+GO
+SET IDENTITY_INSERT [dbo].[tblAutocomplete] OFF
+GO

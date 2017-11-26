@@ -159,21 +159,32 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\AutoCompleteController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\BankController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\BranchController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CityController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CompanyController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CountryController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\DepartmentController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\DesignationController.cs" />
     <Compile Include="Controllers\PostLogin\Master\StateController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\SubcategoryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AutoCompleteLookup\LookupViewModel.cs" />
     <Compile Include="Models\Common\AuthorisationViewModel.cs" />
+    <Compile Include="Models\Master\BankViewModel.cs" />
+    <Compile Include="Models\Master\BranchViewModel.cs" />
     <Compile Include="Models\Master\CategoryViewModel.cs" />
     <Compile Include="Models\Master\CityViewModel.cs" />
     <Compile Include="Models\Master\CompanyViewModel.cs" />
     <Compile Include="Models\Master\CountryViewModel.cs" />
+    <Compile Include="Models\Master\DepartmentViewModel.cs" />
+    <Compile Include="Models\Master\DesignationViewModel.cs" />
+    <Compile Include="Models\Master\LevelViewModel.cs" />
     <Compile Include="Models\Master\StateViewModel.cs" />
+    <Compile Include="Models\Master\SubcategoryViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -616,6 +627,12 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Master\Bank\bank-events.js" />
+    <Content Include="Scripts\Master\Bank\bank-methods.js" />
+    <Content Include="Scripts\Master\Bank\bank-validations.js" />
+    <Content Include="Scripts\Master\Branch\branch-events.js" />
+    <Content Include="Scripts\Master\Branch\branch-methods.js" />
+    <Content Include="Scripts\Master\Branch\branch-validations.js" />
     <Content Include="Scripts\Master\Category\category-events.js" />
     <Content Include="Scripts\Master\Category\category-methods.js" />
     <Content Include="Scripts\Master\Category\category-validations.js" />
@@ -629,9 +646,18 @@
     <Content Include="Scripts\Master\Country\country-events.js" />
     <Content Include="Scripts\Master\Country\country-methods.js" />
     <Content Include="Scripts\Master\Country\country-validations.js" />
+    <Content Include="Scripts\Master\Department\department-events.js" />
+    <Content Include="Scripts\Master\Department\department-methods.js" />
+    <Content Include="Scripts\Master\Department\department-validations.js" />
+    <Content Include="Scripts\Master\Designation\designation-events.js" />
+    <Content Include="Scripts\Master\Designation\designation-methods.js" />
+    <Content Include="Scripts\Master\Designation\designation-validations.js" />
     <Content Include="Scripts\Master\State\state-events.js" />
     <Content Include="Scripts\Master\State\state-methods.js" />
     <Content Include="Scripts\Master\State\state-validations.js" />
+    <Content Include="Scripts\Master\Subcategory\subcategory-events.js" />
+    <Content Include="Scripts\Master\Subcategory\subcategory-methods.js" />
+    <Content Include="Scripts\Master\Subcategory\subcategory-validations.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -662,10 +688,15 @@
     <Content Include="Views\Company\_ContactPerson.cshtml" />
     <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\City\Search.cshtml" />
-    <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Country\Search.cshtml" />
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\State\Search.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Department\Index.cshtml" />
+    <Content Include="Views\Designation\Index.cshtml" />
+    <Content Include="Views\Branch\Index.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Subcategory\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />

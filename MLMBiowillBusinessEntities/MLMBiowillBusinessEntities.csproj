@@ -59,6 +59,7 @@
     <Compile Include="Master\DepartmentInfo.cs" />
     <Compile Include="Master\DesignationInfo.cs" />
     <Compile Include="Master\EmployeeInfo.cs" />
+    <Compile Include="Master\LevelInfo.cs" />
     <Compile Include="Master\StateInfo.cs" />
     <Compile Include="Master\Subcategory.cs" />
     <Compile Include="Master\TeleponeInfo.cs" />

@@ -13,12 +13,11 @@ namespace MLMBiowillBusinessEntities.Master
         public string GSTNumber { get; set; }
         public string PANNumber { get; set; }
         public int CompanyId { get; set; }
+        public string ComapanyName { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedOn { get; set; }
         public int UpdatedBy { get; set; }
         public DateTime UpdatedOn { get; set; }
-
-
     }
 }

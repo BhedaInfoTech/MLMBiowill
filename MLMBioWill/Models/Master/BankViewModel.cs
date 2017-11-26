@@ -7,34 +7,32 @@ using System.Web;
 
 namespace MLMBioWill.Models.Master
 {
-    public class CategoryViewModel
+    public class BankViewModel
     {
-        public CategoryViewModel()
+        public BankViewModel()
         {
-            CategoryInfo = new Category();
+            BankInfo = new BankInfo();
 
             FriendlyMessage = new List<FriendlyMessage>();
 
-            CategoryList = new List<Category>();
+            BankList = new List<BankInfo>();
 
             Pager = new PaginationInfo();
 
         }
+        public BankInfo BankInfo { get; set; }
 
-        public Category CategoryInfo { get; set; }
+        public BankFilter BankFilter { get; set; }
 
-        public CategoryFilter CategoryFilter { get; set; }
-
-        public List<Category> CategoryList { get; set; }
+        public List<BankInfo> BankList { get; set; }
 
         public PaginationInfo Pager { get; set; }
 
         public List<FriendlyMessage> FriendlyMessage { get; set; }
-
     }
-    public class CategoryFilter
+    public class BankFilter
     {
-        public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
+        public string BankName { get; set; }
+        public int Id { get; set; }
     }
 }
