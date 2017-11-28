@@ -129,20 +129,20 @@ namespace MLMBiowillRepo.Master
         }
 
 
-        //public bool CheckContactType(string ContactType, string ContactFor, string ObjectId)
-        //{
-        //    Boolean IsExists = false;
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    sqlParams.Add(new SqlParameter("@ContactType", ContactType));
-        //    sqlParams.Add(new SqlParameter("@ContactFor", ContactFor));
-        //    sqlParams.Add(new SqlParameter("@ObjectId", ObjectId));
-        //    DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Check_ContactType.ToString(), CommandType.StoredProcedure);
-        //    if (dt.Rows.Count > 0)
-        //    {
-        //        IsExists = true;
-        //    }
+        public bool CheckContactType(string TelephoneNumber, string ContactFor, string ObjectId)
+        {
+            Boolean IsExists = false;
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@TelephoneNumber", TelephoneNumber));
+            sqlParams.Add(new SqlParameter("@ContactFor", ContactFor));
+            sqlParams.Add(new SqlParameter("@ObjectId", ObjectId));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Check_MobileNumber.ToString(), CommandType.StoredProcedure);
+            if (dt.Rows.Count > 0)
+            {
+                IsExists = true;
+            }
 
-        //    return IsExists;
-        //}
+            return IsExists;
+        }
     }
 }

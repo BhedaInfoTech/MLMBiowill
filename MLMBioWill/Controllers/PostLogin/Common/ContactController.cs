@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Common
 {
+    //[SessionExpired]
     public class ContactController : BaseController
     {
         ContactManager _ContactManager;

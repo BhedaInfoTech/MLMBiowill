@@ -93,6 +93,8 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Get_ContactPersonMaster_By_Id,
         sp_Get_ContactPersMast_By_Type_For_ObjectId,
         sp_Delete_ContactPersonMaster_By_Id,
+        sp_Check_ContactPerson_Exsit_By_FirstMiddleLastName,
+        sp_Check_ContactPerson_EmailId_Exsit,
         #endregion
     }
 }

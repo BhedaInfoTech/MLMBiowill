@@ -14,6 +14,7 @@ using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Common
 {
+    //[SessionExpired]
     public class AddressController : BaseController
     {
         AddressManager _AddressManager;
@@ -189,7 +190,7 @@ namespace MLMBioWill.Controllers.PostLogin.Common
 
                 IsExist =  _AddressManager.CheckAddressType(AddressType, AddFor, ObjectId);
              
-                Logger.Debug("Address Controller Deleted Address");
+                Logger.Debug("Address Controller Address Type Exists");
             }
             catch (Exception ex)
             {

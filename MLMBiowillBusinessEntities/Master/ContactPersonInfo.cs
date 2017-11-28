@@ -9,13 +9,13 @@ namespace MLMBiowillBusinessEntities.Master
     public class ContactPersonInfo
     {
         public int ContactPersonId { get; set; }
-        public string ContactFor { get; set; }
+        public string ContactPersonFor { get; set; }
         public int ObjectId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public string EmailId { get; set; }
-        public string MobileNo { get; set; }
+        public int Designation { get; set; }
+        public string EmailId { get; set; }  
         public bool IsDefault { get; set; }
         public bool Active { get; set; }
         public int CreatedBy { get; set; }

@@ -161,6 +161,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\AutoCompleteController.cs" />
     <Compile Include="Controllers\PostLogin\Common\AddressController.cs" />
+    <Compile Include="Controllers\PostLogin\Common\ContactPersonController.cs" />
     <Compile Include="Controllers\PostLogin\Common\ContactController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CityController.cs" />
@@ -636,6 +637,9 @@
     <Content Include="Scripts\Master\Company\company-search-events.js" />
     <Content Include="Scripts\Master\Company\company-search-methods.js" />
     <Content Include="Scripts\Master\Company\Company-validations.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-events.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-methods.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-validation.js" />
     <Content Include="Scripts\Master\Contact\Contact-events.js" />
     <Content Include="Scripts\Master\Contact\Contact-methods.js" />
     <Content Include="Scripts\Master\Contact\Contact-validation.js" />

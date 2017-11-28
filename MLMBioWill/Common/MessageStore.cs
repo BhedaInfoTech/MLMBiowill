@@ -124,8 +124,7 @@ namespace MLMBioWill.Common
             hash.Add("Add04", Add04);
 
             #endregion
-
-
+                           
             #region Contact Details
             FriendlyMessage Cont01 = new FriendlyMessage("Cont01", MessageType.Success, "Contact Details added successfully.");
             hash.Add("Cont01", Cont01);
@@ -138,6 +137,21 @@ namespace MLMBioWill.Common
 
             FriendlyMessage Cont04 = new FriendlyMessage("Cont04", MessageType.Information, "No records found.");
             hash.Add("Cont04", Cont04);
+
+            #endregion
+
+            #region ContactPerson Details
+            FriendlyMessage ContPer01 = new FriendlyMessage("ContPer01", MessageType.Success, "ContactPerson Details added successfully.");
+            hash.Add("ContPer01", ContPer01);
+
+            FriendlyMessage ContPer02 = new FriendlyMessage("ContPer02", MessageType.Success, "ContactPerson Details updated successfully.");
+            hash.Add("ContPer02", ContPer02);
+
+            FriendlyMessage ContPer03 = new FriendlyMessage("ContPer03", MessageType.Information, "ContactPerson Details deleted successfully.");
+            hash.Add("ContPer03", ContPer03);
+
+            FriendlyMessage ContPer04 = new FriendlyMessage("ContPer04", MessageType.Information, "No records found.");
+            hash.Add("ContPer04", ContPer04);
 
             #endregion
 

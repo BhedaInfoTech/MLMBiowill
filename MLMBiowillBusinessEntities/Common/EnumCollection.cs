@@ -99,6 +99,7 @@ namespace MLMBiowillBusinessEntities.Common
         Category = 5,
         Address = 6,
         Contact  = 7,
+        ContactPerson = 8,
     }
 
     public enum Function

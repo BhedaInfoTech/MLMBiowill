@@ -42,13 +42,16 @@ namespace MLMBiowillRepo.Master
             {
                 sqlParams.Add(new SqlParameter("@CreatedBy", ContPerInfo.CreatedBy));
             }
-                                                                                    
-            sqlParams.Add(new SqlParameter("@ContactFor", ContPerInfo.ContactFor));
-            sqlParams.Add(new SqlParameter("@ObjectId", ContPerInfo.ObjectId));
-                                                                                        
+
+            sqlParams.Add(new SqlParameter("@ObjectFor", ContPerInfo.ContactPersonFor));
+            sqlParams.Add(new SqlParameter("@FirstName", ContPerInfo.FirstName));
+            sqlParams.Add(new SqlParameter("@LastName", ContPerInfo.LastName));
+            sqlParams.Add(new SqlParameter("@MiddleName", ContPerInfo.MiddleName));
+            sqlParams.Add(new SqlParameter("@EmailId", ContPerInfo.EmailId));
+
 
             sqlParams.Add(new SqlParameter("@IsDefault", ContPerInfo.IsDefault));
-            sqlParams.Add(new SqlParameter("@Active", ContPerInfo.IsActive));
+            sqlParams.Add(new SqlParameter("@Active", ContPerInfo.Active));
             sqlParams.Add(new SqlParameter("@UpdatedBy", ContPerInfo.UpdatedBy));
 
             return sqlParams;
@@ -85,7 +88,7 @@ namespace MLMBiowillRepo.Master
             List<SqlParameter> sqlParams = new List<SqlParameter>();
             ContactPersonInfo ContPerInfo = new ContactPersonInfo();
             //sqlParams.Add(new SqlParameter("@ContactType", ContactPersonMasterInfo.ContactType));
-            sqlParams.Add(new SqlParameter("@ContactFor", ContactPersonMasterInfo.ContactFor));
+            sqlParams.Add(new SqlParameter("@ObjectFor", ContactPersonMasterInfo.ContactPersonFor));
             sqlParams.Add(new SqlParameter("@ObjectId", ContactPersonMasterInfo.ObjectId));
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Get_ContactPersMast_By_Type_For_ObjectId.ToString(), CommandType.StoredProcedure);
             //List<DataRow> drList = new List<DataRow>();
@@ -102,14 +105,14 @@ namespace MLMBiowillRepo.Master
             ContactPersonInfo ContPerInfo = new ContactPersonInfo();
 
             ContPerInfo.ContactPersonId = Convert.ToInt32(dr["ContactPersonId"]);
-            ContPerInfo.ContactType = Convert.ToString(dr["ContactType"]);
-            ContPerInfo.ContactFor = Convert.ToString(dr["ContactFor"]);
+            ContPerInfo.ContactPersonFor = Convert.ToString(dr["ObjectFor"]);
             ContPerInfo.ObjectId = Convert.ToInt32(dr["ObjectId"]);
-            ContPerInfo.CountryCode = Convert.ToString(dr["CountryCode"]);
-            ContPerInfo.StdCode = Convert.ToString(dr["StdCode"]);
-            ContPerInfo.TelMobNumber = Convert.ToString(dr["TelMobNumber"]);
+            ContPerInfo.FirstName = Convert.ToString(dr["FirstName"]);
+            ContPerInfo.MiddleName = Convert.ToString(dr["MiddleName"]);
+            ContPerInfo.LastName = Convert.ToString(dr["LastName"]);
+            ContPerInfo.EmailId = Convert.ToString(dr["EmailId"]);
             ContPerInfo.IsDefault = Convert.ToBoolean(dr["IsDefault"]);
-            ContPerInfo.IsActive = Convert.ToBoolean(dr["Active"]);
+            ContPerInfo.Active = Convert.ToBoolean(dr["Active"]);
             ContPerInfo.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
             ContPerInfo.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
             ContPerInfo.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
@@ -124,21 +127,38 @@ namespace MLMBiowillRepo.Master
             _sqlRepo.ExecuteNonQuery(sqlParams, StoredProcedureEnum.sp_Delete_ContactPersonMaster_By_Id.ToString(), CommandType.StoredProcedure);
         }
 
+        public bool CheckFirstMiddleLastNameExists(string FirstName, string MiddleName, string LastName, string ObjectFor, string ObjectId)
+        {
+            Boolean IsExists = false;
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@FirstName", FirstName));
+            sqlParams.Add(new SqlParameter("@MiddleName", MiddleName));
+            sqlParams.Add(new SqlParameter("@LastName", LastName));
+            sqlParams.Add(new SqlParameter("@ObjectFor", ObjectFor));
+            sqlParams.Add(new SqlParameter("@ObjectId", ObjectId));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Check_ContactPerson_Exsit_By_FirstMiddleLastName.ToString(), CommandType.StoredProcedure);
+            if (dt.Rows.Count > 0)
+            {
+                IsExists = true;
+            }
 
-        //public bool CheckContactType(string ContactType, string ContactFor, string ObjectId)
-        //{
-        //    Boolean IsExists = false;
-        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
-        //    sqlParams.Add(new SqlParameter("@ContactType", ContactType));
-        //    sqlParams.Add(new SqlParameter("@ContactFor", ContactFor));
-        //    sqlParams.Add(new SqlParameter("@ObjectId", ObjectId));
-        //    DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Check_ContactType.ToString(), CommandType.StoredProcedure);
-        //    if (dt.Rows.Count > 0)
-        //    {
-        //        IsExists = true;
-        //    }
+            return IsExists;
+        }
 
-        //    return IsExists;
-        //}
+        public bool CheckEmailIdExistsforCP(string EmailId, string ObjectFor, string ObjectId)
+        {
+            Boolean IsExists = false;
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            sqlParams.Add(new SqlParameter("@EmailId", EmailId));
+            sqlParams.Add(new SqlParameter("@ObjectFor", ObjectFor));
+            sqlParams.Add(new SqlParameter("@ObjectId", ObjectId));
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Check_ContactPerson_EmailId_Exsit.ToString(), CommandType.StoredProcedure);
+            if (dt.Rows.Count > 0)
+            {
+                IsExists = true;
+            }
+
+            return IsExists;
+        }
     }
 }
