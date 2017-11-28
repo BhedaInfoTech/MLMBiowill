@@ -110,8 +110,15 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_Department_Exist,
         #endregion
 
+        #region Warehouse
 
-        
+        sp_Check_Warehouse_Exist,
+        sp_Insert_Warehouse,
+        sp_Update_Warehouse,
+        sp_Get_Warehouse
+
+        #endregion
+
 
 
 

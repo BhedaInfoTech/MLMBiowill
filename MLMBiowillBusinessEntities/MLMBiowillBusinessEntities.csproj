@@ -60,10 +60,12 @@
     <Compile Include="Master\DesignationInfo.cs" />
     <Compile Include="Master\EmployeeInfo.cs" />
     <Compile Include="Master\LevelInfo.cs" />
+    <Compile Include="Master\SeriesInfo.cs" />
     <Compile Include="Master\StateInfo.cs" />
     <Compile Include="Master\Subcategory.cs" />
     <Compile Include="Master\TeleponeInfo.cs" />
     <Compile Include="Master\UserInfo.cs" />
+    <Compile Include="Master\WarehouseInfo.cs" />
     <Compile Include="Module\ModuleInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\PaginationInfo.cs" />

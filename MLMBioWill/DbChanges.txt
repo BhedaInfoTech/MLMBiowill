@@ -873,3 +873,108 @@ INSERT [dbo].[tblAutocomplete] ([AutocompleteId], [PageName], [ControlName], [Ta
 GO
 SET IDENTITY_INSERT [dbo].[tblAutocomplete] OFF
 GO
+
+
+===========================================28-11-2017============================================================================================================
+
+CREATE PROCEDURE [dbo].[sp_Get_Warehouse] (
+  @BranchId int, 
+  @WarehouseName nvarchar(25)
+) AS BEGIN 
+SELECT 
+  t.Id, 
+  t.WarehouseName,
+  t.CreatedOn, 
+  t.UpdatedOn, 
+  c.Name 'BranchName', 
+  t.BranchId , 
+  u.UserName 'Cre
+atedBy', 
+  k.UpdatedBy '
+
+UpdatedBy', 
+  (
+    case when t.[Active] = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblWarehouseMaster t 
+  left join tblBranchMaster c on t.BranchId = c.Id 
+ 
+ left join tblUserMaster u on t.CreatedBy = u.Id 
+  left join tblUserMaster k on t.UpdatedBy = k.Id 
+WHERE 
+  (
+    case when @BranchId != 0 
+    and @BranchId != '' then t.BranchId else '' end
+  ) = IsNull(@BranchId, '') 
+  AND (
+    case when @Warehouse
+Name is not null 
+    and @WarehouseName != '' then t.WarehouseName else '' end
+  ) = IsNull(@WarehouseName, '') END
+
+
+
+  CREATE PROCEDURE [dbo].[sp_Update_Warehouse] (
+  @WarehouseId INT, 
+  @Warehouse NVARCHAR(50),     
+  @BranchId int, 
+  @IsActive BIT, 
+  @UpdatedBy INT
+) AS BEGIN 
+UPDATE 
+  tblWarehouseMaster 
+SET 
+  WarehouseName = @Warehouse, 
+  BranchId = @BranchId, 
+  
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE CREATE PROCEDURE [dbo].[sp_Insert_Warehouse] (
+  @Warehouse NVARCHAR(50),     
+  @BranchId int, 
+  @IsActive BIT, 
+  @CreatedBy INT, 
+  @UpdatedBy INT
+) AS BEGIN INSERT INTO tblWarehouseMaster(
+  WarehouseName,BranchId, Active, 
+  CreatedOn, CreatedBy, Up
+datedOn, 
+  UpdatedBy
+) 
+VALUES 
+  (
+    @Warehouse, 
+    @BranchId,       
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END
+
+
+CREATE PROCEDURE [dbo].[sp_Check_Warehouse_Exist] (
+  @WarehouseName varchar(50)
+) AS BEGIN 
+SELECT   1 FROM   tblWarehouseMaster 
+WHERE 
+  LOWER(WarehouseName) = LOWER(@WarehouseName) END
+
+  Id = @WarehouseId END
+
+
+
+
+
+
+
+
+

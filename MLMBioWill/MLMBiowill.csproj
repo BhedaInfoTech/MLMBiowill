@@ -169,6 +169,7 @@
     <Compile Include="Controllers\PostLogin\Master\DesignationController.cs" />
     <Compile Include="Controllers\PostLogin\Master\StateController.cs" />
     <Compile Include="Controllers\PostLogin\Master\SubcategoryController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\WarhouseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -183,8 +184,10 @@
     <Compile Include="Models\Master\DepartmentViewModel.cs" />
     <Compile Include="Models\Master\DesignationViewModel.cs" />
     <Compile Include="Models\Master\LevelViewModel.cs" />
+    <Compile Include="Models\Master\SeriesViewModel.cs" />
     <Compile Include="Models\Master\StateViewModel.cs" />
     <Compile Include="Models\Master\SubcategoryViewModel.cs" />
+    <Compile Include="Models\Master\WarehouseViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -701,6 +704,7 @@
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
     <Folder Include="Views\AutoComplete\" />
+    <Folder Include="Views\Warhouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
