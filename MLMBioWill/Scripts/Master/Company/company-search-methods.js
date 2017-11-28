@@ -35,7 +35,6 @@ function BindCompany(data)
 
 }
 
-
 function Pagination(CurrentPage) {
 
     $('#tblCompany').attr("data-current-page", CurrentPage);
@@ -44,6 +43,6 @@ function Pagination(CurrentPage) {
 
     document.getElementById("btnEditCompany").disabled = true;
 
-    document.getElementById("btnViewContactDetails").disabled = true;
+    //document.getElementById("btnViewContactDetails").disabled = true;
 
 }

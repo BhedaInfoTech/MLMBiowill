@@ -47,6 +47,8 @@
     <Compile Include="Master\CategoryRepo.cs" />
     <Compile Include="Master\CityRepo.cs" />
     <Compile Include="Master\CompanyRepo.cs" />
+    <Compile Include="Master\ContactPersonRepo.cs" />
+    <Compile Include="Master\ContactRepo.cs" />
     <Compile Include="Master\CountryRepo.cs" />
     <Compile Include="Master\DepartmentRepo.cs" />
     <Compile Include="Master\DesignationRepo.cs" />

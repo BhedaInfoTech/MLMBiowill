@@ -3,6 +3,7 @@ using MLMBiowillBusinessEntities.Master;
 using MLMBiowillRepo.Master;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +21,9 @@ namespace MLMBiowillBusinesslogic.Master
             _AddressRepo = new AddressRepo();
         }
 
-        public void Insert_Address(AddressInfo AddInfo)
+        public Int32 Insert_Address(AddressInfo AddInfo)
         {
-            _AddressRepo.Insert_AddressMaster(AddInfo);
+            return _AddressRepo.Insert_AddressMaster(AddInfo);
         }
 
         public void Update_Address(AddressInfo AddInfo)
@@ -40,9 +41,20 @@ namespace MLMBiowillBusinesslogic.Master
             return _AddressRepo.Get_AddressMaster_By_Id(AddInfoId);
         }
 
+        public DataTable Get_Address_By_Type_For(AddressInfo AddInfo, ref PaginationInfo pager)
+        {
+            return _AddressRepo.Get_AddressMaster_By_Type_For_Id(AddInfo, ref pager);
+        }
+
+
         public void Delete_Address_By_Id(int AddInfoId)
         {
             _AddressRepo.Delete_AddressMaster_By_Id(AddInfoId);
+        }
+
+        public bool CheckAddressType(string AddressType, string AddressFor, string ObjectId)
+        {
+            return _AddressRepo.CheckAddressType(AddressType, AddressFor, ObjectId);
         }
     }
 

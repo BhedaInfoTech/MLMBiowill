@@ -69,7 +69,9 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Update_AddressMaster,
         sp_Get_AddressMaster,
         sp_Get_AddressMaster_By_Id,
+        sp_Get_AddMast_By_Type_For_ObjectId,
         sp_Delete_AddressMaster_By_Id,
+        sp_Check_AddressType,
         #endregion
 
         #region Subcategory
@@ -109,9 +111,19 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Get_Deparments,
         sp_Check_Department_Exist,
         #endregion
+         
+        #region ContactMaster
 
-        #region Warehouse
+        sp_Insert_ContactMaster,
+        sp_Update_ContactMaster,
+        sp_Get_ContactMaster,
+        sp_Get_ContactMaster_By_Id,
+        sp_Get_ContactMast_By_Type_For_ObjectId,
+        sp_Delete_ContactMaster_By_Id,
+        sp_Check_MobileNumber,
+        #endregion
 
+        #region ContactPersonMaster
         sp_Check_Warehouse_Exist,
         sp_Insert_Warehouse,
         sp_Update_Warehouse,
@@ -120,20 +132,15 @@ namespace MLMBiowillBusinessEntities.Common
         #endregion
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        sp_Insert_ContactPersonMaster,
+        sp_Update_ContactPersonMaster,
+        sp_Get_ContactPersonMaster,
+        sp_Get_ContactPersonMaster_By_Id,
+        sp_Get_ContactPersMast_By_Type_For_ObjectId,
+        sp_Delete_ContactPersonMaster_By_Id,
+        sp_Check_ContactPerson_Exsit_By_FirstMiddleLastName,
+        sp_Check_ContactPerson_EmailId_Exsit,
+        #endregion
 
     }
 }

@@ -1,0 +1,220 @@
+﻿@model MLMBioWill.Models.AddressViewModel
+@using MLMBiowillBusinessEntities.Common;
+
+<script src="~/Scripts/Master/Address/Address-events.js"></script>
+<script src="~/Scripts/Master/Address/Address-methods.js"></script>
+<script src="~/Scripts/Master/Address/Address-validation.js"></script>
+
+<div class="row">
+
+    <form role="form" id="frmAddress">
+
+        <input type="hidden" id="hdnAddressId" name="Address.AddressId" />
+
+        <!--Here it would be assigned from calling Page
+            Company/Branch/Warehouse/Employee/Customer/Agent/Courier-->
+        <input type="hidden" id="hdnAddFor" name="Address.AddressFor" value="@Model.Address.AddressFor" />
+
+        <!--Id after saving Company/Branch/Warehouse/Employee/Customer/Agent/Courier
+            would be added here -->
+        <input type="hidden" id="hdnObjectId" name="Address.ObjectId" value="@Model.Address.ObjectId" />
+
+        <div class="col-md-12">
+            <div class="row">
+                <br />
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="drpAddressType" style="color: #333" class="">Address Type</label>
+                    <div class="input-group">
+                        <select class="form-control" id="drpAddressType" name="Address.AddressType">
+                            <option value="0">Select Address Type </option>
+                            @foreach (var item in LookupInfo.Get_AddressType())
+                            {
+                                if (Model.Address.AddressType == item.Value)
+                                {
+                                    <option value="@item.Value" selected="selected">@item.Value</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Value</option>
+                                }
+                            }
+
+                        </select>
+                        <span class="input-group-addon">
+                            @*<i class="fa fa-globe"></i>*@
+                            <a> <i class="fa fa-globe"></i></a>
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Set Default</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @if (Model.Address.IsDefault)
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.Address.IsDefault.ToString()" name="Address.IsDefault" type="checkbox" id="Flag">
+                            }
+                            else
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.Address.IsDefault.ToString()" name="Address.IsDefault" type="checkbox" id="Flag">
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="">Email ID</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Enter email id" name="Address.EmailId" id="txtEmailId" value="@Model.Address.EmailId" maxlength="100">
+                            <input type="hidden" id="hdnEmailId" value="@Model.Address.EmailId">
+                            <span class="input-group-addon">
+                                <i class="fa fa-envelope"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Website Address</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Enter website add" id="txtWebsiteURL" name="Address.Website" value="@Model.Address.Website" maxlength="100">
+                            <span class="input-group-addon">
+                                <i class="fa fa-google-wallet"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Pincode</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Enter pincode" id="txtPINCode" maxlength="8" name="Address.Pincode" value="@Model.Address.Pincode">
+                        <span class="input-group-addon">
+                            <i class="fa fa-map-pin"></i>
+                        </span>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <textarea class="form-control" rows="3" placeholder="Enter address." id="txtAddress" name="Address.Address" maxlength="250"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="drpCity" style="color: #333" class="">Location</label>
+                    <div class="input-group">
+                        <select class="form-control" id="drpCity" name="Address.City" style="width:100%">
+
+                            @*<option value="0">Select city </option>*@
+
+                            @*@foreach (var item in Model.Cities)
+                                {
+                                    if (Model.Address.CityId == item.CityId)
+                                    {
+                                        <option value="@item.CityId" selected="selected">@item.CityName</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.CityId">@item.CityName</option>
+                                    }
+                                }*@
+
+                        </select>
+                        <span class="input-group-addon">
+                            <a href="/City/Index" target="_blank"> <i class="fa fa-globe"></i></a>
+                            @*<i class="fa fa-globe"></i>*@
+                        </span>
+
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="">Set Active</label>
+                    <div class="form-group">
+                        <div class="input-group">
+                            @if (Model.Address.IsActive)
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.Address.IsActive.ToString()" name="Address.IsActive" type="checkbox" id="IdFlag">
+                            }
+                            else
+                            {
+                                <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.Address.IsActive.ToString()" name="Address.IsActive" type="checkbox" id="IdFlag">
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <br />
+
+            <div class="row" style="text-align: center;">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="button" id="btnAddAddress" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                        <button type="reset" id="btnDeleteAddress" class="btn btn-danger btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light" disabled><span class="btn-label"><i class="ti-close"></i></span>Delete</button>
+                        @*<button type="button" id="btnAddDesignation" class="btn btn-purple btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Add Designation</button>*@
+                    </div>
+                </div>
+            </div>
+
+
+            @*<div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <br>
+                            <button type="button" id="btnAdd" class="btn btn-info   label-left m-b-0-25 waves-effect waves-light"><span class="btn-label"><i class="ti-check"></i></span>Add</button>
+                        </div>
+                    </div>
+                </div>
+                <br />*@
+        </div>
+        @*<div class="btn-group" style="float: right; padding: 2px 6px;">
+
+                <button type="button" style="border-top-left-radius: 20px; border-bottom-left-radius: 20px;" class="btn btn-outline-info w-min-sm m-b-0-25 waves-effect waves-light" id="btnEditContactPerson">Edit</button>
+
+                <button type="button" style="border-top-right-radius: 20px; border-bottom-right-radius: 20px;" class="btn btn-outline-info w-min-sm m-b-0-25 waves-effect waves-light" id="btnDeleteContactPerson">Delete</button>
+            </div>
+            <br />*@
+    </form>
+</div>
+
+<div class="card" id="divAddressList">
+
+    <h5 class="card-header">
+        <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Address Listing
+    </h5>
+
+    <form role="form" id="frmSearchAddress">
+
+        <input type="hidden" id="hdnSearchAddressId" name="AddressFilter.AddressId" />
+
+        <div class="card-block p-t-0 p-b-0">
+
+            <div class="overflow-x-auto">
+                <table class="table m-b-0" id="tblAddress">
+                    <thead class="thead-inverse">
+
+                </table>
+            </div>
+
+        </div>
+
+    </form>
+
+</div>

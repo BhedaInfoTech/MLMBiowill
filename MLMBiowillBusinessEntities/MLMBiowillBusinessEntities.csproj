@@ -63,7 +63,7 @@
     <Compile Include="Master\SeriesInfo.cs" />
     <Compile Include="Master\StateInfo.cs" />
     <Compile Include="Master\Subcategory.cs" />
-    <Compile Include="Master\TeleponeInfo.cs" />
+    <Compile Include="Master\ContactInfo.cs" />
     <Compile Include="Master\UserInfo.cs" />
     <Compile Include="Master\WarehouseInfo.cs" />
     <Compile Include="Module\ModuleInfo.cs" />

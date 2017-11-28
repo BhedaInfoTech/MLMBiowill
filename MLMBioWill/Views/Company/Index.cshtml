@@ -1,12 +1,10 @@
 ﻿@model MLMBioWill.Models.CompanyViewModel
 @using MLMBiowillBusinessEntities.Common;
+@using MLMBioWill.Models;
 
 
 <script src="~/Scripts/Common/generic.common.methods.js"></script>
 <script src="~/Scripts/Common/generic.common.events.js"></script>
-
-
-
 
 
 <div class="content-area p-y-1">
@@ -45,10 +43,10 @@
                     <a class="nav-link active" data-toggle="tab" role="tab" href="#Companycreate"><h5><span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Company Create</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="link1" data-toggle="tab" role="tab" href="#Companycontactcreate" style="display:none"><h5><span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Company's Contact Create</h5></a>
+                    <a class="nav-link" id="link1" data-toggle="tab" role="tab" href="#CompanyAddresscreate" style="display:none"><h5><span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Company's Address Details</h5></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="link2" data-toggle="tab" role="tab" href="#Companybankcreate" style="display:none"><h5><span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Company's Bank Create</h5></a>
+                    <a class="nav-link" id="link2" data-toggle="tab" role="tab" href="#Companycontactcreate" style="display:none"><h5><span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Company's Contact Details</h5></a>
                 </li>
             </ul>
 
@@ -60,21 +58,17 @@
 
                 </div>
 
+                <div class="tab-pane" id="CompanyAddresscreate" role="tabpanel">
+
+                    @{Html.RenderPartial("_AddressDetails", Model.AddressViewModelList);}
+
+                </div>
 
                 <div class="tab-pane" id="Companycontactcreate" role="tabpanel">
 
-
-                    @{Html.RenderPartial("_ContactPerson", Model);}
-
-                </div>
-
-
-                <div class="tab-pane" id="Companybankcreate" role="tabpanel">
-
-                    @*@{Html.RenderPartial("_CompanyBankDetails", Model);}*@
+                    @{Html.RenderPartial("_ContactDetails", Model.ContactViewModelList);}
 
                 </div>
-
 
             </div>
         </div>

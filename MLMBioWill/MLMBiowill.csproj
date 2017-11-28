@@ -53,6 +53,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -159,6 +160,9 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PostLogin\AutoCompleteController.cs" />
+    <Compile Include="Controllers\PostLogin\Common\AddressController.cs" />
+    <Compile Include="Controllers\PostLogin\Common\ContactPersonController.cs" />
+    <Compile Include="Controllers\PostLogin\Common\ContactController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BankController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BranchController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
@@ -175,11 +179,14 @@
     </Compile>
     <Compile Include="Models\AutoCompleteLookup\LookupViewModel.cs" />
     <Compile Include="Models\Common\AuthorisationViewModel.cs" />
+    <Compile Include="Models\Master\AddressViewModel.cs" />
     <Compile Include="Models\Master\BankViewModel.cs" />
     <Compile Include="Models\Master\BranchViewModel.cs" />
     <Compile Include="Models\Master\CategoryViewModel.cs" />
     <Compile Include="Models\Master\CityViewModel.cs" />
     <Compile Include="Models\Master\CompanyViewModel.cs" />
+    <Compile Include="Models\Master\ContactPersonViewModel.cs" />
+    <Compile Include="Models\Master\ContactViewModel.cs" />
     <Compile Include="Models\Master\CountryViewModel.cs" />
     <Compile Include="Models\Master\DepartmentViewModel.cs" />
     <Compile Include="Models\Master\DesignationViewModel.cs" />
@@ -630,6 +637,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\Master\Address\Address-validation.js" />
+    <Content Include="Scripts\Master\Address\Address-methods.js" />
+    <Content Include="Scripts\Master\Address\Address-events.js" />
     <Content Include="Scripts\Master\Bank\bank-events.js" />
     <Content Include="Scripts\Master\Bank\bank-methods.js" />
     <Content Include="Scripts\Master\Bank\bank-validations.js" />
@@ -646,6 +656,13 @@
     <Content Include="Scripts\Master\Company\Company-methods.js" />
     <Content Include="Scripts\Master\Company\company-search-events.js" />
     <Content Include="Scripts\Master\Company\company-search-methods.js" />
+    <Content Include="Scripts\Master\Company\Company-validations.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-events.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-methods.js" />
+    <Content Include="Scripts\Master\ContactPerson\ContactPerson-validation.js" />
+    <Content Include="Scripts\Master\Contact\Contact-events.js" />
+    <Content Include="Scripts\Master\Contact\Contact-methods.js" />
+    <Content Include="Scripts\Master\Contact\Contact-validation.js" />
     <Content Include="Scripts\Master\Country\country-events.js" />
     <Content Include="Scripts\Master\Country\country-methods.js" />
     <Content Include="Scripts\Master\Country\country-validations.js" />
@@ -688,12 +705,13 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\Search.cshtml" />
-    <Content Include="Views\Company\_ContactPerson.cshtml" />
     <Content Include="Views\City\Index.cshtml" />
     <Content Include="Views\City\Search.cshtml" />
     <Content Include="Views\Country\Search.cshtml" />
     <Content Include="Views\State\Index.cshtml" />
     <Content Include="Views\State\Search.cshtml" />
+    <Content Include="Views\Shared\_AddressDetails.cshtml" />
+    <Content Include="Views\Shared\_ContactDetails.cshtml" />
     <Content Include="Views\Country\Index.cshtml" />
     <Content Include="Views\Department\Index.cshtml" />
     <Content Include="Views\Designation\Index.cshtml" />
@@ -705,6 +723,7 @@
     <Folder Include="Properties\App_Data\" />
     <Folder Include="Views\AutoComplete\" />
     <Folder Include="Views\Warhouse\" />
+    <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
