@@ -74,6 +74,44 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_AddressType,
         #endregion
 
+        #region Subcategory
+        sp_Insert_Subcategory,
+        sp_Update_Subcategory,
+        sp_Get_Subcategories,
+        sp_Check_Subcategory_Exist,
+        sp_GetCategories,
+        #endregion
+
+        #region Branch
+
+        sp_Insert_Branch,
+        sp_Update_Branch,
+        sp_Get_Branches,
+        sp_Check_Branch_Exist,
+        #endregion
+
+        #region BankMaster
+        sp_Insert_Bank,
+        sp_Update_Bank,
+        sp_Get_Banks,
+        sp_Check_Bank_Exist,
+        #endregion
+
+        #region Designation
+        sp_Insert_Designation,
+        sp_Update_Designation,
+        sp_Get_Designations,
+        sp_Check_Designation_Exist,
+        sp_drp_Get_Companies,
+        #endregion
+
+        #region Department
+        sp_Insert_Department,
+        sp_Update_Department,
+        sp_Get_Deparments,
+        sp_Check_Department_Exist,
+        #endregion
+         
         #region ContactMaster
 
         sp_Insert_ContactMaster,

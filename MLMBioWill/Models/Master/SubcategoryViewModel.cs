@@ -7,34 +7,36 @@ using System.Web;
 
 namespace MLMBioWill.Models.Master
 {
-    public class CategoryViewModel
+    public class SubcategoryViewModel
     {
-        public CategoryViewModel()
+        public SubcategoryViewModel()
         {
-            CategoryInfo = new Category();
+            SubcategoryInfo = new SubcategoryInfo();
 
             FriendlyMessage = new List<FriendlyMessage>();
+
+            SubcategoryList = new List<SubcategoryInfo>();
 
             CategoryList = new List<Category>();
 
             Pager = new PaginationInfo();
 
         }
+        public SubcategoryInfo SubcategoryInfo { get; set; }
 
-        public Category CategoryInfo { get; set; }
+        public SubcategoryFilter SubcategoryFilter { get; set; }
 
-        public CategoryFilter CategoryFilter { get; set; }
+        public List<SubcategoryInfo> SubcategoryList { get; set; }
 
         public List<Category> CategoryList { get; set; }
 
         public PaginationInfo Pager { get; set; }
 
         public List<FriendlyMessage> FriendlyMessage { get; set; }
-
     }
-    public class CategoryFilter
+    public class SubcategoryFilter
     {
-        public string CategoryName { get; set; }
-        public int CategoryId { get; set; }
+        public string SubcategoryName { get; set; }
+        public int Id { get; set; }
     }
 }

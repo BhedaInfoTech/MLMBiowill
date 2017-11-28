@@ -14,7 +14,6 @@ namespace MLMBiowillRepo.Master
 {
     public class CountryRepo
     {
-
         SqlHelperRepo _sqlHelper = null;
 
         public CountryRepo()

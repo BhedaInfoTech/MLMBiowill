@@ -42,11 +42,16 @@
   <ItemGroup>
     <Compile Include="Master\ContactManager.cs" />
     <Compile Include="Master\AddressManager.cs" />
+    <Compile Include="Master\BankManager.cs" />
+    <Compile Include="Master\BranchManager.cs" />
     <Compile Include="Master\CityManager.cs" />
     <Compile Include="Master\CompanyManager.cs" />
     <Compile Include="Master\ContactPersonManager.cs" />
     <Compile Include="Master\CountryManager.cs" />
+    <Compile Include="Master\DeparmentManager.cs" />
+    <Compile Include="Master\DesignationMaster.cs" />
     <Compile Include="Master\StateManager.cs" />
+    <Compile Include="Master\SubcategoryManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\AutoCompleteManager.cs" />
   </ItemGroup>

@@ -1,0 +1,139 @@
+﻿@model MLMBioWill.Models.Master.BranchViewModel
+<script src="~/Scripts/Common/generic.common.methods.js"></script>
+<script src="~/Scripts/Master/Branch/branch-methods.js"></script>
+<script src="~/Scripts/Master/Branch/branch-validations.js"></script>
+<script src="~/Scripts/Master/Branch/branch-events.js"></script>
+<script src="~/Scripts/Common/generic.common.events.js"></script>
+<div class="content-area p-y-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h4>Branch</h4>
+                    <ol class="breadcrumb no-bg m-b-1">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Branch</a></li>
+                        <li class="breadcrumb-item"><a href="#">Search</a></li>
+                        <li class="breadcrumb-item active">Create</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="text-align: right; padding-top: 8px;">
+                    <span data-toggle="tooltip" data-placement="left" title="" data-color="tooltip-info" data-original-title="Help / Info">
+                        <a href="#" class="btn btn-info btn-circle waves-effect waves-light" data-toggle="modal" data-target=".help_info">
+                            <i class="ti-info"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+
+            <div class="card">
+                <h5 class="card-header">
+                    <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Branch Create
+                </h5>
+                <form role="form" id="frmBranch">
+                    <div class="card-block p-t-0 p-b-0">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">Branch Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter branch name" name="BranchInfo.BranchName" id="txtBranchName" maxlength="25">
+                                    <input type="hidden" name="BranchInfo.BranchName" id="hdnBranchName" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="drpCompany" style="color: #333" class="">Company</label>
+                                <div class="input-group">
+                                    <select class="form-control" id="drpCompany" name="BranchInfo.CompanyId">
+                                        <option value="0">Select Company</option>
+                                        @foreach (var item in Model.CompanyInfo)
+                                        {
+                                            if (Model.BranchInfo.CompanyId == item.CompanyId)
+                                            {
+                                                <option value="@item.CompanyId" selected="selected">@item.CompanyName</option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@item.CompanyId">@item.CompanyName</option>
+                                            }
+                                        }
+
+                                    </select>
+                                    <span class="input-group-addon">
+                                        <a href="/Company/Index" target="_blank"> <i class="fa fa-globe"></i></a>
+                                    </span>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="">GST Number</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter GST No" name="BranchInfo.GSTNumber" id="txtGSTNumber" maxlength="25">
+                                    <input type="hidden" name="BranchInfo.GSTNumber" id="hdnGstNo" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="">PAN Number</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter PAN number" name="BranchInfo.PANNumber" id="txtPanNumber" maxlength="25">
+                                    <input type="hidden" name="BranchInfo.PANNumber" id="hdnPanNumber" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div> 
+                            <div class="col-md-4">
+                                <label for="">Set Active</label>
+                                <div class="input-group">
+                                    <input class="js-switch" data-color="#1bc044" checked="" style="display: none;" data-switchery="true" value="true" name="BranchInfo.Active" type="checkbox" id="Flag">
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="button" id="btnSearchBranch" class="btn btn-purple btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-search"></i></span>Search</button>
+                                <button type="button" id="btnSaveBranch" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                                <button type="reset" id="btnResetBranch" class="btn btn-warning btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="submit-progress hidden">
+                    <i class="fa fa-2x fa-spinner fa-spin"></i>
+                    <label>Please wait while Saving Data...</label>
+                </div>
+                 
+            </div>
+            <div class="card">
+                <h5 class="card-header">
+                    <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Branch Listing
+                </h5>
+                <form role="form" id="frmSearchBranch">
+                    <input type="hidden" id="hdnSearchBranchId" value="" name="Filter.Id" />
+                    <div class="card-block p-t-0 p-b-0">
+                        <div class="overflow-x-auto">
+                            <table class="table m-b-0" id="tblBranch" data-current-page=""></table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+ 

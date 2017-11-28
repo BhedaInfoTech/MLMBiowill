@@ -1,0 +1,115 @@
+﻿@model MLMBioWill.Models.Master.BankViewModel
+<script src="~/Scripts/Common/generic.common.methods.js"></script>
+<script src="~/Scripts/Master/Bank/bank-methods.js"></script>
+<script src="~/Scripts/Master/Bank/bank-validations.js"></script>
+<script src="~/Scripts/Master/Bank/bank-events.js"></script>
+<script src="~/Scripts/Common/generic.common.events.js"></script>
+<div class="content-area p-y-1">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <h4>Bank</h4>
+                    <ol class="breadcrumb no-bg m-b-1">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Bank</a></li>
+                        <li class="breadcrumb-item"><a href="#">Search</a></li>
+                        <li class="breadcrumb-item active">Create</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group" style="text-align: right; padding-top: 8px;">
+                    <span data-toggle="tooltip" data-placement="left" title="" data-color="tooltip-info" data-original-title="Help / Info">
+                        <a href="#" class="btn btn-info btn-circle waves-effect waves-light" data-toggle="modal" data-target=".help_info">
+                            <i class="ti-info"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+
+            <div class="card">
+                <h5 class="card-header">
+                    <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Bank Create
+                </h5>
+                <form role="form" id="frmBank">
+                    <div class="card-block p-t-0 p-b-0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="">Bank Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter Bank name" name="BankInfo.BankName" id="txtBankName" maxlength="25">
+                                    <input type="hidden" name="BankInfo.BankName" id="hdnBankName" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div>
+                             
+                            <div class="col-md-3">
+                                <label for="">Branch Name</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter Branch Name" name="BankInfo.BranchName" id="txtBranchName" maxlength="25">
+                                    <input type="hidden" name="BankInfo.BranchName" id="hdnBranchName" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div>   
+                            <div class="col-md-3">
+                                <label for="">IFSC Code</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter IFSC Code" name="BankInfo.IFSCCode" id="txtIFSCCode" maxlength="25">
+                                    <input type="hidden" name="BankInfo.IFSCCode" id="hdnIFSCCode" value="">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-sort-alpha-asc"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="">Set Active</label>
+                                <div class="input-group">
+                                    <input class="js-switch" data-color="#1bc044" checked="" style="display: none;" data-switchery="true" value="true" name="BankInfo.Active" type="checkbox" id="Flag">
+                                </div>
+                            </div>
+                        </div>
+                         
+                        <br />
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <button type="button" id="btnSearchBank" class="btn btn-purple btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-search"></i></span>Search</button>
+                                <button type="button" id="btnSaveBank" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                                <button type="reset" id="btnResetBank" class="btn btn-warning btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="submit-progress hidden">
+                    <i class="fa fa-2x fa-spinner fa-spin"></i>
+                    <label>Please wait while Saving Data...</label>
+                </div>
+                 
+            </div>
+            <div class="card">
+                <h5 class="card-header">
+                    <span style="vertical-align: middle;" class="s-icon"><i class="ti-wand"></i></span> &nbsp; Bank Listing
+                </h5>
+                <form role="form" id="frmSearchBank">
+                    <input type="hidden" id="hdnSearchBankId" value="" name="Filter.Id" />
+                    <div class="card-block p-t-0 p-b-0">
+                        <div class="overflow-x-auto">
+                            <table class="table m-b-0" id="tblBank" data-current-page=""></table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+
+ 
