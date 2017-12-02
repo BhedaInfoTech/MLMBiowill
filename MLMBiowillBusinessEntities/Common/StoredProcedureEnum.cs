@@ -123,7 +123,6 @@ namespace MLMBiowillBusinessEntities.Common
         #endregion
 
         #region ContactPersonMaster
-
         sp_Insert_ContactPersonMaster,
         sp_Update_ContactPersonMaster,
         sp_Get_ContactPersonMaster,
@@ -133,5 +132,14 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_ContactPerson_Exsit_By_FirstMiddleLastName,
         sp_Check_ContactPerson_EmailId_Exsit,
         #endregion
+
+        #region Warhouse
+
+        sp_Check_Warehouse_Exist,
+        sp_Insert_Warehouse,
+        sp_Update_Warehouse,
+        sp_Get_Warehouse,
+        #endregion
+
     }
 }
