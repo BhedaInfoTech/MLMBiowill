@@ -3,62 +3,73 @@ using MLMBioWill.Models;
 using MLMBioWill.Models.Master;
 using MLMBiowillBusinessEntities.Common;
 using MLMBiowillBusinesslogic.Master;
+using MLMBiowillHelper.Authorization;
 using MLMBiowillHelper.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Master
 {
-    public class WarhouseController : BaseController
+    //[SessionExpired]
+    public class WarehouseController : BaseController
     {
         public WarehouseManager _warehouseManager;
 
-        public WarhouseController()
+        public WarehouseController()
         {
             _warehouseManager = new WarehouseManager();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Index(WarehouseViewModel wViewModel)
         {
             return View("Index", wViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Search()
         {
             return View();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Create)]
+        //[AuthorizeUser(RoleModule.Warehouse, Function.Create)]
         public JsonResult Insert(WarehouseViewModel wViewModel)
         {
-            try
+            Set_Date_Session(wViewModel.WarehouseInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(wViewModel.WarehouseInfo);
+                try
+                {
 
-                wViewModel.WarehouseInfo.Id = _warehouseManager.Insert_Warehouse(wViewModel.WarehouseInfo);
+                    wViewModel.WarehouseInfo.Id = _warehouseManager.Insert_Warehouse(wViewModel.WarehouseInfo);
 
-                wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT01"));
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT01"));
 
-                Logger.Debug("Warehouse Controller Insert");
+                    Logger.Debug("Warehouse Controller Insert");
+
+                    tran.Complete();
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Warehouse Controller - Insert " + ex.Message);
+                }
 
             }
-            catch (Exception ex)
-            {
-                wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Warehouse Controller - Insert " + ex.Message);
-            }
-
             return Json(wViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+
+        //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public JsonResult GetWarehouses(WarehouseViewModel wViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -69,7 +80,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
             try
             {
-                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseInfo.BranchId,wViewModel.WarehouseInfo.WarehouseName, ref pager);
+                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseInfo.BranchId, wViewModel.WarehouseInfo.WarehouseName, ref pager);
 
                 pViewModel.Pager = pager;
 
@@ -87,30 +98,37 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Edit)]
+        //[AuthorizeUser(RoleModule.Warehouse, Function.Edit)]
         public JsonResult Update(WarehouseViewModel wViewModel)
         {
-            try
+            Set_Date_Session(wViewModel.WarehouseInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(wViewModel.WarehouseInfo);
+                try
+                {
+                    _warehouseManager.Update_Warhouse(wViewModel.WarehouseInfo);
 
-                _warehouseManager.Update_Warhouse(wViewModel.WarehouseInfo);
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT02"));
 
-                wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT02"));
+                    Logger.Debug("Warehouse Controller Update");
 
-                Logger.Debug("Warehouse Controller Update");
+                    tran.Complete();
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Warehouse Controller - Update  " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Warehouse Controller - Update  " + ex.Message);
-            }
-
             return Json(wViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public JsonResult CheckWarehouseExist(string warehouse)
         {
             bool check = false;

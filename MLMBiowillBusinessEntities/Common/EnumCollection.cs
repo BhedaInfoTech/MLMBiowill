@@ -105,6 +105,9 @@ namespace MLMBiowillBusinessEntities.Common
         SubCategory = 11,
         Designation = 12,
         Department = 13,
+        Warehouse = 14,
+        Series=15,
+
     }
 
     public enum Function
