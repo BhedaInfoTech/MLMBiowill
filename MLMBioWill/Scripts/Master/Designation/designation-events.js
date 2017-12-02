@@ -35,6 +35,8 @@ $(document).ready(function () {
     $("#btnResetDesignation").click(function ()
     {
         ResetDesignations();
+
+        GetDesignations();     
     });
 
 });

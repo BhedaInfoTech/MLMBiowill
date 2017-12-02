@@ -34,6 +34,8 @@ $(document).ready(function () {
 
     $("#btnResetDepartment").click(function ()
     {
+        ResetDepartment();
+
         GetDepartments();
     });
 

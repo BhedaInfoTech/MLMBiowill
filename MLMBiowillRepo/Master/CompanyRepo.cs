@@ -55,7 +55,7 @@ namespace MLMBiowillRepo.Master
         {
 
             List<SqlParameter> sqlParam = new List<SqlParameter>();
-                                                 
+
             sqlParam.Add(new SqlParameter("@CompanyId", CompanyMasterId));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
@@ -118,7 +118,7 @@ namespace MLMBiowillRepo.Master
             sqlParam.Add(new SqlParameter("@CompanyName", CompanyName));
 
             DataTable dt = _sqlRepo.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Check_CompanyName_Exist.ToString(), CommandType.StoredProcedure);
-            if(dt.Rows.Count> 0)
+            if (dt.Rows.Count > 0)
             {
                 Is_Exist = Convert.ToBoolean(dt.Rows[0][0]);
             }
@@ -135,6 +135,40 @@ namespace MLMBiowillRepo.Master
             sqlParams.Add(new SqlParameter("@CompanyId", CompanyMasterId));
             _sqlRepo.ExecuteNonQuery(sqlParams, StoredProcedureEnum.sp_Delete_CompanyMaster_By_Id.ToString(), CommandType.StoredProcedure);
         }
-    
-}
+
+        #region Companies AutoComplete
+        public List<CompanyInfo> GetCompanies()
+        {
+            List<CompanyInfo> companieslist = new List<CompanyInfo>();
+
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+            int CompanyMasterId = 0;
+            sqlParams.Add(new SqlParameter("@CompanyId", CompanyMasterId));
+
+            DataTable dt = _sqlRepo.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_Get_CompanyMaster.ToString(), CommandType.StoredProcedure);
+
+            if (dt != null && dt.Rows.Count > 0)
+            {
+                foreach (DataRow dr in dt.Rows)
+                {
+                    companieslist.Add(GetCompaniesValues(dr));
+                }
+            }
+            return companieslist;
+        }
+
+        private CompanyInfo GetCompaniesValues(DataRow dr)
+        {
+            CompanyInfo retVal = new CompanyInfo();
+
+            retVal.CompanyId = Convert.ToInt32(dr["CompanyId"]);
+
+            retVal.CompanyName = Convert.ToString(dr["CompanyName"]);
+
+            return retVal;
+        }
+
+        #endregion
+    }
 }

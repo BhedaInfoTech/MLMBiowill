@@ -12,8 +12,8 @@ namespace MLMBiowillBusinessEntities.Master
         public string DesignationName { get; set; }         
         public bool Active { get; set; }
         public int CreatedBy { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
-        public DateTime UpdatedOn { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

@@ -12,6 +12,7 @@ using MLMBiowillBusinessEntities.Common;
 using MLMBioWill.Models;
 using MLMBiowillHelper.Logging;
 using MLMBioWill.Common;
+using System.Transactions;
 
 namespace Lohana.Controllers.PostLogin.Master
 {
@@ -44,26 +45,30 @@ namespace Lohana.Controllers.PostLogin.Master
 
         //[AuthorizeUser(RoleModule.State, Function.Create)]
         public JsonResult Insert(StateViewModel sViewModel)
-        
         {
-            try
+            Set_Date_Session(sViewModel.State);
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(sViewModel.State);
+                try
+                {
+                    sViewModel.State.StateId = _stManager.Insert_StateMaster(sViewModel.State);
 
-                sViewModel.State.StateId = _stManager.Insert_StateMaster(sViewModel.State);
+                    sViewModel.FriendlyMessage.Add(MessageStore.Get("STATE01"));
 
-                sViewModel.FriendlyMessage.Add(MessageStore.Get("STATE01"));
+                    tran.Complete();
 
-                Logger.Debug("State Controller Insert");
+                    Logger.Debug("State Controller Insert");
 
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    sViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("State Controller - Insert " + ex.Message);
+                }
             }
-            catch(Exception ex)
-            {
-                sViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("State Controller - Insert " + ex.Message);
-            }
-
             return Json(sViewModel);
         }
 
@@ -101,31 +106,36 @@ namespace Lohana.Controllers.PostLogin.Master
         //[AuthorizeUser(RoleModule.State, Function.Edit)]
         public JsonResult Update(StateViewModel sViewModel)
         {
-            try
-            {
-                Set_Date_Session(sViewModel.State);
-
-                _stManager.Update_StateMaster(sViewModel.State);
-
-                sViewModel.FriendlyMessage.Add(MessageStore.Get("STATE02"));
-
-                Logger.Debug("State Controller Update");
-
-            }
-            catch (Exception ex)
+            Set_Date_Session(sViewModel.State);
+            using (TransactionScope tran = new TransactionScope())
             {
 
-                sViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                try
+                {
+                    _stManager.Update_StateMaster(sViewModel.State);
 
-                Logger.Error("State Controller - Update  " + ex.Message);
+                    sViewModel.FriendlyMessage.Add(MessageStore.Get("STATE02"));
+
+                    tran.Complete();
+
+                    Logger.Debug("State Controller Update");
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    sViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("State Controller - Update  " + ex.Message);
+                }
             }
-
             return Json(sViewModel);
         }
 
         //[AuthorizeUser(RoleModule.State, Function.View)]
-        public JsonResult CheckStateCodeExist (string stateCode)
-        
+        public JsonResult CheckStateCodeExist(string stateCode)
+
         {
             bool check = false;
 

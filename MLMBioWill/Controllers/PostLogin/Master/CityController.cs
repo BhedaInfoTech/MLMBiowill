@@ -12,6 +12,7 @@ using MLMBioWill.Models.Master;
 using MLMBioWill.Models;
 using MLMBiowillHelper.Logging;
 using MLMBiowillBusinessEntities.State;
+using System.Transactions;
 
 namespace MLMBioWill.Controllers.Master
 {
@@ -47,25 +48,30 @@ namespace MLMBioWill.Controllers.Master
 
         //[AuthorizeUser(RoleModule.City, Function.Create)]
         public JsonResult Insert(CityViewModel cViewModel)
-
         {
-            try
+            Set_Date_Session(cViewModel.City);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.City);
+                try
+                {
+                    cViewModel.City.CityId = _cManager.Insert_CityMaster(cViewModel.City);
 
-                cViewModel.City.CityId = _cManager.Insert_CityMaster(cViewModel.City);
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("CITY01"));
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("CITY01"));
+                    tran.Complete();
 
-                Logger.Debug("City Controller Insert");
+                    Logger.Debug("City Controller Insert");
 
-            }
-            catch (Exception ex)
-            {
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
 
-                Logger.Error("City Controller - Insert " + ex.Message);
+                    Logger.Error("City Controller - Insert " + ex.Message);
+                }
             }
 
             return Json(cViewModel);
@@ -105,24 +111,32 @@ namespace MLMBioWill.Controllers.Master
         //[AuthorizeUser(RoleModule.City, Function.Edit)]
         public JsonResult Update(CityViewModel cViewModel)
         {
-            try
+            Set_Date_Session(cViewModel.City);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.City);
+                try
+                {
+                    _cManager.Update_CityMaster(cViewModel.City);
 
-                _cManager.Update_CityMaster(cViewModel.City);
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("CITY02"));
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("CITY02"));
+                    tran.Complete();
 
-                Logger.Debug("City Controller Update");
 
+                    Logger.Debug("City Controller Update");
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("City Controller - Update  " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("City Controller - Update  " + ex.Message);
-            }
-
             return Json(cViewModel);
         }
 

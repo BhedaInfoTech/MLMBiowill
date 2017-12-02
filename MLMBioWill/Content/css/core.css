@@ -138,14 +138,14 @@ a:active {
 ================================================================= */
 
 .site-sidebar {
-  position: absolute;
-  z-index: 99;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  margin-top: 60px;
-  width: 220px;
-  background-color:  #212330;
+    position: absolute;
+    z-index: 99;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 60px;
+    width: 220px;
+    background-color: #182987; /*#212330;*/
 }
 
 .right-sidebar .site-sidebar {
@@ -488,15 +488,15 @@ a:active {
 }
 
 .site-header .navbar {
-  padding: 0;
-  background-color: #fff;
+    padding: 0;
+    background-color: #ddd;
 }
 
 .site-header .navbar-left {
-  height: 60px;
-  background-color: #212330;
-  text-align: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    height: 60px;
+    background-color: #182987; /*#212330;*/
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 @media (min-width: 768px) {
@@ -524,14 +524,14 @@ a:active {
 
 .site-header .navbar-brand .logo {
   width: 100px;
-  height: 25px;
+  height: 45px;
   background: url(../img/logo.png) no-repeat;
 }
 
 @media (min-width: 768px) {
   .compact-sidebar .site-header .navbar-brand .logo {
-    width: 25px;
-    background: url(../img/logo-small.png) no-repeat;
+    /*width: 25px;*/
+    background: url(../img/logo.png) no-repeat;
   }
 }
 
@@ -1368,9 +1368,9 @@ a:active {
   height: 25px;
 }
 
-.template-options .to-skin .skin-dark-blue {
-  background-color: #212330;
-}
+    .template-options .to-skin .skin-dark-blue {
+        background-color: #182987; /*#212330;*/
+    }
 
 .template-options .to-skin .skin-dark-blue-2 {
   background-color: #373944;
@@ -3650,7 +3650,7 @@ footer .f-title {
 
 /* Auth */
 .auth-bg {
-  background-color: #212330;
+    background-color: #182987; /*#212330;*/
 }
 
 .auth {
@@ -5933,18 +5933,19 @@ table.focus-on tbody tr.focused th, table.focus-on tbody tr.focused td {
 }
 
 .fixed-footer .footer {
-  position: fixed;
-  z-index: 100;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: #fff;
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ddd;
 }
 
 @media (min-width: 768px) {
-  .fixed-footer .footer {
-    margin-left: 220px;
-  }
+    .fixed-footer .footer {
+        float: left;
+        margin-left: 220px;
+    }
 }
 
 /* Row */

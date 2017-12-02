@@ -85,33 +85,6 @@ namespace MLMBiowillRepo.Master
 
         }
 
-        public List<CompanyInfo> GetCompanies()
-        {
-            List<CompanyInfo> countries = new List<CompanyInfo>();
-
-            List<SqlParameter> sqlParams = new List<SqlParameter>();
-
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_drp_Get_Companies.ToString(), CommandType.StoredProcedure);
-
-            if (dt != null && dt.Rows.Count > 0)
-            {
-                foreach (DataRow dr in dt.Rows)
-                {
-                    countries.Add(GetCompaniesValues(dr));
-                }
-            }
-            return countries;
-        }
-
-        private CompanyInfo GetCompaniesValues(DataRow dr)
-        {
-            CompanyInfo retVal = new CompanyInfo();
-
-            retVal.CompanyId = Convert.ToInt32(dr["Id"]);
-
-            retVal.CompanyName = Convert.ToString(dr["Name"]);
-
-            return retVal;
-        }
+      
     }
 }

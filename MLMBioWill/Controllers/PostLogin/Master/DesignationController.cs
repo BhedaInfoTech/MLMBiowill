@@ -8,11 +8,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Master
 {
+    //[SessionExpired]
     public class DesignationController : BaseController
     {
         public DesignationManager _designationManager;
@@ -22,43 +24,49 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             _designationManager = new DesignationManager();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Designation, Function.View)]
         public ActionResult Index(DesignationViewModel dViewModel)
         {
             return View("Index", dViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Designation, Function.View)]
         public ActionResult Search()
         {
             return View();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Create)]
+        //[AuthorizeUser(RoleModule.Designation, Function.Create)]
         public JsonResult Insert(DesignationViewModel dViewModel)
         {
-            try
+            Set_Date_Session(dViewModel.DesignationInfo);
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(dViewModel.DesignationInfo);
+                try
+                {
 
-                dViewModel.DesignationInfo.Id = _designationManager.Insert_Designation(dViewModel.DesignationInfo);
+                    dViewModel.DesignationInfo.Id = _designationManager.Insert_Designation(dViewModel.DesignationInfo);
 
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("DESIGNATION01"));
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("DESIGNATION01"));
 
-                Logger.Debug("Designation Controller Insert");
+                    tran.Complete(); ;
+
+                    Logger.Debug("Designation Controller Insert");
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Designation Controller - Insert " + ex.Message);
+                }
 
             }
-            catch (Exception ex)
-            {
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Designation Controller - Insert " + ex.Message);
-            }
-
             return Json(dViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Designation, Function.View)]
         public JsonResult GetDesignation(DesignationViewModel dViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -69,7 +77,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
             try
             {
-                pViewModel.dt = _designationManager.GetDesignation( dViewModel.DesignationInfo.DesignationName, ref pager);
+                pViewModel.dt = _designationManager.GetDesignation(dViewModel.DesignationInfo.DesignationName, ref pager);
 
                 pViewModel.Pager = pager;
 
@@ -87,29 +95,38 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Edit)]
+        //[AuthorizeUser(RoleModule.Designation, Function.Edit)]
         public JsonResult Update(DesignationViewModel dViewModel)
         {
-            try
+            Set_Date_Session(dViewModel.DesignationInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(dViewModel.DesignationInfo);
+                try
+                {
 
-                _designationManager.Update_Designation(dViewModel.DesignationInfo);
+                    _designationManager.Update_Designation(dViewModel.DesignationInfo);
 
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("DESIGNATION02"));
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("DESIGNATION02"));
 
-                Logger.Debug("Designation Controller Update");
-            }
-            catch (Exception ex)
-            {
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                    tran.Complete();
 
-                Logger.Error("Designation Controller - Update  " + ex.Message);
+                    Logger.Debug("Designation Controller Update");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Designation Controller - Update  " + ex.Message);
+                }
+
             }
 
             return Json(dViewModel);
         }
-                
+
         //[AuthorizeUser(RoleModule.Designation, Function.View)]
         public JsonResult CheckDesignationNameExist(string DesignationName)
         {

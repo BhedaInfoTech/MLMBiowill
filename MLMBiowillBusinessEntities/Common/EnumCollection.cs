@@ -13,7 +13,7 @@ namespace MLMBiowillBusinessEntities.Common
         DateTime,
         Boolean,
     }
-    
+
     public enum MessageType
     {
         Information = 1,
@@ -29,7 +29,7 @@ namespace MLMBiowillBusinessEntities.Common
         Female = 2,
         Transgender = 3,
     }
-          
+
     public enum PaymentOption
     {
         DebitCard = 1,
@@ -38,14 +38,14 @@ namespace MLMBiowillBusinessEntities.Common
         NEFT = 4,
         Cheque = 5,
     }
-        
+
     public enum VendorType
     {
         Individual = 1,
         Company = 2,
         Partnership = 3,
     }
-        
+
     public enum UserRole
     {
         SuperAdmin = 1,
@@ -98,8 +98,13 @@ namespace MLMBiowillBusinessEntities.Common
         Company = 4,
         Category = 5,
         Address = 6,
-        Contact  = 7,
+        Contact = 7,
         ContactPerson = 8,
+        Bank = 9,
+        Branch = 10,
+        SubCategory = 11,
+        Designation = 12,
+        Department = 13,
     }
 
     public enum Function
@@ -141,7 +146,7 @@ namespace MLMBiowillBusinessEntities.Common
         HeadOffice = 3,
         Permanent = 4,
         Correspondence = 5,
-        
+
     }
 
     public enum AddressFor

@@ -3,16 +3,19 @@ using MLMBioWill.Models;
 using MLMBioWill.Models.Master;
 using MLMBiowillBusinessEntities.Common;
 using MLMBiowillBusinesslogic.Master;
+using MLMBiowillHelper.Authorization;
 using MLMBiowillHelper.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Master
 {
+    //[SessionExpired]
     public class SubcategoryController : BaseController
     {
         public SubcategoryManager _subcatManager;
@@ -22,40 +25,49 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             _subcatManager = new SubcategoryManager();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.View)]
         public ActionResult Index(SubcategoryViewModel dViewModel)
         {
             dViewModel.CategoryList = _subcatManager.GetCategories();
             return View("Index", dViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.View)]
         public ActionResult Search()
         {
             return View();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Create)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.Create)]
         public JsonResult Insert(SubcategoryViewModel dViewModel)
         {
-            try
+            Set_Date_Session(dViewModel.SubcategoryInfo);
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(dViewModel.SubcategoryInfo);
+                try
+                {
 
-                dViewModel.SubcategoryInfo.Id = _subcatManager.Insert_Subcategory(dViewModel.SubcategoryInfo);
+                    dViewModel.SubcategoryInfo.Id = _subcatManager.Insert_Subcategory(dViewModel.SubcategoryInfo);
 
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SUBCATEGORY01"));                
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SUBCATEGORY01"));
 
+                    tran.Complete();
+
+                    Logger.Debug("Sub Category Controller : Insert Success");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Debug("Sub Category Controller : Insert Error " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));                  
-            }
-
             return Json(dViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.View)]
         public JsonResult GetSubCategories(SubcategoryViewModel dViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -84,30 +96,34 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Edit)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.Edit)]
         public JsonResult Update(SubcategoryViewModel dViewModel)
         {
-            try
+            Set_Date_Session(dViewModel.SubcategoryInfo);
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(dViewModel.SubcategoryInfo);
+                try
+                {
+                    _subcatManager.Update_Subcategory(dViewModel.SubcategoryInfo);
 
-                _subcatManager.Update_Subcategory(dViewModel.SubcategoryInfo);
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SUBCATEGORY02"));
 
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SUBCATEGORY02"));
+                    tran.Complete();
 
-                Logger.Debug("Subcategory Controller Update");
+                    Logger.Debug("Subcategory Controller Update");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+                    dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Subcategory Controller - Update  " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                dViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Subcategory Controller - Update  " + ex.Message);
-            }
-
             return Json(dViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.SubCategory, Function.View)]
         public JsonResult CheckSubcategoryExist(string subcategoryName)
         {
             bool check = false;

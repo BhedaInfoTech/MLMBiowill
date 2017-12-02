@@ -35,6 +35,8 @@ $(document).ready(function () {
     $("#btnResetCategory").click(function ()
     {
         ResetCategories();
+
+        GetCategories();
     });
 
 });

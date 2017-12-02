@@ -3,16 +3,19 @@ using MLMBioWill.Models;
 using MLMBioWill.Models.Master;
 using MLMBiowillBusinessEntities.Common;
 using MLMBiowillBusinesslogic.Master;
+using MLMBiowillHelper.Authorization;
 using MLMBiowillHelper.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
 namespace MLMBioWill.Controllers.PostLogin.Master
 {
+    //[SessionExpired]
     public class BranchController : BaseController
     {
         public BranchManager _branchManager;
@@ -24,45 +27,52 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             _companyManager = new CompanyManager();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Branch, Function.View)]
         public ActionResult Index(BranchViewModel bViewModel)
         {
-
             bViewModel.CompanyInfo = _branchManager.GetCompanies();
+
             return View("Index", bViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Branch, Function.View)]
         public ActionResult Search()
         {
             return View();
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Create)]
+        //[AuthorizeUser(RoleModule.Branch, Function.Create)]
         public JsonResult Insert(BranchViewModel bViewModel)
         {
-            try
+            Set_Date_Session(bViewModel.BranchInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(bViewModel.BranchInfo);
+                try
+                {
 
-                bViewModel.BranchInfo.Id = _branchManager.Insert_Branch(bViewModel.BranchInfo);
+                    bViewModel.BranchInfo.Id = _branchManager.Insert_Branch(bViewModel.BranchInfo);
 
-                bViewModel.FriendlyMessage.Add(MessageStore.Get("BRANCH01"));
+                    bViewModel.FriendlyMessage.Add(MessageStore.Get("BRANCH01"));
 
-                Logger.Debug("Branch Controller Insert");
+                    tran.Complete();
 
+                    Logger.Debug("Branch Controller Insert");
+
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    bViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Branch Controller - Insert " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                bViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Branch Controller - Insert " + ex.Message);
-            }
-
             return Json(bViewModel);
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        //[AuthorizeUser(RoleModule.Branch, Function.View)]
         public JsonResult GetBranches(BranchViewModel bViewModel)
         {
             PaginationInfo pager = new PaginationInfo();
@@ -91,30 +101,37 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
         }
 
-        //[AuthorizeUser(RoleModule.Country, Function.Edit)]
+        //[AuthorizeUser(RoleModule.Branch, Function.Edit)]
         public JsonResult Update(BranchViewModel bViewModel)
         {
-            try
+            Set_Date_Session(bViewModel.BranchInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(bViewModel.BranchInfo);
+                try
+                {  
+                    _branchManager.Update_Branch(bViewModel.BranchInfo);
 
-                _branchManager.Update_Branch(bViewModel.BranchInfo);
+                    bViewModel.FriendlyMessage.Add(MessageStore.Get("BRANCH02"));
 
-                bViewModel.FriendlyMessage.Add(MessageStore.Get("BRANCH02"));
+                    tran.Complete();
 
-                Logger.Debug("Branch Controller Update");
-            }
-            catch (Exception ex)
-            {
-                bViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                    Logger.Debug("Branch Controller Update");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
 
-                Logger.Error("Branch Controller - Update  " + ex.Message);
+                    bViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Branch Controller - Update  " + ex.Message);
+                }
             }
 
             return Json(bViewModel);
         }
-        
-        //[AuthorizeUser(RoleModule.Country, Function.View)]
+
+        //[AuthorizeUser(RoleModule.Branch, Function.View)]
         public JsonResult CheckBranchExist(string branch)
         {
             bool check = false;

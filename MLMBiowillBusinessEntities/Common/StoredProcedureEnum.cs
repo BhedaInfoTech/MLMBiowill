@@ -102,7 +102,6 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Update_Designation,
         sp_Get_Designations,
         sp_Check_Designation_Exist,
-        sp_drp_Get_Companies,
         #endregion
 
         #region Department

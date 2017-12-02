@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,22 +35,29 @@ namespace MLMBioWill.Controllers.PostLogin.Master
         //[AuthorizeUser(RoleModule.Category, Function.Create)]
         public JsonResult Insert(CategoryViewModel cViewModel)
         {
-            try
+            Set_Date_Session(cViewModel.CategoryInfo);
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.CategoryInfo);
+                try
+                {
 
-                cViewModel.CategoryInfo.CategoryId = _cRepo.Insert(cViewModel.CategoryInfo);
+                    cViewModel.CategoryInfo.CategoryId = _cRepo.Insert(cViewModel.CategoryInfo);
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("CATEGORY01"));
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("CATEGORY01"));
 
-                Logger.Debug("Category Controller Insert");
+                    tran.Complete();
 
-            }
-            catch (Exception ex)
-            {
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+                    Logger.Debug("Category Controller Insert");
 
-                Logger.Error("Category Controller - Insert " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Category Controller - Insert " + ex.Message);
+                }
             }
 
             return Json(cViewModel);
@@ -87,23 +95,29 @@ namespace MLMBioWill.Controllers.PostLogin.Master
         //[AuthorizeUser(RoleModule.Category, Function.Edit)]
         public JsonResult Update(CategoryViewModel cViewModel)
         {
-            try
+            Set_Date_Session(cViewModel.CategoryInfo);
+
+            using (TransactionScope tran = new TransactionScope())
             {
-                Set_Date_Session(cViewModel.CategoryInfo);
+                try
+                {   
+                    _cRepo.Update(cViewModel.CategoryInfo);
 
-                _cRepo.Update(cViewModel.CategoryInfo);
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("CATEGORY02"));
 
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("CATEGORY02"));
+                    tran.Complete();
 
-                Logger.Debug("Category Controller Update");
+                    Logger.Debug("Category Controller Update");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+                    
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Category Controller - Update  " + ex.Message);
+                }
             }
-            catch (Exception ex)
-            {
-                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-                Logger.Error("Category Controller - Update  " + ex.Message);
-            }
-
             return Json(cViewModel);
         }
 

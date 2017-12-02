@@ -39,6 +39,8 @@
         document.getElementById("frmSearchState").reset();
 
         ResetState();
+
+        GetStates();
     });
 
 

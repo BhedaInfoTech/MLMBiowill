@@ -42,6 +42,8 @@
         document.getElementById("frmSearchCity").reset();
 
         ResetCity();
+
+        GetCities();
     });
 
 });

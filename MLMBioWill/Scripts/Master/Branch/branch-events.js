@@ -35,6 +35,8 @@ $(document).ready(function () {
     $("#btnResetBranch").click(function ()
     {
         ResetBranches();
+
+        GetBranches();
     });
 
 });

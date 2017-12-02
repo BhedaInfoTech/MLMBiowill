@@ -8,149 +8,160 @@ using MLMBiowillHelper.Authorization;
 using MLMBioWill.Models.Master;
 using MLMBiowillHelper.Logging;
 using MLMBioWill.Models;
+using System.Transactions;
 
 namespace MLMBioWill.Controllers.Master
 {
     //[SessionExpired]
     public class CountryController : BaseController
     {
-    public CountryManager _CountryManager;
+        public CountryManager _CountryManager;
 
-    public CountryController()
-    {
-        _CountryManager = new CountryManager();
-    }
+        public CountryController()
+        {
+            _CountryManager = new CountryManager();
+        }
 
-    //[AuthorizeUser(RoleModule.Country, Function.View)]
-    public ActionResult Index(CountryViewModel cViewModel)
-    {
-        return View("Index", cViewModel);
-    }
+        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        public ActionResult Index(CountryViewModel cViewModel)
+        {
+            return View("Index", cViewModel);
+        }
 
-    //[AuthorizeUser(RoleModule.Country, Function.View)]
-    public ActionResult Search()
-    {
-        return View();
-    }
+        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        public ActionResult Search()
+        {
+            return View();
+        }
 
-    //[AuthorizeUser(RoleModule.Country, Function.Create)]
-    public JsonResult Insert(CountryViewModel cViewModel)
-    {
-        try
+        //[AuthorizeUser(RoleModule.Country, Function.Create)]
+        public JsonResult Insert(CountryViewModel cViewModel)
         {
             Set_Date_Session(cViewModel.Country);
+            using (TransactionScope tran = new TransactionScope())
+            {
+                try
+                {
+                    cViewModel.Country.CountryId = _CountryManager.Insert_Country(cViewModel.Country);
 
-            cViewModel.Country.CountryId = _CountryManager.Insert_Country(cViewModel.Country);
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("Country01"));
 
-            cViewModel.FriendlyMessage.Add(MessageStore.Get("Country01"));
+                    tran.Complete();
 
-            Logger.Debug("Country Controller Insert");
+                    Logger.Debug("Country Controller Insert");
 
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Country Controller - Insert " + ex.Message);
+                }
+            }
+            return Json(cViewModel);
         }
-        catch (Exception ex)
+
+        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        public JsonResult GetCountries(CountryViewModel cViewModel)
         {
-            cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+            PaginationInfo pager = new PaginationInfo();
 
-            Logger.Error("Country Controller - Insert " + ex.Message);
+            pager = cViewModel.Pager;
+
+            PaginationViewModel pViewModel = new PaginationViewModel();
+
+            try
+            {
+                pViewModel.dt = _CountryManager.GetCountries(cViewModel.Country.CountryCode, cViewModel.Country.CountryName, ref pager);
+
+                pViewModel.Pager = pager;
+
+                Logger.Debug("Country Controller GetCountries");
+            }
+
+            catch (Exception ex)
+            {
+                cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Country Controller - GetCountries" + ex.ToString());
+            }
+
+            return Json(JsonConvert.SerializeObject(pViewModel), JsonRequestBehavior.AllowGet);
+
         }
 
-        return Json(cViewModel);
-    }
-
-    //[AuthorizeUser(RoleModule.Country, Function.View)]
-    public JsonResult GetCountries(CountryViewModel cViewModel)
-    {
-        PaginationInfo pager = new PaginationInfo();
-
-        pager = cViewModel.Pager;
-
-        PaginationViewModel pViewModel = new PaginationViewModel();
-
-        try
-        {
-            pViewModel.dt = _CountryManager.GetCountries(cViewModel.Country.CountryCode, cViewModel.Country.CountryName, ref pager);
-
-            pViewModel.Pager = pager;
-
-            Logger.Debug("Country Controller GetCountries");
-        }
-
-        catch (Exception ex)
-        {
-            cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
-
-            Logger.Error("Country Controller - GetCountries" + ex.ToString());
-        }
-
-        return Json(JsonConvert.SerializeObject(pViewModel), JsonRequestBehavior.AllowGet);
-
-    }
-
-    //[AuthorizeUser(RoleModule.Country, Function.Edit)]
-    public JsonResult Update(CountryViewModel cViewModel)
-    {
-        try
+        //[AuthorizeUser(RoleModule.Country, Function.Edit)]
+        public JsonResult Update(CountryViewModel cViewModel)
         {
             Set_Date_Session(cViewModel.Country);
+            using (TransactionScope tran = new TransactionScope())
+            {
+                try
+                {
+                    _CountryManager.Update_Country(cViewModel.Country);
 
-            _CountryManager.Update_Country(cViewModel.Country);
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("Country02"));
 
-            cViewModel.FriendlyMessage.Add(MessageStore.Get("Country02"));
+                    tran.Complete();
 
-            Logger.Debug("Country Controller Update");
+                    Logger.Debug("Country Controller Update");
+                }
+                catch (Exception ex)
+                {
+                    tran.Dispose();
+
+                    cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                    Logger.Error("Country Controller - Update  " + ex.Message);
+                }
+            }
+            return Json(cViewModel);
         }
-        catch (Exception ex)
+
+        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        public JsonResult CheckCountryCodeExist(string countryCode)
         {
-            cViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+            bool check = false;
 
-            Logger.Error("Country Controller - Update  " + ex.Message);
+            CountryViewModel cViewModel = new CountryViewModel();
+
+            try
+            {
+                check = _CountryManager.CheckCountryCodeExist(countryCode);
+
+                Logger.Debug("Country Controller CheckCountryCodeExist");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Country Controller - CheckCountryCodeExist" + ex.Message);
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
         }
 
-        return Json(cViewModel);
-    }
-
-    //[AuthorizeUser(RoleModule.Country, Function.View)]
-    public JsonResult CheckCountryCodeExist(string countryCode)
-    {
-        bool check = false;
-
-        CountryViewModel cViewModel = new CountryViewModel();
-
-        try
+        //[AuthorizeUser(RoleModule.Country, Function.View)]
+        public JsonResult CheckCountryNameExist(string countryName)
         {
-            check = _CountryManager.CheckCountryCodeExist(countryCode);
+            bool check = false;
 
-            Logger.Debug("Country Controller CheckCountryCodeExist");
+            CountryViewModel cViewModel = new CountryViewModel();
+
+            try
+            {
+                check = _CountryManager.CheckCountryNameExist(countryName);
+
+                Logger.Debug("Country Controller CheckCountryNameExist");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error("Country Controller - CheckCountryNameExist" + ex.Message);
+            }
+
+            return Json(check, JsonRequestBehavior.AllowGet);
+
         }
-        catch (Exception ex)
-        {
-            Logger.Error("Country Controller - CheckCountryCodeExist" + ex.Message);
-        }
-
-        return Json(check, JsonRequestBehavior.AllowGet);
-    }
-
-    //[AuthorizeUser(RoleModule.Country, Function.View)]
-    public JsonResult CheckCountryNameExist(string countryName)
-    {
-        bool check = false;
-
-        CountryViewModel cViewModel = new CountryViewModel();
-
-        try
-        {
-            check = _CountryManager.CheckCountryNameExist(countryName);
-
-            Logger.Debug("Country Controller CheckCountryNameExist");
-        }
-        catch (Exception ex)
-        {
-            Logger.Error("Country Controller - CheckCountryNameExist" + ex.Message);
-        }
-
-        return Json(check, JsonRequestBehavior.AllowGet);
-
-    }
 
     }
 }

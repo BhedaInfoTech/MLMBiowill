@@ -13,9 +13,12 @@ namespace MLMBiowillBusinesslogic.Master
     public class BranchManager
     {
         BranchRepo _branchRepo;
+        CompanyRepo _companyRepo;
+
         public BranchManager()
         {
             _branchRepo = new BranchRepo();
+            _companyRepo = new CompanyRepo();
         }
         public int Insert_Branch(BranchInfo _branchInfo)
         {
@@ -39,7 +42,7 @@ namespace MLMBiowillBusinesslogic.Master
 
         public List<CompanyInfo> GetCompanies()
         {
-            return _branchRepo.GetCompanies();
+            return _companyRepo.GetCompanies();
         }
     }
 }

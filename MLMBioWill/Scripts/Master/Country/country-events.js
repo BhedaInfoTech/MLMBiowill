@@ -35,7 +35,9 @@ $(document).ready(function () {
 
     $("#btnResetCountry").click(function ()
     {
-    	ResetCountry();
+        ResetCountry();
+
+        GetCountries();
     });
 
 });
