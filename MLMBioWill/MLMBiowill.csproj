@@ -173,7 +173,7 @@
     <Compile Include="Controllers\PostLogin\Master\DesignationController.cs" />
     <Compile Include="Controllers\PostLogin\Master\StateController.cs" />
     <Compile Include="Controllers\PostLogin\Master\SubcategoryController.cs" />
-    <Compile Include="Controllers\PostLogin\Master\WarhouseController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\WarehouseController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -722,8 +722,8 @@
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
     <Folder Include="Views\AutoComplete\" />
-    <Folder Include="Views\Warhouse\" />
     <Folder Include="Views\Contact\" />
+    <Folder Include="Views\Warhouse\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
