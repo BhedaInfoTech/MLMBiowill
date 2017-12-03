@@ -259,7 +259,20 @@ namespace MLMBioWill.Common
 
             #endregion
 
-           
+            #region Role
+
+            FriendlyMessage Ro01 = new FriendlyMessage("Ro01", MessageType.Success, "Role added successfully.");
+            hash.Add("Ro01", Ro01);
+
+            FriendlyMessage Ro02 = new FriendlyMessage("Ro02", MessageType.Success, "Role updated successfully.");
+            hash.Add("Ro02", Ro02);
+
+            FriendlyMessage Ro03 = new FriendlyMessage("Ro03", MessageType.Information, "No records found.");
+            hash.Add("Ro03", Ro03);
+
+            #endregion
+
+
             #region Authentication
 
             FriendlyMessage AUTHENTICATION01 = new FriendlyMessage("AUTHENTICATION01", MessageType.AcessDenied, "Sorry, you don't have permission to access on this server.");

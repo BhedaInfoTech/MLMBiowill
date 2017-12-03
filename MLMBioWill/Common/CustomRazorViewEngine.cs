@@ -15,6 +15,8 @@ namespace MLMBioWill.Common
 
                 "~/Views/PostLogin/Master/{1}/{0}.cshtml",
 
+                "~/Views/PostLogin/Master/UserManagement/{1}/{0}.cshtml",
+
                 "~/Views/PostLogin/{1}/{0}.cshtml",
 
             };

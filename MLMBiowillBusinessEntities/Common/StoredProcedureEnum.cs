@@ -110,7 +110,7 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Get_Deparments,
         sp_Check_Department_Exist,
         #endregion
-         
+
         #region ContactMaster
 
         sp_Insert_ContactMaster,
@@ -140,6 +140,18 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Update_Warehouse,
         sp_Get_Warehouse,
         #endregion
+      
+        #region Role Management
+        sp_Insert_Role, 
+        sp_Insert_Role_Module, 
+        sp_Get_Roles, 
+        sp_Get_Role_By_Id,
+        sp_Get_Module_By_Role_Id,
+        sp_Update_Role, 
+        sp_Update_Role_Module, 
+        sp_Check_Role_Name_Exist,
+        #endregion
+
 
     }
 }
