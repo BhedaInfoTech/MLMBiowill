@@ -107,6 +107,7 @@ namespace MLMBiowillBusinessEntities.Common
         Department = 13,
         Warehouse = 14,
         Series=15,
+        Role = 16,
 
     }
 
