@@ -1,0 +1,73 @@
+﻿@model MLMBioWill.Models.Master.WarehouseViewModel
+@using MLMBiowillBusinessEntities.Common;
+@using MLMBioWill.Common;
+
+<script src="~/Scripts/Master/Warehouse/warehouse-events.js"></script>
+<script src="~/Scripts/Master/Warehouse/warehouse-validations.js"></script>
+<script src="~/Scripts/Master/Warehouse/warehouse-methods.js"></script>
+
+<form role="form" id="frmWarehouse">
+
+    <input type="hidden" id="hdnSearchWarehouseId" value="" name="Filter.Id" />
+    <input type="hidden" id="hdnWarehouseId" value="@Model.WarehouseInfo.Id" name="WarehouseInfo.Id" />
+
+    <div class="row">
+        
+    </div>
+    <div class="row">
+
+        <div class="col-md-4">
+            <label for="" id="lblCompanyName">Warehouse Name</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter warehouse name" name="WarehouseInfo.WarehouseName" id="txtWarehouseName" maxlength="50" value="@Model.WarehouseInfo.WarehouseName">
+                    <input type="hidden" id="hdnWarehouseName" value="@Model.WarehouseInfo.WarehouseName">                     
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="drpBranch" style="color: #333" class="">Branch Name</label>
+                <div class="input-group">
+                    <select class="form-control input-sm" id="drpBranch" name="WarehouseInfo.BranchId"></select>
+                    <span class="input-group-addon">
+                        <a href="/Branch/Index" target="_blank"> <i class="fa fa-globe"></i></a>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="">Set Active</label>
+            <div class="form-group">
+                <div class="input-group">
+                    @if (Model.WarehouseInfo.IsActive)
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.WarehouseInfo.IsActive.ToString()" name="WarehouseInfo.IsActive" type="checkbox" id="Flag">
+                    }
+                    else
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.WarehouseInfo.IsActive.ToString()" name="WarehouseInfo.IsActive" type="checkbox" id="Flag">
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+     
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+
+                <button type="button" id="btnSaveWarehouse" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                <button type="button" id="btnResetWarehouse" class="btn btn-warning btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                <a href="Search" class="btn btn-info btn-rounded label-left m-b-0-25 waves-effect waves-light"><span class="btn-label"><i class="ti-angle-double-left"></i></span>Back</a>
+                                
+            </div>
+        </div>
+    </div>
+
+</form>

@@ -34,7 +34,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
         //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Search()
         {
-            return View();
+            return View("Search");
         }
 
         //[AuthorizeUser(RoleModule.Warehouse, Function.Create)]
@@ -49,7 +49,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
                     wViewModel.WarehouseInfo.Id = _warehouseManager.Insert_Warehouse(wViewModel.WarehouseInfo);
 
-                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT01"));
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("WAREHOUSE01"));
 
                     Logger.Debug("Warehouse Controller Insert");
 
@@ -84,7 +84,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
                 pViewModel.Pager = pager;
 
-                Logger.Debug("Warehouse Controller GetDeparment");
+                Logger.Debug("Warehouse Controller GetWarehouses");
             }
 
             catch (Exception ex)
@@ -109,7 +109,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
                 {
                     _warehouseManager.Update_Warhouse(wViewModel.WarehouseInfo);
 
-                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT02"));
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("WAREHOUSE02"));
 
                     Logger.Debug("Warehouse Controller Update");
 
