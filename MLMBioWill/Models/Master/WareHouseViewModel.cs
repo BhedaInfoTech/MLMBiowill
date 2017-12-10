@@ -29,6 +29,7 @@ namespace MLMBioWill.Models.Master
 
             ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
 
+            WarehouseFilter = new WarehouseFilter();
         }
 
         public ContactViewModel ContactViewModelList { get; set; }
@@ -44,6 +45,8 @@ namespace MLMBioWill.Models.Master
         public PaginationInfo Pager { get; set; }
 
         public List<FriendlyMessage> FriendlyMessage { get; set; }
+
+        public WarehouseFilter WarehouseFilter { get;set; }
 
     }
 

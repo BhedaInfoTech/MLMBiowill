@@ -20,14 +20,18 @@ namespace MLMBioWill.Controllers.PostLogin.Master
     {
         public WarehouseManager _warehouseManager;
 
+        public BranchManager _branchManager;
+
         public WarehouseController()
         {
             _warehouseManager = new WarehouseManager();
+            _branchManager = new BranchManager();
         }
 
         //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Index(WarehouseViewModel wViewModel)
         {
+            wViewModel.BranchInfoList = _branchManager.GetBranchList();
             return View("Index", wViewModel);
         }
 
@@ -48,6 +52,10 @@ namespace MLMBioWill.Controllers.PostLogin.Master
                 {
 
                     wViewModel.WarehouseInfo.Id = _warehouseManager.Insert_Warehouse(wViewModel.WarehouseInfo);
+
+                    wViewModel.AddressViewModelList.Address.AddressFor = AddressFor.Warehouse.ToString();
+
+                    wViewModel.ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
 
                     wViewModel.FriendlyMessage.Add(MessageStore.Get("WAREHOUSE01"));
 
@@ -80,7 +88,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
             try
             {
-                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseInfo.BranchId, wViewModel.WarehouseInfo.WarehouseName, ref pager);
+                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseFilter.WarehouseName, ref pager);
 
                 pViewModel.Pager = pager;
 
@@ -147,6 +155,31 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetWarehouseById(WarehouseViewModel wViewModel)
+        {
+            WarehouseViewModel wareViewModel = new WarehouseViewModel();
+            try
+            {
+                wareViewModel.BranchInfoList = _branchManager.GetBranchList();
+
+                wareViewModel.WarehouseInfo = _warehouseManager.GetWarehouseById(wViewModel.WarehouseFilter.Id);
+
+                wareViewModel.AddressViewModelList.Address.ObjectId = wViewModel.WarehouseFilter.Id;
+
+                wareViewModel.ContactViewModelList.ContactDetails.ObjectId = wViewModel.WarehouseFilter.Id;
+
+            }
+            catch (Exception ex)
+            {
+                
+
+                wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Warehouse Controller - Update  " + ex.Message);
+            }
+            return Index(wareViewModel);
         }
     }
 }

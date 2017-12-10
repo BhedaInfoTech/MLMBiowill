@@ -22,9 +22,9 @@ namespace MLMBiowillBusinesslogic.Master
             return _warehouseRepo.Insert(_warehouseInfo);
         }
 
-        public DataTable GetWarehouses(int branchId,string warehouseName, ref PaginationInfo pager)
+        public DataTable GetWarehouses(string warehouseName, ref PaginationInfo pager)
         {
-            return _warehouseRepo.GetWarehouses(branchId, warehouseName, ref pager);
+            return _warehouseRepo.GetWarehouses( warehouseName, ref pager);
         }
 
         public void Update_Warhouse(WarehouseInfo _warehouseInfo)
@@ -35,6 +35,11 @@ namespace MLMBiowillBusinesslogic.Master
         public bool CheckWarehouseExist(string warehouse)
         {
             return _warehouseRepo.CheckWarehouseExist(warehouse);
+        }
+
+        public WarehouseInfo GetWarehouseById(int wareHouseId)
+        {
+            return _warehouseRepo.Get_WarehouseMaster_By_Id(wareHouseId);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace MLMBiowillBusinesslogic.Master
         {
             _branchRepo.Update(_branchInfo);
         }
-        
+
         public bool CheckBranchNameExist(string branchName)
         {
             return _branchRepo.CheckbranchNameExist(branchName);
@@ -43,6 +43,11 @@ namespace MLMBiowillBusinesslogic.Master
         public List<CompanyInfo> GetCompanies()
         {
             return _companyRepo.GetCompanies();
+        }
+        
+        public List<BranchInfo> GetBranchList()
+        {
+            return _branchRepo.GetBranchList();
         }
     }
 }

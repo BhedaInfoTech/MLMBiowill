@@ -46,16 +46,16 @@ namespace MLMBiowillRepo.Master
 
             sqlParam.Add(new SqlParameter("@Pan", branchInfo.PANNumber));
 
-            sqlParam.Add(new SqlParameter("@CompanyId", branchInfo.CompanyId));             
+            sqlParam.Add(new SqlParameter("@CompanyId", branchInfo.CompanyId));
 
-            sqlParam.Add(new SqlParameter("@IsActive", branchInfo.Active));            
+            sqlParam.Add(new SqlParameter("@IsActive", branchInfo.Active));
 
             sqlParam.Add(new SqlParameter("UpdatedBy", branchInfo.UpdatedBy));
 
             return sqlParam;
         }
 
-        public DataTable GetBranches(int companyId,string BranchName, ref PaginationInfo pager)
+        public DataTable GetBranches(int companyId, string BranchName, ref PaginationInfo pager)
         {
 
             List<SqlParameter> sqlParam = new List<SqlParameter>();
@@ -73,18 +73,44 @@ namespace MLMBiowillRepo.Master
         {
             _sqlHelper.ExecuteNonQuery(SetValuesInbranchInfo(branchInfo), StoredProcedureEnum.sp_Update_Branch.ToString(), CommandType.StoredProcedure);
         }
-                
+
         public bool CheckbranchNameExist(string branchName)
-        {          
+        {
 
             List<SqlParameter> sqlParams = new List<SqlParameter>();
 
-            sqlParams.Add(new SqlParameter("@BranchName", branchName));            
+            sqlParams.Add(new SqlParameter("@BranchName", branchName));
 
             return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_Branch_Exist.ToString(), CommandType.StoredProcedure));
 
         }
 
-      
+        public List<BranchInfo> GetBranchList()
+        {
+            List<BranchInfo> branchInfoList = new List<BranchInfo>();
+
+            BranchInfo branchInfo = new BranchInfo();
+
+            List<SqlParameter> sqlParam = new List<SqlParameter>();
+
+            sqlParam.Add(new SqlParameter("@CompanyId", DBNull.Value));
+
+            sqlParam.Add(new SqlParameter("@BranchName", DBNull.Value));
+
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_Branches.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                branchInfo = new BranchInfo();
+
+                branchInfo.Id = Convert.ToInt32(dr["Id"]);
+
+                branchInfo.BranchName = Convert.ToString(dr["Name"]);
+
+                branchInfoList.Add(branchInfo);
+            }
+
+            return branchInfoList;
+        }
     }
 }

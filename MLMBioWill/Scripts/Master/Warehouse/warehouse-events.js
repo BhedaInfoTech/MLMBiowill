@@ -1,7 +1,9 @@
 ﻿$(document).ready(function ()
 {
+     
+    //GetAutocompleteScript("Warehouse Branch");
 
-    GetAutocompleteScript("Warehouse Branch");
+    //GetAutocompleteById("WarehouseInfo.BranchId");
 
     if ($("[name='WarehouseInfo.Id']").val() == 0) {
 
@@ -16,7 +18,9 @@
 
 
     $("#btnSaveWarehouse").click(function () {
+         
         if ($("#frmWarehouse").valid()) {
+             
             SaveWarehouse();
         }
 
@@ -24,7 +28,7 @@
 
     $("#btnResetWarehouse").click(function () {
 
-        document.getElementById("frmCompany").reset();
+        document.getElementById("frmWarehouse").reset();
 
     });
 

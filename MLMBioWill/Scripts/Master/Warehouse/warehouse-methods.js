@@ -7,7 +7,7 @@
     }
 
     $("#frmWarehouse").blur();
-
+     
     var wViewModel = {
 
         WarehouseInfo: {
@@ -16,7 +16,7 @@
 
             WarehouseName: $("[name='WarehouseInfo.WarehouseName']").val(),
 
-            //GSTNumber: $("[name='Company.GSTNumber']").val(),            
+            BranchId: $('#drpBranch').val(),            
 
             IsActive: activeFlg,
 

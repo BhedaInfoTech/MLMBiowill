@@ -8,9 +8,7 @@
 <script type="text/javascript" src="../Content/plugin/jquery-wizard/libs/formvalidation/formValidation.min.js"></script>
 <script type="text/javascript" src="../Content/plugin/jquery-wizard/libs/formvalidation/bootstrap.min.js"></script>
 <script src="~/Scripts/Common/generic.common.methods.js"></script>
-<script src="~/Scripts/Common/generic.common.events.js"></script>
-<script src="~/Scripts/Master/Warehouse/warehouse-events.js"></script>
-<script src="~/Scripts/Master/Warehouse/warehouse-methods.js"></script>
+<script src="~/Scripts/Common/generic.common.events.js"></script> 
 <style>
     /* Jquery Steps */
     .wizard-steps {
@@ -167,24 +165,20 @@
             },
 
             validator: function () {
-
+                 
                 if (!$(".wizard-pane.active").hasClass("not-validate")) {
 
-                    if ($(".wizard-pane.active").find("input[type='radio']").not(":checked")) {
+                    var result = true;
 
-                        $(".wizard-pane.active").find("#lblMessage").text("Please select a radio button");
+                    if ($("#hdnWarehouseId").val() == '0') {
 
-                        $(".wizard-pane.active").find("#lblMessage").css({ 'color': 'red' });
+                        $(".wizard-pane.active").find("#lblMessage").text("Please fill Warehouse details");
 
-                    }
-
-                    if ($(".wizard-pane.active").find("input[type='radio']").is(":checked")) {
-
-                        $(".wizard-pane.active").find("#lblMessage").text("");
+                        result = false;
 
                     }
 
-                    return $(".wizard-pane.active").find("[name='c1']").is(":checked");
+                    return result;
                 }
                 else {
                     return true;

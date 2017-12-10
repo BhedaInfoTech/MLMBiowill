@@ -139,8 +139,9 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Insert_Warehouse,
         sp_Update_Warehouse,
         sp_Get_Warehouse,
+        sp_GetWarehouseById,
         #endregion
-      
+
         #region Role Management
         sp_Insert_Role, 
         sp_Insert_Role_Module, 

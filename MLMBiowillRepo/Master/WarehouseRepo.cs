@@ -50,12 +50,10 @@ namespace MLMBiowillRepo.Master
             return sqlParam;
         }
 
-        public DataTable GetWarehouses(int branchId, string warhouseName, ref PaginationInfo pager)
+        public DataTable GetWarehouses(string warhouseName, ref PaginationInfo pager)
         {
 
-            List<SqlParameter> sqlParam = new List<SqlParameter>();
-
-            sqlParam.Add(new SqlParameter("@BranchId", branchId));
+            List<SqlParameter> sqlParam = new List<SqlParameter>();            
 
             sqlParam.Add(new SqlParameter("@WarehouseName", warhouseName));
 
@@ -66,7 +64,7 @@ namespace MLMBiowillRepo.Master
 
         public void Update(WarehouseInfo WarhouseInfo)
         {
-            _sqlHelper.ExecuteNonQuery(SetValuesInWarehouseInfo(WarhouseInfo), StoredProcedureEnum.sp_Update_Branch.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(SetValuesInWarehouseInfo(WarhouseInfo), StoredProcedureEnum.sp_Update_Warehouse.ToString(), CommandType.StoredProcedure);
         }
 
         public bool CheckWarehouseExist(string warehouseName)
@@ -79,6 +77,35 @@ namespace MLMBiowillRepo.Master
             return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_Warehouse_Exist.ToString(), CommandType.StoredProcedure));
 
         }
-         
+
+        public WarehouseInfo Get_WarehouseMaster_By_Id(int WarehouseId)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            WarehouseInfo WarehouseInfo = new WarehouseInfo();
+            sqlParams.Add(new SqlParameter("@WarehouseId", WarehouseId));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_GetWarehouseById.ToString(), CommandType.StoredProcedure);
+             
+            foreach (DataRow dr in dt.Rows)
+            {
+                WarehouseInfo = Get_Warehouse_Values(dr);
+            }
+            return WarehouseInfo;
+        }
+
+        private WarehouseInfo Get_Warehouse_Values(DataRow dr)
+        {
+            WarehouseInfo WarehouseInfo = new WarehouseInfo();
+
+            WarehouseInfo.Id = Convert.ToInt32(dr["Id"]);
+            WarehouseInfo.WarehouseName = Convert.ToString(dr["WarehouseName"]);             
+            WarehouseInfo.BranchId = Convert.ToInt32(dr["BranchId"]);
+            WarehouseInfo.IsActive = Convert.ToBoolean(dr["Active"]);
+            WarehouseInfo.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+            WarehouseInfo.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
+            WarehouseInfo.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
+            WarehouseInfo.UpdatedDate = Convert.ToDateTime(dr["UpdatedOn"]);
+            return WarehouseInfo;
+        }
+
     }
 }
