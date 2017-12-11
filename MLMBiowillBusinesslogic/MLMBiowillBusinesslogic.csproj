@@ -48,6 +48,7 @@
     <Compile Include="Master\CompanyManager.cs" />
     <Compile Include="Master\ContactPersonManager.cs" />
     <Compile Include="Master\CountryManager.cs" />
+    <Compile Include="Master\CourierManager.cs" />
     <Compile Include="Master\DeparmentManager.cs" />
     <Compile Include="Master\DesignationMaster.cs" />
     <Compile Include="Master\StateManager.cs" />

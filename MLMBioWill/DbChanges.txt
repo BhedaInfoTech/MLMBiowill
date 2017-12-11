@@ -1212,3 +1212,7 @@ WHERE
 
 	 End	
 ----------------------------------------------------------------------------------------------------------------
+alter table tblagentmaster drop column salutation
+alter table tblAgentMaster drop column photo
+ alter table tblagentmaster add Photo nvarchar(150)
+ alter table tblagentmaster drop column BirthDate

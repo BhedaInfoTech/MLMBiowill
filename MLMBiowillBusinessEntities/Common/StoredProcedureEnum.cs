@@ -133,7 +133,7 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Check_ContactPerson_EmailId_Exsit,
         #endregion
 
-        #region Warhouse
+        #region Warehouse
 
         sp_Check_Warehouse_Exist,
         sp_Insert_Warehouse,
@@ -151,6 +151,18 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Update_Role, 
         sp_Update_Role_Module, 
         sp_Check_Role_Name_Exist,
+        #endregion
+
+        #region Courier Master
+        sp_Insert_Courier,
+        sp_Get_Couriers,
+        sp_Update_Courier,
+        sp_Check_CourierName_Exist,
+        #endregion
+
+        #region Agent Master
+        sp_Insert_Agent,
+
         #endregion
 
 
