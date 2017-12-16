@@ -163,12 +163,14 @@
     <Compile Include="Controllers\PostLogin\Common\AddressController.cs" />
     <Compile Include="Controllers\PostLogin\Common\ContactPersonController.cs" />
     <Compile Include="Controllers\PostLogin\Common\ContactController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\AgentController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BankController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BranchController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CityController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CompanyController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CountryController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\CourierController.cs" />
     <Compile Include="Controllers\PostLogin\Master\DepartmentController.cs" />
     <Compile Include="Controllers\PostLogin\Master\DesignationController.cs" />
     <Compile Include="Controllers\PostLogin\Master\StateController.cs" />
@@ -670,6 +672,11 @@
     <Content Include="Scripts\Master\Country\country-events.js" />
     <Content Include="Scripts\Master\Country\country-methods.js" />
     <Content Include="Scripts\Master\Country\country-validations.js" />
+    <Content Include="Scripts\Master\Courier\courier-events.js" />
+    <Content Include="Scripts\Master\Courier\courier-methods.js" />
+    <Content Include="Scripts\Master\Courier\courier-search-events.js" />
+    <Content Include="Scripts\Master\Courier\courier-search-methods.js" />
+    <Content Include="Scripts\Master\Courier\courier-validations.js" />
     <Content Include="Scripts\Master\Department\department-events.js" />
     <Content Include="Scripts\Master\Department\department-methods.js" />
     <Content Include="Scripts\Master\Department\department-validations.js" />
@@ -737,9 +744,14 @@
     <Content Include="Views\Warehouse\_WarehouseDetails.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Search.cshtml" />
+    <Content Include="Views\Courier\_CourierDetails.cshtml" />
+    <Content Include="Views\Courier\Index.cshtml" />
+    <Content Include="Views\Courier\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
+    <Folder Include="Scripts\Master\Agent\" />
+    <Folder Include="Views\Agent\" />
     <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>

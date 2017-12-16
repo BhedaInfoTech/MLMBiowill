@@ -18,6 +18,14 @@ namespace MLMBioWill.Models.Master
             CourierList = new List<CourierInfo>();
 
             Pager = new PaginationInfo();
+
+            AddressViewModelList = new AddressViewModel();
+
+            ContactViewModelList = new ContactViewModel();
+
+            AddressViewModelList.Address.AddressFor = AddressFor.Warehouse.ToString();
+
+            ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
         }
         public CourierInfo CourierInfo { get; set; }
 
@@ -28,10 +36,14 @@ namespace MLMBioWill.Models.Master
         public PaginationInfo Pager { get; set; }        
 
         public List<FriendlyMessage> FriendlyMessage { get; set; }
+
+        public ContactViewModel ContactViewModelList { get; set; }
+
+        public AddressViewModel AddressViewModelList { get; set; }
     }
     public class CourierFilter
     {
-        public string CouierName { get; set; }
+        public string CourierName { get; set; }
         public int Id { get; set; }
     }
 

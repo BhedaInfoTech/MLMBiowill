@@ -1216,3 +1216,248 @@ alter table tblagentmaster drop column salutation
 alter table tblAgentMaster drop column photo
  alter table tblagentmaster add Photo nvarchar(150)
  alter table tblagentmaster drop column BirthDate
+ alter table tblagentmaster alter column Sex int
+ 
+ alter table tblCourierMaster drop column Id
+ alter table tblCourierMaster Add Id int primary key identity(1,1)
+ alter table tblCourierMaster alter column courierid nvarchar(30)
+ alter table tblCourierMaster alter column servedpincode nvarchar(10)
+
+ CREATE PROCEDURE [dbo].[sp_Check_CourierName_Exist] (
+  @CourierName varchar(50)
+) AS BEGIN 
+SELECT 
+  1 
+FROM 
+  tblCourierMaster 
+WHERE 
+  LOWER(CourierName) = LOWER(@CourierName) END GO 
+  /****** Object:  StoredProcedure [dbo].[sp_Get_Agents]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Get_Agents] (
+    @BranchId int, 
+    @FirstName nvarchar(25)
+  ) AS BEGIN 
+SELECT 
+  t.Id, 
+  t.FirstName, 
+  t.LastName, 
+  t.PANNumber, 
+  t.AadharNumber, 
+  t.AgentCode, 
+  t.BranchId, 
+  t.Sex, 
+  t.Photo, 
+  t.MiddleName, 
+  t.CreatedOn, 
+  t.UpdatedOn, 
+  c.Name 'Branch', 
+  c.Id 'BranchId', 
+  u.UserName 'CreatedBy', 
+  k.UpdatedBy 'UpdatedBy', 
+  (
+    case when t.[Active] = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblAgentMaster t 
+  left join tblBranchMaster c on t.BranchId = c.Id 
+  left join tblUserMaster u on t.CreatedBy = u.Id 
+  left join tblUserMaster k on t.UpdatedBy = k.Id 
+WHERE 
+  (
+    case when @BranchId != 0 
+    and @BranchId != '' then t.BranchId else '' end
+  ) = IsNull(@BranchId, '') 
+  AND (
+    case when @FirstName is not null 
+    and @FirstName != '' then t.FirstName else '' end
+  ) = IsNull(@FirstName, '') END GO 
+  /****** Object:  StoredProcedure [dbo].[sp_Get_Couriers]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Get_Couriers] (
+    @CourierName nvarchar(50)
+  ) AS BEGIN 
+SELECT 
+  t.Id, 
+  t.CourierId, 
+  t.CourierName, 
+  t.ServedPincode, 
+  t.CreatedOn, 
+  t.UpdatedOn, 
+  u.UserName 'CreatedBy', 
+  k.UpdatedBy 'UpdatedBy', 
+  (
+    case when t.[Active] = 0 then 'false' else 'true' end
+  ) as [Active], 
+  (
+    case when t.[Active] = 0 then 'No' else 'Yes' end
+  ) as IsActiveStr 
+FROM 
+  tblCourierMaster t 
+  left join tblUserMaster u on t.CreatedBy = u.Id 
+  left join tblUserMaster k on t.UpdatedBy = k.Id 
+WHERE 
+  (
+    case when @CourierName is not null 
+    and @CourierName != '' then t.CourierName else '' end
+  ) like '%' + IsNull(@CourierName, '') + '%' END GO 
+  /****** Object:  StoredProcedure [dbo].[sp_GetAgentById]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE procedure [dbo].[sp_GetAgentById] (@AgentId int) as Begin 
+select 
+  * 
+from 
+  tblAgentMaster 
+where 
+  id = @AgentId End GO 
+  /****** Object:  StoredProcedure [dbo].[sp_GetCourierById]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE procedure [dbo].[sp_GetCourierById] (@CourierId int) as Begin 
+select 
+  * 
+from 
+  tblCourierMaster 
+where 
+  id = @CourierId End GO 
+  /****** Object:  StoredProcedure [dbo].[sp_Insert_Agent]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Insert_Agent] (
+    @AgentCode NVARCHAR(50), 
+    @FirstName nvarchar(50), 
+    @MiddleName nvarchar(50), 
+    @LastName nvarchar(50), 
+    @BranchId int, 
+    @Sex int, 
+    @PANNumber nvarchar(20), 
+    @AadharNumber nvarchar(20), 
+    @PhotoPath nvarchar(150), 
+    @IsActive BIT, 
+    @CreatedBy INT, 
+    @UpdatedBy INT
+  ) AS BEGIN INSERT INTO tblAgentMaster(
+    AgentCode, FirstName, MiddleName, 
+    LastName, BranchId, Sex, PANNumber, 
+    AadharNumber, Photo, Active, CreatedOn, 
+    CreatedBy, UpdatedOn, UpdatedBy
+  ) 
+VALUES 
+  (
+    @AgentCode, 
+    @FirstName, 
+    @MiddleName, 
+    @LastName, 
+    @BranchId, 
+    @Sex, 
+    @PANNumber, 
+    @AadharNumber, 
+    @PhotoPath, 
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END GO 
+/****** Object:  StoredProcedure [dbo].[sp_Insert_Courier]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Insert_Courier] (
+    @CourierId NVARCHAR(50), 
+    @CourierName nvarchar(50), 
+    @ServedPincode nvarchar(25), 
+    @IsActive BIT, 
+    @CreatedBy INT, 
+    @UpdatedBy INT
+  ) AS BEGIN INSERT INTO tblCourierMaster(
+    CourierId, CourierName, ServedPincode, 
+    Active, CreatedOn, CreatedBy, UpdatedOn, 
+    UpdatedBy
+  ) 
+VALUES 
+  (
+    @CourierId, 
+    @CourierName, 
+    @ServedPincode, 
+    @IsActive, 
+    GETDATE(), 
+    @CreatedBy, 
+    GETDATE(), 
+    @UpdatedBy
+  ) 
+SELECT 
+  SCOPE_IDENTITY();
+END GO 
+/****** Object:  StoredProcedure [dbo].[sp_Update_Agent]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Update_Agent] (
+    @Id int, 
+    @AgentCode NVARCHAR(50), 
+    @FirstName nvarchar(50), 
+    @MiddleName nvarchar(50), 
+    @LastName nvarchar(50), 
+    @BranchId int, 
+    @Sex int, 
+    @PANNumber nvarchar(20), 
+    @AadharNumber nvarchar(20), 
+    @PhotoPath nvarchar(150), 
+    @IsActive BIT, 
+    @UpdatedBy INT
+  ) AS BEGIN 
+update 
+  tblAgentMaster 
+set 
+  AgentCode = @AgentCode, 
+  FirstName = @FirstName, 
+  MiddleName = @MiddleName, 
+  LastName = @LastName, 
+  BranchId = @BranchId, 
+  Sex = @Sex, 
+  PANNumber = @PANNumber, 
+  AadharNumber = @AadharNumber, 
+  Photo = @PhotoPath, 
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+where 
+  id = @Id END GO 
+  /****** Object:  StoredProcedure [dbo].[sp_Update_Courier]    Script Date: 12/16/2017 2:30:43 PM ******/
+SET 
+  ANSI_NULLS ON GO 
+SET 
+  QUOTED_IDENTIFIER ON GO CREATE PROCEDURE [dbo].[sp_Update_Courier] (
+    @Id INT, 
+    @CourierName NVARCHAR(50), 
+    @CourierId nvarchar(50), 
+    @ServedPinCode nvarchar(25), 
+    @IsActive BIT, 
+    @UpdatedBy INT
+  ) AS BEGIN 
+UPDATE 
+  tblCourierMaster 
+SET 
+  CourierId = @CourierId, 
+  CourierName = @CourierName, 
+  ServedPincode = @ServedPinCode, 
+  Active = @IsActive, 
+  UpdatedOn = GETDATE(), 
+  UpdatedBy = @UpdatedBy 
+WHERE 
+  Id = @Id END GO

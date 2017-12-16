@@ -42,85 +42,93 @@ namespace MLMBiowillRepo.Master
 
             sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.AgentCode));
 
-            sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.FirstName));
+            sqlParam.Add(new SqlParameter("@FirstName", agentInfo.FirstName));
 
-            sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.MiddleName));
+            sqlParam.Add(new SqlParameter("@MiddleName", agentInfo.MiddleName));
 
-            sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.LastName));
+            sqlParam.Add(new SqlParameter("@LastName", agentInfo.LastName));
 
-            sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.BranchId));
+            sqlParam.Add(new SqlParameter("@BranchId", agentInfo.BranchId));
 
-            sqlParam.Add(new SqlParameter("@AgentCode", agentInfo.Sex));
+            sqlParam.Add(new SqlParameter("@Sex", agentInfo.Sex));
 
             sqlParam.Add(new SqlParameter("@PANNumber", agentInfo.PanNumber));
 
-            sqlParam.Add(new SqlParameter("@AadharNumber", agentInfo.AdharNumber));
+            sqlParam.Add(new SqlParameter("@AadharNumber", agentInfo.AadharNumber));
 
             sqlParam.Add(new SqlParameter("@PhotoPath", agentInfo.ImagePath));
 
-            sqlParam.Add(new SqlParameter("@IsActive", agentInfo.Active));
+            sqlParam.Add(new SqlParameter("@IsActive", agentInfo.IsActive));
 
             sqlParam.Add(new SqlParameter("UpdatedBy", agentInfo.UpdatedBy));
 
             return sqlParam;
         }
 
-        public DataTable GetBranches(int companyId, string BranchName, ref PaginationInfo pager)
+        public DataTable GetAgents(int companyId, string BranchName, ref PaginationInfo pager)
         {
 
             List<SqlParameter> sqlParam = new List<SqlParameter>();
 
-            sqlParam.Add(new SqlParameter("@CompanyId", companyId));
+            sqlParam.Add(new SqlParameter("@BranchId", companyId));
 
-            sqlParam.Add(new SqlParameter("@BranchName", BranchName));
+            sqlParam.Add(new SqlParameter("@FirstName", BranchName));
 
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_Branches.ToString(), CommandType.StoredProcedure);
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_Agents.ToString(), CommandType.StoredProcedure);
 
             return CommonMethods.GetPaginatedTable(dt, ref pager);
         }
 
         public void Update(AgentInfo agentInfo)
         {
-            _sqlHelper.ExecuteNonQuery(SetValuesInAgentInfo(agentInfo), StoredProcedureEnum.sp_Update_Branch.ToString(), CommandType.StoredProcedure);
+            _sqlHelper.ExecuteNonQuery(SetValuesInAgentInfo(agentInfo), StoredProcedureEnum.sp_Update_Agent.ToString(), CommandType.StoredProcedure);
         }
 
-        public bool CheckbranchNameExist(string branchName)
-        {
+        //public bool CheckAgentExist(string branchName)
+        //{
 
+        //    List<SqlParameter> sqlParams = new List<SqlParameter>();
+
+        //    sqlParams.Add(new SqlParameter("@BranchName", branchName));
+
+        //    return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_Branch_Exist.ToString(), CommandType.StoredProcedure));
+
+        //}
+
+        public AgentInfo Get_Agent_By_Id(int agentId)
+        {
             List<SqlParameter> sqlParams = new List<SqlParameter>();
-
-            sqlParams.Add(new SqlParameter("@BranchName", branchName));
-
-            return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_Branch_Exist.ToString(), CommandType.StoredProcedure));
-
-        }
-
-        public List<BranchInfo> GetBranchList()
-        {
-            List<BranchInfo> branchInfoList = new List<BranchInfo>();
-
-            BranchInfo branchInfo = new BranchInfo();
-
-            List<SqlParameter> sqlParam = new List<SqlParameter>();
-
-            sqlParam.Add(new SqlParameter("@CompanyId", DBNull.Value));
-
-            sqlParam.Add(new SqlParameter("@BranchName", DBNull.Value));
-
-            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParam, StoredProcedureEnum.sp_Get_Branches.ToString(), CommandType.StoredProcedure);
+            AgentInfo agentInfo = new AgentInfo();
+            sqlParams.Add(new SqlParameter("@AgentId", agentId));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_GetAgentById.ToString(), CommandType.StoredProcedure);
 
             foreach (DataRow dr in dt.Rows)
             {
-                branchInfo = new BranchInfo();
-
-                branchInfo.Id = Convert.ToInt32(dr["Id"]);
-
-                branchInfo.BranchName = Convert.ToString(dr["Name"]);
-
-                branchInfoList.Add(branchInfo);
+                agentInfo = Get_Agent_Values(dr);
             }
-
-            return branchInfoList;
+            return agentInfo;
         }
+
+        private AgentInfo Get_Agent_Values(DataRow dr)
+        {
+            AgentInfo agentInfo = new AgentInfo();
+
+            agentInfo.Id = Convert.ToInt32(dr["Id"]);
+            agentInfo.AgentCode = Convert.ToString(dr["AgentCode"]);
+            agentInfo.FirstName = Convert.ToString(dr["FirstName"]);
+            agentInfo.MiddleName = Convert.ToString(dr["MiddleName"]);
+            agentInfo.LastName = Convert.ToString(dr["LastName"]);
+            agentInfo.BranchId = Convert.ToInt32(dr["BranchId"]);
+            agentInfo.Sex = Convert.ToInt32(dr["Sex"]);
+            agentInfo.PanNumber = Convert.ToString(dr["PANNumber"]);
+            agentInfo.AadharNumber = Convert.ToString(dr["AadharNumber"]);
+            agentInfo.IsActive = Convert.ToBoolean(dr["Active"]);
+            agentInfo.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+            agentInfo.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
+            agentInfo.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
+            agentInfo.UpdatedDate = Convert.ToDateTime(dr["UpdatedOn"]);
+            return agentInfo;
+        }
+
     }
 }

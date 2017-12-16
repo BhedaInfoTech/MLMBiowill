@@ -36,6 +36,11 @@ namespace MLMBiowillBusinesslogic.Master
         public bool CheckCourierNameExist(string courierName)
         {
             return _courierRepo.CheckCourierNameExist(courierName);
-        } 
+        }
+
+        public CourierInfo GetCourierInfoById(int courierId)
+        {
+            return _courierRepo.Get_Courier_By_Id(courierId);
+        }
     }
 }

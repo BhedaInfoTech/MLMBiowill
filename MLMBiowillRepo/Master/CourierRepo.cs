@@ -45,7 +45,7 @@ namespace MLMBiowillRepo.Master
 
             sqlParam.Add(new SqlParameter("@ServedPincode", CourierInfo.ServedPincode));
 
-            sqlParam.Add(new SqlParameter("@IsActive", CourierInfo.Active));
+            sqlParam.Add(new SqlParameter("@IsActive", CourierInfo.IsActive));
 
             sqlParam.Add(new SqlParameter("UpdatedBy", CourierInfo.UpdatedBy));
 
@@ -78,6 +78,36 @@ namespace MLMBiowillRepo.Master
 
             return Convert.ToBoolean(_sqlHelper.ExecuteScalerObj(sqlParams, StoredProcedureEnum.sp_Check_CourierName_Exist.ToString(), CommandType.StoredProcedure));
 
-        }        
+        }
+
+        public CourierInfo Get_Courier_By_Id(int CourierId)
+        {
+            List<SqlParameter> sqlParams = new List<SqlParameter>();
+            CourierInfo courierInfo = new CourierInfo();
+            sqlParams.Add(new SqlParameter("@CourierId", CourierId));
+            DataTable dt = _sqlHelper.ExecuteDataTable(sqlParams, StoredProcedureEnum.sp_GetCourierById.ToString(), CommandType.StoredProcedure);
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                courierInfo = Get_Courier_Values(dr);
+            }
+            return courierInfo;
+        }
+
+        private CourierInfo Get_Courier_Values(DataRow dr)
+        {
+            CourierInfo courierInfo = new CourierInfo();
+
+            courierInfo.Id = Convert.ToInt32(dr["Id"]);
+            courierInfo.CourierId = Convert.ToString(dr["CourierId"]);
+            courierInfo.CourierName = Convert.ToString(dr["CourierName"]);
+            courierInfo.ServedPincode = Convert.ToString(dr["ServedPincode"]);
+            courierInfo.IsActive = Convert.ToBoolean(dr["Active"]);
+            courierInfo.CreatedBy = Convert.ToInt32(dr["CreatedBy"]);
+            courierInfo.CreatedDate = Convert.ToDateTime(dr["CreatedOn"]);
+            courierInfo.UpdatedBy = Convert.ToInt32(dr["UpdatedBy"]);
+            courierInfo.UpdatedDate = Convert.ToDateTime(dr["UpdatedOn"]);
+            return courierInfo;
+        }
     }
 }

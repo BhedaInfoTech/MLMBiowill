@@ -21,6 +21,14 @@ namespace MLMBioWill.Models.Master
 
             BranchInfoList = new List<BranchInfo>();
 
+            AddressViewModelList = new AddressViewModel();
+
+            ContactViewModelList = new ContactViewModel();
+
+            AddressViewModelList.Address.AddressFor = AddressFor.Warehouse.ToString();
+
+            ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
+
         }
         public AgentInfo AgentInfo { get; set; }
 
@@ -33,6 +41,10 @@ namespace MLMBioWill.Models.Master
         public List<FriendlyMessage> FriendlyMessage { get; set; }
 
         public List<BranchInfo> BranchInfoList { get; set; }
+
+        public ContactViewModel ContactViewModelList { get; set; }
+
+        public AddressViewModel AddressViewModelList { get; set; }
     }
     public class AgentFilter
     {

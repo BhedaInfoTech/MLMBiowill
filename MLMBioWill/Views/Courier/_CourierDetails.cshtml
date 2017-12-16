@@ -1,0 +1,87 @@
+﻿@model MLMBioWill.Models.Master.CourierViewModel
+@using MLMBiowillBusinessEntities.Common;
+@using MLMBioWill.Common;
+
+<script src="~/Scripts/Master/Courier/courier-events.js"></script>
+<script src="~/Scripts/Master/Courier/courier-validations.js"></script>
+<script src="~/Scripts/Master/Courier/courier-methods.js"></script>
+
+<form role="form" id="frmCourier">
+
+    <input type="hidden" id="hdnSearchCourierId" value="" name="Filter.Id" />
+    <input type="hidden" id="hdnCourierId" value="@Model.CourierInfo.Id" name="CourierInfo.Id" />
+
+    <div class="row">
+        
+    </div>
+    <div class="row">
+
+        <div class="col-md-3">
+            <label for="" id="lblCourierName">Courier Name</label>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter courier name" name="CourierInfo.CourierName" id="txtCourierName" maxlength="50" value="@Model.CourierInfo.CourierName">
+                    <input type="hidden" id="hdnCourierName" value="@Model.CourierInfo.CourierName">                     
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtCourierCode" style="color: #333" class="">Courier Code</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter courier code" name="CourierInfo.CourierId" id="txtCourierCode" maxlength="50" value="@Model.CourierInfo.CourierId">
+                    
+                      
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <label for="txtCourierCode" style="color: #333" class="">Served Pin Code</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter served pin code" name="CourierInfo.ServedPincode" id="txtServedPin" maxlength="50" value="@Model.CourierInfo.ServedPincode">
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <label for="">Set Active</label>
+            <div class="form-group">
+                <div class="input-group">
+                    @if (Model.CourierInfo.IsActive)
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" checked="checked" value="@Model.CourierInfo.IsActive" name="CourierInfo.IsActive" type="checkbox" id="Flag">
+                    }
+                    else
+                    {
+                        <input class="js-switch" data-color="#1bc044" data-switchery="true" value="@Model.CourierInfo.IsActive.ToString()" name="CourierInfo.IsActive" type="checkbox" id="Flag">
+                    }
+                </div>
+            </div>
+        </div>
+
+    </div>
+     
+    <br />
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group">
+
+                <button type="button" id="btnSaveCourier" class="btn btn-success btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-save"></i></span>Save</button>
+                <button type="button" id="btnResetCourier" class="btn btn-warning btn-rounded label-left w-min-sm m-b-0-75 waves-effect waves-light"><span class="btn-label"><i class="ti-reload"></i></span>Reset</button>
+                <a href="Search" class="btn btn-info btn-rounded label-left m-b-0-25 waves-effect waves-light"><span class="btn-label"><i class="ti-angle-double-left"></i></span>Back</a>
+                                
+            </div>
+        </div>
+    </div>
+
+</form>

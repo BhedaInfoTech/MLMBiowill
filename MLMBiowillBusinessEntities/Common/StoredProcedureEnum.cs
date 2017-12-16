@@ -158,11 +158,14 @@ namespace MLMBiowillBusinessEntities.Common
         sp_Get_Couriers,
         sp_Update_Courier,
         sp_Check_CourierName_Exist,
+        sp_GetCourierById,
         #endregion
 
         #region Agent Master
         sp_Insert_Agent,
-
+        sp_Get_Agents,
+        sp_Update_Agent,
+        sp_GetAgentById,
         #endregion
 
 
