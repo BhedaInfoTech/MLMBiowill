@@ -12,7 +12,7 @@ namespace MLMBiowillBusinessEntities.Master
         public string CourierId { get; set; }
         public string CourierName { get; set; }
         public string ServedPincode { get; set; }
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }

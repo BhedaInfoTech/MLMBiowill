@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Master\AddressRepo.cs" />
+    <Compile Include="Master\AgentRepo.cs" />
     <Compile Include="Master\BankRepo.cs" />
     <Compile Include="Master\BranchRepo.cs" />
     <Compile Include="Master\CategoryRepo.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Master\ContactPersonRepo.cs" />
     <Compile Include="Master\ContactRepo.cs" />
     <Compile Include="Master\CountryRepo.cs" />
+    <Compile Include="Master\CourierRepo.cs" />
     <Compile Include="Master\DepartmentRepo.cs" />
     <Compile Include="Master\DesignationRepo.cs" />
     <Compile Include="Master\SeriesRepo.cs" />

@@ -289,7 +289,45 @@ namespace MLMBioWill.Common
             hash.Add("ACCESSORIES02", ACCESSORIES02);
 
             #endregion
-           
+
+            #region Warehouse
+
+            FriendlyMessage WAREHOUSE01 = new FriendlyMessage("WAREHOUSE01", MessageType.Success, "Warehouse added successfully.");
+            hash.Add("WAREHOUSE01", WAREHOUSE01);
+
+            FriendlyMessage WAREHOUSE02 = new FriendlyMessage("WAREHOUSE02", MessageType.Success, "Warehouse updated successfully.");
+            hash.Add("WAREHOUSE02", WAREHOUSE02);
+
+            FriendlyMessage WAREHOUSE03 = new FriendlyMessage("WAREHOUSE03", MessageType.Information, "No records found.");
+            hash.Add("WAREHOUSE03", WAREHOUSE03);
+
+            #endregion
+
+            #region Agent
+
+            FriendlyMessage AGENT01 = new FriendlyMessage("AGENT01", MessageType.Success, "AGENT added successfully.");
+            hash.Add("AGENT01", AGENT01);
+
+            FriendlyMessage AGENT02 = new FriendlyMessage("AGENT02", MessageType.Success, "AGENT updated successfully.");
+            hash.Add("AGENT02", AGENT02);
+
+            FriendlyMessage AGENT03 = new FriendlyMessage("AGENT03", MessageType.Information, "No records found.");
+            hash.Add("AGENT03", AGENT03);
+
+            #endregion
+
+            #region COURIER
+
+            FriendlyMessage COURIER01 = new FriendlyMessage("COURIER01", MessageType.Success, "COURIER added successfully.");
+            hash.Add("COURIER01", COURIER01);
+
+            FriendlyMessage COURIER02 = new FriendlyMessage("COURIER02", MessageType.Success, "COURIER updated successfully.");
+            hash.Add("COURIER02", COURIER02);
+
+            FriendlyMessage COURIER03 = new FriendlyMessage("COURIER03", MessageType.Information, "No records found.");
+            hash.Add("COURIER03", COURIER03);
+
+            #endregion
         }
 
         public static FriendlyMessage Get(string code)

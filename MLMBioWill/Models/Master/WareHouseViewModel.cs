@@ -21,7 +21,20 @@ namespace MLMBioWill.Models.Master
 
             Pager = new PaginationInfo();
 
+            AddressViewModelList = new AddressViewModel();
+
+            ContactViewModelList = new ContactViewModel();
+
+            AddressViewModelList.Address.AddressFor = AddressFor.Warehouse.ToString();
+
+            ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
+
+            WarehouseFilter = new WarehouseFilter();
         }
+
+        public ContactViewModel ContactViewModelList { get; set; }
+
+        public AddressViewModel AddressViewModelList { get; set; }
 
         public WarehouseInfo WarehouseInfo { get; set; }
 
@@ -32,6 +45,8 @@ namespace MLMBioWill.Models.Master
         public PaginationInfo Pager { get; set; }
 
         public List<FriendlyMessage> FriendlyMessage { get; set; }
+
+        public WarehouseFilter WarehouseFilter { get;set; }
 
     }
 

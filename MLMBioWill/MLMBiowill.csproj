@@ -163,12 +163,14 @@
     <Compile Include="Controllers\PostLogin\Common\AddressController.cs" />
     <Compile Include="Controllers\PostLogin\Common\ContactPersonController.cs" />
     <Compile Include="Controllers\PostLogin\Common\ContactController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\AgentController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BankController.cs" />
     <Compile Include="Controllers\PostLogin\Master\BranchController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CityController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CompanyController.cs" />
     <Compile Include="Controllers\PostLogin\Master\CountryController.cs" />
+    <Compile Include="Controllers\PostLogin\Master\CourierController.cs" />
     <Compile Include="Controllers\PostLogin\Master\DepartmentController.cs" />
     <Compile Include="Controllers\PostLogin\Master\DesignationController.cs" />
     <Compile Include="Controllers\PostLogin\Master\StateController.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="Models\AutoCompleteLookup\LookupViewModel.cs" />
     <Compile Include="Models\Common\AuthorisationViewModel.cs" />
     <Compile Include="Models\Master\AddressViewModel.cs" />
+    <Compile Include="Models\Master\AgentViewModel.cs" />
     <Compile Include="Models\Master\BankViewModel.cs" />
     <Compile Include="Models\Master\BranchViewModel.cs" />
     <Compile Include="Models\Master\CategoryViewModel.cs" />
@@ -190,6 +193,7 @@
     <Compile Include="Models\Master\ContactPersonViewModel.cs" />
     <Compile Include="Models\Master\ContactViewModel.cs" />
     <Compile Include="Models\Master\CountryViewModel.cs" />
+    <Compile Include="Models\Master\CourierViewModel.cs" />
     <Compile Include="Models\Master\DepartmentViewModel.cs" />
     <Compile Include="Models\Master\DesignationViewModel.cs" />
     <Compile Include="Models\Master\LevelViewModel.cs" />
@@ -670,6 +674,11 @@
     <Content Include="Scripts\Master\Country\country-events.js" />
     <Content Include="Scripts\Master\Country\country-methods.js" />
     <Content Include="Scripts\Master\Country\country-validations.js" />
+    <Content Include="Scripts\Master\Courier\courier-events.js" />
+    <Content Include="Scripts\Master\Courier\courier-methods.js" />
+    <Content Include="Scripts\Master\Courier\courier-search-events.js" />
+    <Content Include="Scripts\Master\Courier\courier-search-methods.js" />
+    <Content Include="Scripts\Master\Courier\courier-validations.js" />
     <Content Include="Scripts\Master\Department\department-events.js" />
     <Content Include="Scripts\Master\Department\department-methods.js" />
     <Content Include="Scripts\Master\Department\department-validations.js" />
@@ -682,6 +691,11 @@
     <Content Include="Scripts\Master\Subcategory\subcategory-events.js" />
     <Content Include="Scripts\Master\Subcategory\subcategory-methods.js" />
     <Content Include="Scripts\Master\Subcategory\subcategory-validations.js" />
+    <Content Include="Scripts\Master\Warehouse\warehouse-validations.js" />
+    <Content Include="Scripts\Master\Warehouse\warehouse-search-methods.js" />
+    <Content Include="Scripts\Master\Warehouse\warehouse-search-events.js" />
+    <Content Include="Scripts\Master\Warehouse\warehouse-methods.js" />
+    <Content Include="Scripts\Master\Warehouse\warehouse-events.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -727,11 +741,19 @@
     <Content Include="Views\Branch\Index.cshtml" />
     <Content Include="Views\Bank\Index.cshtml" />
     <Content Include="Views\Subcategory\Index.cshtml" />
+    <Content Include="Views\Warehouse\Search.cshtml" />
+    <Content Include="Views\Warehouse\Index.cshtml" />
+    <Content Include="Views\Warehouse\_WarehouseDetails.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Search.cshtml" />
+    <Content Include="Views\Courier\_CourierDetails.cshtml" />
+    <Content Include="Views\Courier\Index.cshtml" />
+    <Content Include="Views\Courier\Search.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
+    <Folder Include="Scripts\Master\Agent\" />
+    <Folder Include="Views\Agent\" />
     <Folder Include="Views\Contact\" />
     <Folder Include="Views\User\" />
     <Folder Include="Views\Warehouse\" />

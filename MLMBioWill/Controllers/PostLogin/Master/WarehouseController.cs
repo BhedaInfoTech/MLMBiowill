@@ -20,21 +20,25 @@ namespace MLMBioWill.Controllers.PostLogin.Master
     {
         public WarehouseManager _warehouseManager;
 
+        public BranchManager _branchManager;
+
         public WarehouseController()
         {
             _warehouseManager = new WarehouseManager();
+            _branchManager = new BranchManager();
         }
 
         //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Index(WarehouseViewModel wViewModel)
         {
+            wViewModel.BranchInfoList = _branchManager.GetBranchList();
             return View("Index", wViewModel);
         }
 
         //[AuthorizeUser(RoleModule.Warehouse, Function.View)]
         public ActionResult Search()
         {
-            return View();
+            return View("Search");
         }
 
         //[AuthorizeUser(RoleModule.Warehouse, Function.Create)]
@@ -49,7 +53,11 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
                     wViewModel.WarehouseInfo.Id = _warehouseManager.Insert_Warehouse(wViewModel.WarehouseInfo);
 
-                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT01"));
+                    wViewModel.AddressViewModelList.Address.AddressFor = AddressFor.Warehouse.ToString();
+
+                    wViewModel.ContactViewModelList.ContactDetails.ContactFor = AddressFor.Warehouse.ToString();
+
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("WAREHOUSE01"));
 
                     Logger.Debug("Warehouse Controller Insert");
 
@@ -80,11 +88,11 @@ namespace MLMBioWill.Controllers.PostLogin.Master
 
             try
             {
-                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseInfo.BranchId, wViewModel.WarehouseInfo.WarehouseName, ref pager);
+                pViewModel.dt = _warehouseManager.GetWarehouses(wViewModel.WarehouseFilter.WarehouseName, ref pager);
 
                 pViewModel.Pager = pager;
 
-                Logger.Debug("Warehouse Controller GetDeparment");
+                Logger.Debug("Warehouse Controller GetWarehouses");
             }
 
             catch (Exception ex)
@@ -109,7 +117,7 @@ namespace MLMBioWill.Controllers.PostLogin.Master
                 {
                     _warehouseManager.Update_Warhouse(wViewModel.WarehouseInfo);
 
-                    wViewModel.FriendlyMessage.Add(MessageStore.Get("DEPARTMENT02"));
+                    wViewModel.FriendlyMessage.Add(MessageStore.Get("WAREHOUSE02"));
 
                     Logger.Debug("Warehouse Controller Update");
 
@@ -147,6 +155,31 @@ namespace MLMBioWill.Controllers.PostLogin.Master
             }
 
             return Json(check, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetWarehouseById(WarehouseViewModel wViewModel)
+        {
+            WarehouseViewModel wareViewModel = new WarehouseViewModel();
+            try
+            {
+                wareViewModel.BranchInfoList = _branchManager.GetBranchList();
+
+                wareViewModel.WarehouseInfo = _warehouseManager.GetWarehouseById(wViewModel.WarehouseFilter.Id);
+
+                wareViewModel.AddressViewModelList.Address.ObjectId = wViewModel.WarehouseFilter.Id;
+
+                wareViewModel.ContactViewModelList.ContactDetails.ObjectId = wViewModel.WarehouseFilter.Id;
+
+            }
+            catch (Exception ex)
+            {
+                
+
+                wViewModel.FriendlyMessage.Add(MessageStore.Get("SYS01"));
+
+                Logger.Error("Warehouse Controller - Update  " + ex.Message);
+            }
+            return Index(wareViewModel);
         }
     }
 }

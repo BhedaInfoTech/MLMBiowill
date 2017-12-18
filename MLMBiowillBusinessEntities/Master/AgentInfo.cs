@@ -16,10 +16,11 @@ namespace MLMBiowillBusinessEntities.Master
         public string LastName { get; set; }
         public int BranchId { get; set; }
         public int Sex  { get; set; }
+        public DateTime BirthDate { get; set; }
         public string PanNumber { get; set; }
-        public string AdharNumber { get; set; }
+        public string AadharNumber { get; set; }
         public string ImagePath { get; set; }
-        public bool Active { get; set; }
+        public bool IsActive { get; set; }
         public int CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public int UpdatedBy { get; set; }
