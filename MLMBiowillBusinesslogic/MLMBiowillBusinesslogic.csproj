@@ -55,6 +55,7 @@
     <Compile Include="Master\WarehouseManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserManagement\RoleManager.cs" />
+    <Compile Include="UserManagement\UserManager.cs" />
     <Compile Include="Utilities\AutoCompleteManager.cs" />
   </ItemGroup>
   <ItemGroup />

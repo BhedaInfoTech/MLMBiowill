@@ -175,6 +175,7 @@
     <Compile Include="Controllers\PostLogin\Master\SubcategoryController.cs" />
     <Compile Include="Controllers\PostLogin\Master\WarehouseController.cs" />
     <Compile Include="Controllers\PostLogin\UserManagement\RoleController.cs" />
+    <Compile Include="Controllers\PostLogin\UserManagement\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -198,6 +199,7 @@
     <Compile Include="Models\Master\WarehouseViewModel.cs" />
     <Compile Include="Models\PaginationViewModel.cs" />
     <Compile Include="Models\UserManagement\RoleViewModel.cs" />
+    <Compile Include="Models\UserManagement\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -731,6 +733,7 @@
   <ItemGroup>
     <Folder Include="Properties\App_Data\" />
     <Folder Include="Views\Contact\" />
+    <Folder Include="Views\User\" />
     <Folder Include="Views\Warehouse\" />
   </ItemGroup>
   <ItemGroup>

@@ -153,5 +153,20 @@ namespace MLMBiowillBusinessEntities.Common
         #endregion
 
 
+        #region UserMaster
+        sp_Insert_UserMaster,
+        sp_Update_UserMaster,
+        sp_Update_Token_UserMaster,
+        sp_Get_UserMaster,
+        sp_Get_UserMaster_By_Id,
+        sp_Delete_UserMaster_By_Id,
+        sp_Fetch_UserInfo_By_Object,
+        #endregion
+
+
+        sp_Get_UserRole_Mapping_By_UserId,
+        sp_Update_UserRole_Mapping,
+        sp_Insert_UserRole_Mapping,
+
     }
 }

@@ -108,6 +108,7 @@ namespace MLMBiowillBusinessEntities.Common
         Warehouse = 14,
         Series=15,
         Role = 16,
+        User = 17,
 
     }
 
